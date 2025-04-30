@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ida-themr"
+version = "0.1.0"
+description = "IDA theme remapper"
+dependencies = ["pysocks"]
+
+[project.scripts]
+ida-themr = "ida_themr:main"
