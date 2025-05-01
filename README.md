@@ -1,4 +1,4 @@
-# ida-themer
+# ida-themr
 
 A pure python IDA Pro theme porter from VS Code
 
