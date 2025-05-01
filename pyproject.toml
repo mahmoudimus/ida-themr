@@ -6,7 +6,11 @@ build-backend = "setuptools.build_meta"
 name = "ida-themr"
 version = "0.1.0"
 description = "IDA theme remapper"
-dependencies = ["pysocks"]
 
 [project.scripts]
 ida-themr = "ida_themr:main"
+
+[tool.test.run]
+branch = true
+include = ["tests/*"]
+command_line = "-m unittest discover -s tests/"

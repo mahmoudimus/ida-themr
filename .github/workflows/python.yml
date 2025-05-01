@@ -41,7 +41,8 @@ jobs:
       - name: Install dependencies
         run: |
             pip install --upgrade pip setuptools wheel uv
+            uv pip install --system -e .
       - name: Python unit tests
         run: |
-            # python -m unittest discover -s unittests -p "test_*.py" -v
-            python src/ida_themr.py
+            python -m doctest src/ida_themr.py -v
+            python -m unittest discover -s tests -v
