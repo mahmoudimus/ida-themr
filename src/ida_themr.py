@@ -286,23 +286,21 @@ def strip_jsonc_comments(jsonc_string: str, preserve_newlines: bool = True) -> s
 
         match state:
             case State.CODE:
-                if char == '"':
-                    state = State.STRING
-                    output.append(char)
-                elif char == "/":
-                    if (p := peek()) is not None:
-                        if p == "/":
-                            state = State.SINGLE_COMMENT
-                            consume()  # Consume the second '/'
-                        elif p == "*":
-                            state = State.MULTI_COMMENT
-                            consume()  # Consume the '*'
-                        else:
-                            output.append(char)  # Just a regular slash
-                    else:
-                        output.append(char)  # Trailing slash
-                else:
-                    output.append(char)
+                # Use structured pattern matching on char and peek()
+                match char, peek():
+                    case '"', _:
+                        state = State.STRING
+                        output.append(char)
+                    case "/", "/":  # single-line comment
+                        state = State.SINGLE_COMMENT
+                        consume()
+                    case "/", "*":  # multi-line comment
+                        state = State.MULTI_COMMENT
+                        consume()
+                    case "/", _:  # regular slash
+                        output.append(char)
+                    case _:  # regular character
+                        output.append(char)
 
             case State.SINGLE_COMMENT:
                 match char:
@@ -327,19 +325,19 @@ def strip_jsonc_comments(jsonc_string: str, preserve_newlines: bool = True) -> s
                 # Discard other characters in this state
 
             case State.STRING:
-                if char == "\\":
-                    # Handle escape sequence: append the backslash
-                    output.append(char)  # Append '\'
-                    if (p := peek()) is not None:  # and the next character
-                        output.append(p)
-                        consume()
-                    # Let the main loop's i += 1 move past the escaped character
-                elif char == '"':
-                    output.append(char)  # Append the closing quote
-                    state = State.CODE
-                else:
-                    # Append regular character if it wasn't a backslash or quote
-                    output.append(char)
+                # Use structured pattern matching on char and peek()
+                match char, peek():
+                    case "\\", p:  # Handle escape sequence
+                        output.append(char)  # append the backslash
+                        if p is not None:  # and the next character
+                            output.append(p)
+                            consume()  # Let the main loop's i += 1 move past the escaped character
+                    case '"', _:
+                        output.append(char)  # append the closing quote
+                        state = State.CODE
+                    case _:
+                        # Append regular character if it wasn't a backslash or quote
+                        output.append(char)
 
             # No need for a default case if all states are covered
 
@@ -510,6 +508,7 @@ def create_theme(
     out_dir: pathlib.Path,
     name_alt: str,
 ):
+
     src = Instance(data=None)
     # parse ref theme JSON/CSS
     src = parse(ref_json)
@@ -542,6 +541,7 @@ def create_themes_from_extension(
 
 def main():
     parser = argparse.ArgumentParser(description="Theme tool: test or convert")
+
     parser.add_argument(
         "target",
         type=pathlib.Path,
@@ -557,8 +557,8 @@ def main():
     args = parser.parse_args()
 
     base = pathlib.Path(__file__).parent
-    rj = (base / "rsrc" / "theme.json").read_bytes()
-    rc = (base / "rsrc" / "theme.css").read_text()
+    rj = (base / "template" / "theme.json").read_bytes()
+    rc = (base / "template" / "theme.css").read_text()
     if args.target == "*":
         # Use provided ext_root or compute it
         ext_root = None if args.ext_root is None else args.ext_root
