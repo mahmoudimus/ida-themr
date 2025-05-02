@@ -1,6 +1,8 @@
 import re
 from typing import Dict
 
+from ida_themr import RGB, RGBA, new_css_color
+
 
 def load_variables(content: str) -> Dict[str, str]:
     variables = {}
@@ -40,9 +42,47 @@ def load_variables(content: str) -> Dict[str, str]:
 
 
 def remove_functions(content: str) -> str:
-    # Allow letters, digits, and underscores in function names
+    """
+    Remove function calls like @lighten or @darken and evaluate them if possible.
+    If a function is recognized, it will be replaced with the transformed color.
+    """
+
+    def evaluate_function(match: re.Match) -> str:
+        func_name = match.group(1)
+        color_hex = match.group(2)
+        params = match.group(3).strip() if match.group(3) else ""
+
+        try:
+            # Parse the color
+            rgba = new_css_color(color_hex)
+            rgb = rgba.rgb
+
+            # Handle lighten and darken functions
+            if func_name.lower() == "lighten" and params:
+                factor = (
+                    float(params.split(",")[1].strip()) / 100.0
+                    if "," in params
+                    else float(params) / 100.0
+                )
+                return rgb.lighten(factor).to_css_rgba()
+            elif func_name.lower() == "darken" and params:
+                factor = (
+                    float(params.split(",")[1].strip()) / 100.0
+                    if "," in params
+                    else float(params) / 100.0
+                )
+                return rgb.darken(factor).to_css_rgba()
+            else:
+                # Default to returning the color without transformation
+                return color_hex
+        except (ValueError, IndexError):
+            return color_hex
+
+    # Match function calls like @lighten(#FF0000, 20)
     return re.sub(
-        r"@[A-Za-z_][A-Za-z0-9_]*\(\s*(#[A-Fa-f0-9]{6})(?:,[^)]*)?\)", r"\1", content
+        r"@([A-Za-z_][A-Za-z0-9_]*)\(\s*(#[A-Fa-f0-9]{6})(?:([^)]*))?\)",
+        evaluate_function,
+        content,
     )
 
 

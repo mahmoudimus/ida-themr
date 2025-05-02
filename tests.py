@@ -4,6 +4,7 @@ from typing import Any
 from unittest import mock
 
 from ida_themr import (
+    CMYK,
     RGB,
     RGBA,
     Instance,
@@ -83,6 +84,18 @@ class TestColorConversion(unittest.TestCase):
     def test_distance(self):
         d = RGBA(RGB(0, 0, 0), 1.0).distance(RGBA(RGB(1, 1, 1), 1.0))
         self.assertAlmostEqual(d, math.sqrt(3))
+
+    def test_rgb_getitem(self):
+        rgb = RGB(0.5, 0.3, 0.1)
+        self.assertEqual(rgb[0], 0.5)
+        self.assertEqual(rgb[1], 0.3)
+        self.assertEqual(rgb[2], 0.1)
+        with self.assertRaises(IndexError):
+            _ = rgb[3]
+
+    def test_rgb_str(self):
+        rgb = RGB(1.0, 0.5, 0.0)
+        self.assertEqual(str(rgb), "RGB(255, 127, 0)")
 
 
 @test_suite
@@ -316,21 +329,24 @@ class TestVariableExpander(unittest.TestCase):
         result = replace_variables(css, variables)
         expected = """.button {
           color: #ff5733;
-          background-color: #ff5733;
+          background-color: #FFAB99;
         }"""
         self.assertEqual(result, expected)
 
     def test_full_file_processing(self):
         content = """@def color-primary #ff5733;
 @def color-background @lighten(#ff5733, 20);
+@def color-foreground @darken(#ff5733, 20);
 
 .button {
   color: ${color-primary};
   background-color: ${color-background};
+  border-color: ${color-foreground};
 }"""
         expected = """.button {
   color: #ff5733;
-  background-color: #ff5733; /* simplified */
+  background-color: #FFAB99; /* simplified */
+  border-color: #CC2400; /* simplified */
 }"""
         self.assertEqual(parse_template(content), expected)
 
@@ -343,6 +359,62 @@ CustomIDAMemo{
     qproperty-line-bg-highlight: rgba(80, 80, 00, 0.80);
 }"""
         self.assertEqual(parse_template(content), expected)
+
+    def test_lighten_darken_cmyk(self):
+        black = new_css_color("#000")
+        lightened = black.rgb.lighten(0.4)
+        self.assertEqual(lightened.to_css_rgb(), "#666666")
+        darkened = lightened.rgb.darken(0.4)
+        self.assertEqual(darkened.to_css_rgb(), black.to_css_rgb())
+
+
+@test_suite
+class TestCMYKConversion(unittest.TestCase):
+    def test_cmyk_from_rgb(self):
+        rgb = RGB(1.0, 0.0, 0.0)
+        cmyk = CMYK.from_rgb(rgb)
+        self.assertAlmostEqual(cmyk.c, 0.0)
+        self.assertAlmostEqual(cmyk.m, 1.0)
+        self.assertAlmostEqual(cmyk.y, 1.0)
+        self.assertAlmostEqual(cmyk.k, 0.0)
+
+    def test_cmyk_to_rgba(self):
+        cmyk = CMYK(0.0, 1.0, 1.0, 0.0)
+        rgba = cmyk.to_rgba()
+        self.assertAlmostEqual(rgba.rgb.r, 1.0)
+        self.assertAlmostEqual(rgba.rgb.g, 0.0)
+        self.assertAlmostEqual(rgba.rgb.b, 0.0)
+        self.assertAlmostEqual(rgba.alpha, 1.0)
+
+    def test_lighten_cmyk(self):
+        cmyk = CMYK(0.5, 0.5, 0.5, 0.5)
+        lightened = cmyk.lighten(0.5)
+        self.assertAlmostEqual(lightened.c, 0.25)
+        self.assertAlmostEqual(lightened.m, 0.25)
+        self.assertAlmostEqual(lightened.y, 0.25)
+        self.assertAlmostEqual(lightened.k, 0.25)
+
+    def test_darken_cmyk(self):
+        cmyk = CMYK(0.5, 0.5, 0.5, 0.5)
+        darkened = cmyk.darken(0.5)
+        self.assertAlmostEqual(darkened.c, 0.75)
+        self.assertAlmostEqual(darkened.m, 0.75)
+        self.assertAlmostEqual(darkened.y, 0.75)
+        self.assertAlmostEqual(darkened.k, 0.75)
+
+    def test_rgb_lighten(self):
+        rgb = RGB(0.5, 0.5, 0.5)
+        lightened = rgb.lighten(0.5)
+        self.assertTrue(lightened.rgb.r > 0.5)
+        self.assertTrue(lightened.rgb.g > 0.5)
+        self.assertTrue(lightened.rgb.b > 0.5)
+
+    def test_rgb_darken(self):
+        rgb = RGB(0.5, 0.5, 0.5)
+        darkened = rgb.darken(0.5)
+        self.assertTrue(darkened.rgb.r < 0.5)
+        self.assertTrue(darkened.rgb.g < 0.5)
+        self.assertTrue(darkened.rgb.b < 0.5)
 
 
 if __name__ == "__main__":

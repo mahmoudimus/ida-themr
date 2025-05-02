@@ -22,9 +22,16 @@ import os
 import pathlib
 import re
 from dataclasses import dataclass, field
+from functools import lru_cache
 from typing import Any, Dict, List, NamedTuple, Tuple, Union
 
 CSS_HEX_REGEX = re.compile(r"#[0-9A-Fa-f]{3,8};")
+
+
+# Add CMYK class and related functions
+def clamp(x: float, minv: float, maxv: float) -> float:
+    """Clamp a value between minv and maxv."""
+    return max(minv, min(x, maxv))
 
 
 # -- Data types --------------------------------------------------------------
@@ -47,6 +54,34 @@ class RGB(NamedTuple):
         """Convert HSL (h,s,l) to RGB."""
         r, g, b = colorsys.hls_to_rgb(h, l, s)
         return cls(r, g, b)
+
+    def lighten(self, amount=0.5):
+        """Make a color some amount lighter."""
+        h, l, s = colorsys.rgb_to_hls(self.r, self.g, self.b)
+        lighter = colorsys.hls_to_rgb(h, min(1.0, round(l + amount, 2)), s)
+        return RGBA(RGB(lighter[0], lighter[1], lighter[2]), 1.0)
+
+    def darken(self, amount=0.5):
+        """Make a color some amount darker."""
+        h, l, s = colorsys.rgb_to_hls(self.r, self.g, self.b)
+        darker = colorsys.hls_to_rgb(h, max(0.0, round(l - amount, 2)), s)
+        return RGBA(RGB(darker[0], darker[1], darker[2]), 1.0)
+
+    def __getitem__(self, item: int) -> float:
+        if item == 0:
+            return self.r
+        elif item == 1:
+            return self.g
+        elif item == 2:
+            return self.b
+        else:
+            raise IndexError("RGB index out of range")
+
+    def __str__(self) -> str:
+        def fmt(channel: float) -> int:
+            return int(channel * 255)
+
+        return f"RGB({fmt(self.r)}, {fmt(self.g)}, {fmt(self.b)})"
 
 
 @dataclass
@@ -100,6 +135,61 @@ class RGBA:
         dg = self.rgb.g - other.rgb.g
         db = self.rgb.b - other.rgb.b
         return math.sqrt(dr * dr + dg * dg + db * db)
+
+
+class CMYK:
+    def __init__(self, c: float, m: float, y: float, k: float):
+        self.c = c
+        self.m = m
+        self.y = y
+        self.k = k
+
+    @classmethod
+    def lighten_rgb(cls, rgb: RGB, factor: float) -> "RGBA":
+        """Lighten the color by a factor."""
+        return cls.from_rgb(rgb).lighten(factor).to_rgba()
+
+    @classmethod
+    def darken_rgb(cls, rgb: RGB, factor: float) -> "RGBA":
+        """Darken the color by a factor."""
+        return cls.from_rgb(rgb).darken(factor).to_rgba()
+
+    @staticmethod
+    def from_rgb(rgb: RGB) -> "CMYK":
+        """Convert RGB to CMYK."""
+        r, g, b = rgb
+        k = 1.0 - max(r, g, b)
+        if k == 1.0:
+            return CMYK(0, 0, 0, 1)
+        c = (1.0 - r - k) / (1.0 - k)
+        m = (1.0 - g - k) / (1.0 - k)
+        y = (1.0 - b - k) / (1.0 - k)
+        return CMYK(c, m, y, k)
+
+    def to_rgba(self) -> "RGBA":
+        """Convert CMYK to RGBA."""
+        r = (1.0 - self.c) * (1.0 - self.k)
+        g = (1.0 - self.m) * (1.0 - self.k)
+        b = (1.0 - self.y) * (1.0 - self.k)
+        return RGBA(RGB(r, g, b), 1.0)
+
+    @lru_cache(maxsize=None)
+    def lighten(self, factor: float) -> "CMYK":
+        """Lighten the CMYK color by a factor."""
+
+        def lighten(u: float) -> float:
+            return clamp(u - u * factor, 0.0, 1.0)
+
+        return CMYK(lighten(self.c), lighten(self.m), lighten(self.y), lighten(self.k))
+
+    @lru_cache(maxsize=None)
+    def darken(self, factor: float) -> "CMYK":
+        """Darken the CMYK color by a factor."""
+
+        def darken(u: float) -> float:
+            return clamp(u + (1.0 - u) * factor, 0.0, 1.0)
+
+        return CMYK(darken(self.c), darken(self.m), darken(self.y), darken(self.k))
 
 
 # -- Parsing utilities -------------------------------------------------------
