@@ -16,6 +16,12 @@ from ida_themr import (
     u8parse,
     u8vparse,
 )
+from var_expander import (
+    load_variables,
+    parse_template,
+    remove_functions,
+    replace_variables,
+)
 
 
 class TestSuiteRegistry:
@@ -251,3 +257,93 @@ class TestHslConversion(unittest.TestCase):
         self.assertAlmostEqual(orig.r, recon.r, places=6)
         self.assertAlmostEqual(orig.g, recon.g, places=6)
         self.assertAlmostEqual(orig.b, recon.b, places=6)
+
+
+@test_suite
+class TestVariableExpander(unittest.TestCase):
+    def test_load_variables_basic(self):
+        content = "@def var1 value1;\n@def var2 value2;"
+        variables = load_variables(content)
+        self.assertEqual(variables, {"var1": "value1", "var2": "value2"})
+
+    def test_load_variables_with_reference(self):
+        content = "@def var1 value1;\n@def var2 ${var1}_suffix;"
+        variables = load_variables(content)
+        self.assertEqual(variables, {"var1": "value1", "var2": "value1_suffix"})
+
+    def test_load_variables_undefined_reference(self):
+        content = "@def var1 ${var2};\n@def var2 value2;"
+        variables = load_variables(content)
+        self.assertEqual(variables, {"var1": "${var2}", "var2": "value2"})
+
+    def test_remove_functions_basic(self):
+        content = "color: @function(#FF0000, param);"
+        result = remove_functions(content)
+        self.assertEqual(result, "color: #FF0000;")
+
+    def test_remove_functions_multiple(self):
+        content = "color1: @func1(#FF0000); color2: @func2(#00FF00, extra);"
+        result = remove_functions(content)
+        self.assertEqual(result, "color1: #FF0000; color2: #00FF00;")
+
+    def test_replace_variables_basic(self):
+        content = "color: ${fg};"
+        variables = {"fg": "#FFFFFF"}
+        result = replace_variables(content, variables)
+        self.assertEqual(result, "color: #FFFFFF;")
+
+    def test_replace_variables_with_function(self):
+        content = "color: ${fg}@func(#FF0000, param);"
+        variables = {"fg": "background: "}
+        result = replace_variables(content, variables)
+        self.assertEqual(result, "color: background: #FF0000;")
+
+    def test_replace_variables_undefined(self):
+        content = "color: ${unknown};"
+        variables = {"fg": "#FFFFFF"}
+        result = replace_variables(content, variables)
+        self.assertEqual(result, "color: ${unknown};")
+
+    def test_replace_variables_with_function_in_definition(self):
+        definitions = (
+            "@def color-primary #ff5733;\n@def color-background @lighten(#ff5733, 20);"
+        )
+        css = """.button {
+          color: ${color-primary};
+          background-color: ${color-background};
+        }"""
+        variables = load_variables(definitions)
+        result = replace_variables(css, variables)
+        expected = """.button {
+          color: #ff5733;
+          background-color: #ff5733;
+        }"""
+        self.assertEqual(result, expected)
+
+    def test_full_file_processing(self):
+        content = """@def color-primary #ff5733;
+@def color-background @lighten(#ff5733, 20);
+
+.button {
+  color: ${color-primary};
+  background-color: ${color-background};
+}"""
+        expected = """.button {
+  color: #ff5733;
+  background-color: #ff5733; /* simplified */
+}"""
+        self.assertEqual(parse_template(content), expected)
+
+    def test_parse_template_with_rgba_value(self):
+        content = """@def darcula_highlight_color rgba(80, 80, 00, 0.80);
+CustomIDAMemo{
+    qproperty-line-bg-highlight: ${darcula_highlight_color};
+}"""
+        expected = """CustomIDAMemo{
+    qproperty-line-bg-highlight: rgba(80, 80, 00, 0.80);
+}"""
+        self.assertEqual(parse_template(content), expected)
+
+
+if __name__ == "__main__":
+    test_suite.run()
