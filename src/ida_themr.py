@@ -57,12 +57,24 @@ class RGB(NamedTuple):
 
     def lighten(self, amount=0.5):
         """Make a color some amount lighter."""
+        if amount > 1:
+            assert amount <= 1000, "Amount must be between 0 and 1000 or 0 and 1"
+            amount = amount / 1000
+        else:
+            assert 0 < amount < 1, "Amount must be between 0 and 1 or 0 and 1000"
+
         h, l, s = colorsys.rgb_to_hls(self.r, self.g, self.b)
         lighter = colorsys.hls_to_rgb(h, min(1.0, round(l + amount, 2)), s)
         return RGBA(RGB(lighter[0], lighter[1], lighter[2]), 1.0)
 
     def darken(self, amount=0.5):
         """Make a color some amount darker."""
+        if amount > 1:
+            assert amount <= 1000, "Amount must be between 0 and 1000 or 0 and 1"
+            amount = amount / 1000
+        else:
+            assert 0 < amount < 1, "Amount must be between 0 and 1 or 0 and 1000"
+
         h, l, s = colorsys.rgb_to_hls(self.r, self.g, self.b)
         darker = colorsys.hls_to_rgb(h, max(0.0, round(l - amount, 2)), s)
         return RGBA(RGB(darker[0], darker[1], darker[2]), 1.0)

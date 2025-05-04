@@ -1,0 +1,1428 @@
+/* ======================================================================== */
+/* ==                       Color Definitions                            == */
+/* ======================================================================== */
+
+/* --- Base & Common Colors (Mapped: Values from my_template if dark match, else refactored) --- */
+@def clr_transparent               transparent;
+@def clr_black                     #000000;
+@def clr_white                     #fff;
+@def clr_red                       #d85050;    /* Value from my_template: color_syntax_red */
+@def clr_green                     green;      /* Value from my_template: color_green */
+@def clr_blue                      #007acc;    /* Value from my_template: color_accent */
+@def clr_cyan                      #00ffff;    /* Value from my_template: color_pfx_libfunc_cyan */
+@def clr_lime                      #00ff00;    /* Value from refactored_template (no direct my_template match) */
+@def clr_yellow                    #dcdcaa;    /* Value from my_template: color_fg_demangled_yellow */
+@def clr_fuchsia                   #d8a0df;    /* Value from my_template: color_syntax_purple */
+@def clr_silver                    #c0c0c0;    /* Value from my_template: color_fg_prefix_silver */
+@def clr_gray                      #808080;    /* Value from my_template: color_comment_gray */
+@def clr_maroon                    #8f4545;    /* Value from my_template: color_nav_code_brown */
+@def clr_olive                     #dda95b;    /* Value from my_template: color_fg_xref_tail_orange */
+@def clr_navy                      #0e6198;    /* Value from my_template: color_accent_pressed */
+@def clr_purple                    #d8a0df;    /* Value from my_template: color_syntax_purple */
+@def clr_pink                      pink;       /* Value from refactored_template */
+@def clr_darkgrey                  darkgrey;   /* Value from refactored_template */
+@def clr_dimgrey                   #656565;    /* Value from my_template: color_fg_disabled */
+@def clr_darkred                   #d85050;    /* Value from my_template: color_syntax_red */
+@def clr_darkgreen                 #57a64a;    /* Value from my_template: color_syntax_comment_green */
+@def clr_darkcyan                  #339999;    /* Value from my_template: color_fg_segment_teal */
+@def clr_darkblue                  #0e6198;    /* Value from my_template: color_accent_pressed */
+@def clr_indigo                    indigo;     /* Value from refactored_template */
+@def clr_sienna                    #d69d85;    /* Value from my_template: color_syntax_string */
+@def clr_darkturquoise             #4ec9b0;    /* Value from my_template: color_syntax_teal */
+@def clr_orange                    #ffaa00;    /* Value from my_template: color_nav_analysis_cursor_orange */
+@def clr_brownish                  #a06161;    /* Value from my_template: color_pfx_insn_brown */
+@def clr_brownish_dark             #aa5500;    /* Value from refactored_template */
+@def clr_error_num                 #010101;    /* Value from my_template: color_fg_error_black */
+@def clr_data_xref_alt             #8080ff;    /* Value from my_template: color_fg_xref_blue */
+@def clr_numlit_data               #b5cea8;    /* Value from my_template: color_syntax_number_green */
+
+/* --- Light Theme Specific Colors (Values from refactored_template) --- */
+@def light_highlight_bg_base        rgba(255, 255, 0, 0.80);
+@def light_highlight_bg_selected    rgba(0, 192, 192, 0.80);
+@def light_log_fg                   ${clr_black};
+@def light_log_bg                   ${clr_white};
+@def light_keyword1_fg              ${clr_blue}; /* Note: clr_blue now holds my_template's accent value */
+@def light_keyword2_fg              ${clr_purple}; /* Note: clr_purple now holds my_template's syntax value */
+@def light_keyword3_fg              ${clr_red}; /* Note: clr_red now holds my_template's syntax value */
+@def light_string_fg                ${clr_darkred}; /* Note: clr_darkred now holds my_template's syntax value */
+@def light_comment_fg               ${clr_darkgreen}; /* Note: clr_darkgreen now holds my_template's syntax value */
+@def light_preprocessor_fg          ${clr_blue}; /* Note: clr_blue now holds my_template's accent value */
+@def light_number_fg                ${clr_darkcyan}; /* Note: clr_darkcyan now holds my_template's syntax value */
+@def light_user1_fg                 ${clr_darkblue}; /* Note: clr_darkblue now holds my_template's accent value */
+@def light_user2_fg                 ${clr_dimgrey}; /* Note: clr_dimgrey now holds my_template's disabled value */
+@def light_user3_fg                 ${clr_indigo};
+@def light_user4_fg                 ${clr_sienna}; /* Note: clr_sienna now holds my_template's syntax value */
+@def light_margin_fg                ${clr_gray};
+@def light_margin_header            ${clr_dimgrey};
+@def light_counter_label_fg         ${clr_gray};
+@def light_counter_label_invalid    ${clr_red};
+@def light_invalid_border           ${clr_red};
+@def light_hint_bg                  #f0f0d0;
+@def light_hint_border              #d0d020;
+@def light_hint_fg                  ${clr_black};
+@def light_highlight_bg_2           rgba(255, 192, 128, 0.80);
+@def light_highlight_bg_3           rgba(255, 128, 255, 0.80);
+@def light_highlight_bg_4           rgba(128, 255, 255, 0.80);
+@def light_highlight_bg_5           rgba(192, 128, 128, 0.80);
+@def light_highlight_bg_6           rgba(128, 192, 128, 0.80);
+@def light_highlight_bg_7           rgba(128, 128, 192, 0.80);
+@def light_highlight_bg_8           rgba(208, 208, 208, 0.80);
+@def light_caret_color              ${clr_black};
+@def light_bgovl_current_line       rgba(80, 80, 80, 0.15);
+@def light_bgovl_trace              rgba(255, 255, 0, 0.20);
+@def light_bgovl_trace_ovl          rgba(255, 188, 180, 0.40);
+@def light_bgovl_extra_1            rgba(80, 255, 80, 0.25);
+@def light_bgovl_extra_2            rgba(238, 255, 136, 0.25);
+@def light_bgovl_extra_3            rgba(255, 170, 0, 0.4);
+@def light_bgovl_extra_4            rgba(255, 126, 232, 0.4);
+@def light_bgovl_extra_5            rgba(219, 150, 69, 0.4);
+@def light_bgovl_extra_6            rgba(69, 207, 219, 0.4);
+@def light_bgovl_extra_7            rgba(143, 219, 69, 0.4);
+@def light_bgovl_extra_8            rgba(86, 88, 126, 0.4);
+@def light_bgovl_extra_9            rgba(217, 90, 111, 0.4);
+@def light_bgovl_extra_10           rgba(128, 147, 132, 0.4);
+@def light_bgovl_extra_11           rgba(255, 0, 120, 0.4);
+@def light_bgovl_extra_12           rgba(255, 192, 0, 0.4);
+@def light_bgovl_extra_13           rgba(255, 192, 255, 0.4);
+@def light_bgovl_extra_14           rgba(133, 133, 133, 0.4);
+@def light_bgovl_extra_15           rgba(203, 210, 166, 0.4);
+@def light_bgovl_extra_16           rgba(0, 90, 0, 0.4);
+@def light_graph_bg_top             ${clr_white};
+@def light_graph_bg_bottom          #e0f8ff;
+@def light_graph_node_title_normal  ${clr_white};
+@def light_graph_node_title_selected #b1f9f9;
+@def light_graph_node_title_current #a0cfcf;
+@def light_graph_node_frame_group   ${clr_yellow};
+@def light_graph_node_shadow        ${clr_black};
+@def light_graph_node_high1         #ccffff;
+@def light_graph_node_high2         #ccffcc;
+@def light_graph_node_foreign       ${clr_red};
+@def light_graph_edge_normal        ${clr_blue};
+@def light_graph_edge_yes           ${clr_green};
+@def light_graph_edge_no            ${clr_red};
+@def light_graph_edge_high          ${clr_cyan};
+@def light_graph_edge_selected      ${clr_brownish_dark};
+@def light_graph_node_frame_selected ${clr_brownish_dark};
+@def light_bpt_enabled_bg           ${clr_red};
+@def light_bpt_disabled_bg          ${clr_lime};
+@def light_bpt_unavailable_bg       ${clr_orange};
+@def light_bgovl_bookmark           rgba(0, 255, 128, 0.125);
+@def light_bookmark_star_outline    rgba(0, 255, 128, 0.45);
+@def light_debugging_bg             ${light_graph_node_high1}; /* #ccffff */
+@def light_debugging_ip_overlay     rgba(0, 195, 255, .45);
+@def light_hints_bg                 #ffffe1;
+@def light_minimap_fog              rgba(0, 0, 0, 0.35);
+@def light_minimap_crosshairs       rgba(255, 255, 0, 1);
+@def light_arrow_jump_in_func       ${clr_silver};
+@def light_arrow_jump_external      ${clr_red};
+@def light_arrow_jump_cursor        ${clr_black};
+@def light_arrow_jump_target        ${clr_green};
+@def light_arrow_reg_target         #4040ff;
+@def light_arrow_bpt_possible       #60d0ff;
+@def light_reg_bg                   ${light_graph_node_high1}; /* #ccffff */
+@def light_reg_defined              ${clr_black};
+@def light_reg_changed              ${clr_blue};
+@def light_reg_edited               ${clr_purple};
+@def light_reg_unavailable          ${clr_gray};
+@def light_reg_label                ${clr_blue};
+@def light_nav_lib_func             #aaffff;
+@def light_nav_func                 #00a2e8;
+@def light_nav_code                 #b97a57;
+@def light_nav_data                 ${clr_silver};
+@def light_nav_undef                #b6b66b;
+@def light_nav_extern               #ffa6ff;
+@def light_nav_lumina               #32cd32;
+@def light_nav_hl_lib_func          #c3ffff;
+@def light_nav_hl_func              #3cc4ff;
+@def light_nav_hl_code              #cda189;
+@def light_nav_hl_data              #d2d2d2;
+@def light_nav_hl_undef             #cbcb97;
+@def light_nav_hl_extern            #ffc0ff;
+@def light_nav_hl_lumina            #6fdb6f;
+@def light_nav_hl_outline           #ff0080;
+@def light_nav_error                #ff5b5b;
+@def light_nav_gap                  ${clr_black};
+@def light_nav_cursor               #ffff7f;
+@def light_nav_auto_cursor          #ffaa00;
+@def light_fg_default               ${clr_blue};
+@def light_fg_reg_comment           ${clr_blue};
+@def light_fg_rep_comment           ${clr_gray};
+@def light_fg_auto_comment          ${clr_gray};
+@def light_fg_insn                  ${clr_navy};
+@def light_fg_dummy_data            ${clr_navy};
+@def light_fg_reg_data              ${clr_blue};
+@def light_fg_demangled             ${clr_blue};
+@def light_fg_punct                 ${clr_navy};
+@def light_fg_charlit_insn          ${clr_green};
+@def light_fg_strlit_insn           ${clr_lime};
+@def light_fg_numlit_insn           ${clr_green};
+@def light_fg_void_opnd             ${clr_orange};
+@def light_fg_code_xref             ${clr_green};
+@def light_fg_data_xref             ${clr_data_xref_alt};
+@def light_fg_code_xref_tail        ${clr_red};
+@def light_fg_data_xref_tail        ${clr_olive};
+@def light_fg_error                 ${clr_error_num};
+@def light_fg_line_prefix           ${clr_silver};
+@def light_fg_opcode                ${clr_blue};
+@def light_fg_extra_line            ${clr_blue};
+@def light_fg_alt_opnd              ${clr_blue};
+@def light_fg_hidden                ${clr_gray};
+@def light_fg_libfunc               ${clr_data_xref_alt};
+@def light_fg_locvar                ${clr_green};
+@def light_fg_dummy_code            ${clr_navy};
+@def light_fg_asm_directive         ${clr_blue};
+@def light_fg_macro                 ${clr_purple};
+@def light_fg_strlit_data           ${clr_green};
+@def light_fg_charlit_data          ${clr_green};
+@def light_fg_numlit_data           ${clr_numlit_data}; /* Note: clr_numlit_data now holds my_template's value */
+@def light_fg_keyword               ${clr_navy};
+@def light_fg_reg_name              ${clr_navy};
+@def light_fg_import_name           ${clr_fuchsia};
+@def light_fg_seg_name              ${clr_olive};
+@def light_fg_dummy_unknown         ${clr_navy};
+@def light_fg_code_name             ${clr_blue};
+@def light_fg_unknown_name          ${clr_navy};
+@def light_fg_collapsed             ${clr_blue};
+@def light_bg_default               ${clr_white};
+@def light_bg_selected              #c0bbaf;
+@def light_pfx_libfunc              ${clr_cyan};
+@def light_pfx_func                 ${clr_black};
+@def light_pfx_insn                 ${clr_maroon};
+@def light_pfx_data                 ${clr_gray};
+@def light_pfx_unexplored           ${clr_olive};
+@def light_pfx_extern               ${clr_fuchsia};
+@def light_pfx_current_line         ${clr_blue};
+@def light_pfx_current_item         #0044ff;
+@def light_pfx_hidden               ${clr_black};
+@def light_pfx_lumina               ${light_nav_lumina};
+
+/* --- Dark Theme Specific Colors (Values from my_template where mapped) --- */
+@def dark_highlight_bg_base        #133f71;    /* Value from my_template: color_bg_highlight_blue */
+@def dark_chooser_highlight_bg     ${clr_blue}; /* Value from my_template: color_accent (used in TChooser) */
+@def dark_chooser_highlight_selected ${clr_fuchsia}; /* Value from my_template: color_highlight_magenta (used in TChooser) */
+@def dark_chooser_cut_text         ${clr_darkgrey}; /* Value from refactored_template */
+@def dark_chooser_cut_text_selected ${clr_gray}; /* Value from refactored_template */
+@def dark_log_fg                   #f1f1f1;    /* Value from my_template: color_fg_main */
+@def dark_log_bg                   #252525;    /* Value from my_template: color_bg_output */
+@def dark_user1_fg                 ${clr_darkturquoise}; /* Value from my_template: color_syntax_teal */
+@def dark_fg_default               #dcdcdc;    /* Value from my_template: color_fg_default */
+@def dark_fg_reg_comment           ${clr_darkgreen}; /* Value from my_template: color_syntax_comment_green */
+@def dark_fg_rep_comment           ${clr_gray}; /* Value from my_template: color_comment_gray */
+@def dark_fg_auto_comment          ${clr_gray}; /* Value from my_template: color_comment_gray */
+@def dark_fg_insn                  #c8c8c8;    /* Value from my_template: color_fg_insn_gray */
+@def dark_fg_dummy_data            #c8c8c8;    /* Value from my_template: color_fg_insn_gray */
+@def dark_fg_reg_data              #9cdcfe;    /* Value from my_template: color_fg_name_blue */
+@def dark_fg_demangled             ${clr_yellow}; /* Value from my_template: color_fg_demangled_yellow */
+@def dark_fg_punct                 #dcdcdc;    /* Value from my_template: color_fg_default */
+@def dark_fg_charlit_insn          ${clr_sienna}; /* Value from my_template: color_syntax_string */
+@def dark_fg_strlit_insn           #ffd68f;    /* Value from my_template: color_fg_strlit_orange */
+@def dark_fg_numlit_insn           ${clr_numlit_data}; /* Value from my_template: color_syntax_number_green */
+@def dark_fg_void_opnd             ${clr_darkturquoise}; /* Value from my_template: color_syntax_teal */
+@def dark_fg_code_xref             ${clr_darkgreen}; /* Value from my_template: color_syntax_comment_green */
+@def dark_fg_data_xref             ${clr_data_xref_alt}; /* Value from my_template: color_fg_xref_blue */
+@def dark_fg_code_xref_tail        ${clr_red}; /* Value from my_template: color_syntax_red */
+@def dark_fg_data_xref_tail        ${clr_olive}; /* Value from my_template: color_fg_xref_tail_orange */
+@def dark_fg_error                 ${clr_error_num}; /* Value from my_template: color_fg_error_black */
+@def dark_fg_line_prefix           ${clr_silver}; /* Value from my_template: color_fg_prefix_silver */
+@def dark_fg_opcode                ${clr_numlit_data}; /* Value from my_template: color_syntax_number_green */
+@def dark_fg_extra_line            #9cdcfe;    /* Value from my_template: color_fg_name_blue */
+@def dark_fg_alt_opnd              #c563bd;    /* Value from my_template: color_highlight_magenta */
+@def dark_fg_hidden                ${clr_gray}; /* Value from my_template: color_comment_gray */
+@def dark_fg_libfunc               #9cdcfe;    /* Value from my_template: color_fg_name_blue */
+@def dark_fg_locvar                ${clr_darkturquoise}; /* Value from my_template: color_syntax_teal */
+@def dark_fg_dummy_code            #f1f1f1;    /* Value from my_template: color_fg_main */
+@def dark_fg_asm_directive         #9cdcfe;    /* Value from my_template: color_fg_name_blue */
+@def dark_fg_macro                 #beb7ff;    /* Value from my_template: color_syntax_preprocessor */
+@def dark_fg_strlit_data           ${clr_sienna}; /* Value from my_template: color_syntax_string */
+@def dark_fg_charlit_data          ${clr_sienna}; /* Value from my_template: color_syntax_string */
+@def dark_fg_numlit_data           ${clr_numlit_data}; /* Value from my_template: color_syntax_number_green (non-debug) */
+@def dark_fg_keyword               ${clr_purple}; /* Value from my_template: color_syntax_purple */
+@def dark_fg_reg_name              #569cd6;    /* Value from my_template: color_fg_register_blue */
+@def dark_fg_import_name           ${clr_purple}; /* Value from my_template: color_syntax_purple */
+@def dark_fg_seg_name              ${clr_darkcyan}; /* Value from my_template: color_fg_segment_teal */
+@def dark_fg_dummy_unknown         #c8c8c8;    /* Value from my_template: color_fg_insn_gray */
+@def dark_fg_code_name             #dcdca0;    /* Value from my_template: color_fg_code_name_yellow */
+@def dark_fg_unknown_name          #569cd6;    /* Value from my_template: color_fg_register_blue */
+@def dark_fg_collapsed             ${clr_darkturquoise}; /* Value from my_template: color_syntax_teal */
+@def dark_bg_default               #1e1e1e;    /* Value from my_template: color_bg_dasm */
+@def dark_bg_selected              #264f78;    /* Value from my_template: color_bg_selected */
+@def dark_pfx_libfunc              ${clr_cyan}; /* Value from my_template: color_pfx_libfunc_cyan */
+@def dark_pfx_func                 #dcdcdc;    /* Value from my_template: color_fg_default */
+@def dark_pfx_insn                 ${clr_brownish}; /* Value from my_template: color_pfx_insn_brown */
+@def dark_pfx_data                 #9b9b9b;    /* Value from my_template: color_pfx_data_gray */
+@def dark_pfx_unexplored           #c6c699;    /* Value from my_template: color_pfx_unexplored_yellow */
+@def dark_pfx_extern               ${clr_purple}; /* Value from my_template: color_syntax_purple */
+@def dark_pfx_current_line         #ecdcaa;    /* Value from my_template: color_pfx_current_line_yellow */
+@def dark_pfx_lumina               #46a34c;    /* Value from my_template: color_nav_lumina_green */
+@def dark_graph_bg                 #333334;    /* Value from my_template: color_bg_graph_node */
+@def dark_graph_node_title_normal  #757575;    /* Value from my_template: color_graph_node_title_gray */
+@def dark_graph_node_title_selected ${clr_black}; /* Value from my_template: color_black */
+@def dark_graph_node_title_current ${clr_blue}; /* Value from my_template: color_accent */
+@def dark_graph_node_frame_group   #9cdcfe;    /* Value from my_template: color_fg_name_blue */
+@def dark_graph_node_shadow        #151515;    /* Value from my_template: color_graph_node_shadow */
+@def dark_graph_node_high1         #dcdcdc;    /* Value from my_template: color_fg_default */
+@def dark_graph_node_high2         #b8d7a3;    /* Value from my_template: color_graph_node_green */
+@def dark_graph_node_foreign       ${clr_red}; /* Value from my_template: color_syntax_red */
+@def dark_graph_edge_normal        #9cdcfe;    /* Value from my_template: color_fg_name_blue */
+@def dark_graph_edge_yes           #b8d7a3;    /* Value from my_template: color_graph_node_green */
+@def dark_graph_edge_no            ${clr_red}; /* Value from my_template: color_syntax_red */
+@def dark_graph_edge_high          ${clr_blue}; /* Value from my_template: color_accent */
+@def dark_graph_edge_selected      ${clr_brownish_dark}; /* Value from refactored_template */
+@def dark_graph_node_frame_selected ${clr_brownish_dark}; /* Value from refactored_template */
+@def dark_bpt_enabled_bg           #703434;    /* Value from my_template: color_bg_bpt_enabled_red */
+@def dark_bpt_disabled_bg          #375437;    /* Value from my_template: color_bg_bpt_disabled_green */
+@def dark_bpt_unavailable_bg       ${clr_gray}; /* Value from my_template: color_comment_gray */
+@def dark_bookmark_star_outline    ${clr_white}; /* Value from refactored_template */
+@def dark_hints_bg                 #333333;    /* Value from my_template: color_bg_menu_selected */
+@def dark_debugging_bg             #001f33;    /* Value from my_template: color_bg_debug */
+@def dark_reg_bg                   #001f33;    /* Value from my_template: color_bg_debug */
+@def dark_reg_defined              #eeeeee;    /* Value from my_template: color_fg_reg_defined_white */
+@def dark_reg_changed              #b8e8a3;    /* Value from my_template: color_fg_num_insn_debug_green */
+@def dark_reg_edited               #ffd68f;    /* Value from my_template: color_fg_strlit_orange */
+@def dark_reg_unavailable          ${clr_red}; /* Value from my_template: color_syntax_red */
+@def dark_reg_label                #fdfdfd;    /* Value from my_template: color_graph_edge_current_white */
+@def dark_nav_lib_func             #9cdcfe;    /* Value from my_template: color_fg_name_blue */
+@def dark_nav_func                 #569cd6;    /* Value from my_template: color_fg_register_blue */
+@def dark_nav_code                 ${clr_maroon}; /* Value from my_template: color_nav_code_brown */
+@def dark_nav_data                 ${clr_silver}; /* Value from my_template: color_fg_prefix_silver */
+@def dark_nav_undef                #56576d;    /* Value from my_template: color_nav_undefined_gray */
+@def dark_nav_extern               ${clr_purple}; /* Value from my_template: color_syntax_purple */
+@def dark_nav_lumina               #46a34c;    /* Value from my_template: color_nav_lumina_green */
+@def dark_nav_hl_lib_func          #4cc3fe;    /* Value from refactored_template */
+@def dark_nav_hl_func              #fec34c;    /* Value from refactored_template */
+@def dark_nav_hl_code              #f20000;    /* Value from refactored_template */
+@def dark_nav_hl_data              #f1f1ce;    /* Value from refactored_template */
+@def dark_nav_hl_undef             #ecec00;    /* Value from refactored_template */
+@def dark_nav_hl_extern            #fe4cfe;    /* Value from refactored_template */
+@def dark_nav_hl_lumina            #6fdb6f;    /* Value from refactored_template */
+@def dark_nav_hl_outline           ${clr_cyan}; /* Value from refactored_template */
+@def dark_nav_error                ${clr_red}; /* Value from my_template: color_syntax_red */
+@def dark_nav_gap                  ${dark_bg_default}; /* Value from my_template: color_bg_dasm */
+@def dark_nav_cursor               #ffff7f;    /* Value from my_template: color_nav_cursor_yellow */
+@def dark_nav_auto_cursor          ${clr_orange}; /* Value from my_template: color_nav_analysis_cursor_orange */
+
+/* --- Diff Colors (Values from refactored_template) --- */
+@def darkening 125;
+@def lightening 125;
+@def diff_region_pick              #8AD1A9; /* light green */
+@def diff_region_pick_l            @lighten(${diff_region_pick}, ${lightening});
+@def diff_region_pick_d            @darken(${diff_region_pick}, ${darkening});
+@def diff_region_leave             ${clr_silver};
+@def diff_region_leave_l           @lighten(${diff_region_leave}, ${lightening});
+@def diff_region_leave_d           @darken(${diff_region_leave}, ${darkening});
+@def diff_region_conflict          #FF7C4C; /* light orange/red */
+@def diff_region_conflict_l        @lighten(${diff_region_conflict}, ${lightening});
+@def diff_region_conflict_d        @darken(${diff_region_conflict}, ${darkening});
+
+/* --- Auxiliary UI/Font/Icon Definitions (Originated from my_template) --- */
+
+/* Auxiliary Base & UI Elements */
+@def aux_bg_main                   #2d2d30; /* Original: color_bg_main */
+@def aux_fg_main                   #f1f1f1; /* Original: color_fg_main */
+@def aux_accent_hover              #56bafc; /* Original: color_accent_hover */
+@def aux_accent_border             #1c97ea; /* Original: color_accent_border */
+@def aux_fg_alt                    #eee;    /* Original: color_fg_alt */
+@def aux_fg_light_gray             #ddd;    /* Original: color_fg_light_gray */
+@def aux_border_medium             #3f3f46; /* Original: color_border_medium */
+@def aux_border_light              #434346; /* Original: color_border_light */
+@def aux_border_gray               #666;    /* Original: color_border_gray */
+@def aux_border_dark               #333337; /* Original: color_border_dark */
+@def aux_border_darker             #2a2a2a; /* Original: color_border_darker */
+@def aux_border_table              #474747; /* Original: color_border_table */
+@def aux_border_statusbar_item     #585858; /* Original: color_border_statusbar_item */
+@def aux_bg_hover_dark             #3e3e40; /* Original: color_bg_hover_dark */
+@def aux_bg_menu                   #1b1b1c; /* Original: color_bg_menu */
+@def aux_bg_menu_selected          ${dark_hints_bg}; /* Original: color_bg_menu_selected, value now in dark_hints_bg */
+@def aux_bg_button                 #3f3f40; /* Original: color_bg_button */
+@def aux_bg_button_hover           #535353; /* Original: color_bg_button_hover */
+@def aux_bg_overlay                rgba(80, 80, 80, 0.25); /* Original: color_bg_overlay */
+@def aux_bg_scrollbar              #3e3e42; /* Original: color_bg_scrollbar */
+@def aux_scrollbar_handle          #686868; /* Original: color_scrollbar_handle */
+@def aux_scrollbar_handle_hover    #9e9e9e; /* Original: color_scrollbar_handle_hover */
+@def aux_scrollbar_handle_pressed  #efebef; /* Original: color_scrollbar_handle_pressed */
+@def aux_bg_table                  #252526; /* Original: color_bg_table */
+@def aux_bg_table_corner           #222;    /* Original: color_bg_table_corner */
+@def aux_graph_edge_current_white  ${dark_reg_label}; /* Original: color_graph_edge_current_white, value now in dark_reg_label */
+
+/* Auxiliary Syntax Highlighting & Disassembly Colors */
+@def aux_highlight_magenta         ${dark_fg_alt_opnd}; /* Original: color_highlight_magenta, value now in dark_fg_alt_opnd */
+@def aux_bg_extra_overlay          rgba(107, 74, 156, 0.4); /* Original: color_bg_extra_overlay */
+
+/* Auxiliary Debugging Colors */
+@def aux_bg_ip_overlay             rgba(80, 160, 255, .2); /* Original: color_bg_ip_overlay */
+@def aux_fg_num_debug_green        #a9e8a3; /* Original: color_fg_num_debug_green */
+@def aux_arrow_jump_cursor_blue    #60d0ff; /* Original: color_arrow_jump_cursor_blue */
+
+/* Auxiliary Fonts */
+@def aux_font_ui "Aptos", "Atkinson Hyperlegible Next", "Segoe UI Variable Small", "SF Pro Text", "Inter";
+@def aux_font_mono "Maple Mono NF Light", "Consolas", "Microsoft YaHei Mono";
+@def aux_font_code_mono "Maple Mono NF Light", "Fira Code Retina", "Ubuntu Mono", "Operator Mono", "Adelle Mono Flex";
+@def aux_font_code_litigatures "PragmataPro Mono Liga", "Fira Code Retina", "Operator Mono";
+@def aux_font_size_tiny 7pt;
+@def aux_font_size_small 9pt;
+@def aux_font_size_medium 12pt;
+@def aux_font_size_large 14pt;
+@def aux_font_size_xlarge 16pt;
+
+/* Auxiliary Icon paths */
+@def aux_ICONPATH $RELPATH/images;
+
+
+/* ================================================================== */
+/* ==                       Theme Styles                           == */
+/* ================================================================== */
+
+/*====================================================================*/
+/* ==                       Reset elements                         == */
+/*====================================================================*/
+* {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	border-style: none;
+	border-image: none;
+	outline: 0;
+}
+
+*[os-dark-theme="true"] {
+	color: ${aux_fg_main};
+}
+
+*[os-dark-theme="false"] {
+	color: ${clr_black};
+}
+
+/* ================================================================== */
+/* ==                       DP Start                               == */
+/* ================================================================== */
+QToolBar * {
+	margin: 0px;
+	padding: 0px;
+}
+
+/* Base */
+QWidget {
+	background-color: ${aux_bg_main};
+	color: ${aux_fg_main};
+}
+
+QMainWindow {
+	background-color: ${aux_bg_main};
+	color: ${aux_fg_main};
+}
+
+DockWidgetTitle, DockAreaDragTitle {
+	border: none;
+}
+
+DockWidgetTitle {
+	background: ${aux_bg_main};
+    padding: 0px; /* From refactored */
+    margin-bottom: 2px; /* From refactored */
+}
+
+DockWidgetTitle[active="true"] {
+	background: ${clr_blue};
+    /* background-color: palette(base); */ /* From refactored - overridden */
+}
+
+DockAreaDragTitle {
+    background-color: palette(dark); /* From refactored */
+}
+
+/* Control buttons */
+DockWidgetTitle > QPushButton,
+DockAreaDragTitle > QPushButton { /* Added from refactored */
+	min-height: 16px; /* my_template */
+	height: 16px; /* my_template */
+	min-width: 21px; /* my_template */
+    /* min-width: 20px; */ /* From refactored - overridden */
+    /* min-height: 20px; */ /* From refactored - overridden */
+	padding: 0;
+	background-color: ${clr_transparent};
+}
+
+DockWidgetTitle > QPushButton:hover {
+	background: ${aux_accent_hover};
+}
+
+DockWidgetTitle > QPushButton:pressed {
+	background: ${clr_navy};
+}
+
+DockWidgetTitle[active="true"] QPushButton:hover {
+	background: ${clr_blue};
+}
+
+DockWidgetTitle > QPushButton:!hover,
+DockAreaDragTitle > QPushButton:!hover { /* Added from refactored */
+    border: none;
+}
+
+DockWidgetTitle QPushButton[toolTip="Close"] {
+	qproperty-icon: url("${aux_ICONPATH}/control-close.png");
+}
+DockWidgetTitle QPushButton[toolTip="Float"] {
+	qproperty-icon: url("${aux_ICONPATH}/control-float.png");
+}
+DockWidgetTitle QPushButton[toolTip="Fullscreen"] {
+	qproperty-icon: url("${aux_ICONPATH}/control-fullscreen.png");
+}
+
+/* Tab Widget */
+QTabWidget::tab-bar {
+	border-top: 1px solid ${clr_blue};
+}
+QTabWidget::pane {
+	border-top: 1px solid ${clr_blue};
+}
+QTabBar::tab {
+	background-color: ${aux_bg_main};
+	color: ${clr_white};
+}
+QTabBar::tab:selected {
+	background-color: ${clr_blue};
+}
+QTabBar::tab:hover {
+	background-color: ${aux_accent_border};
+}
+QTabBar::tab:disabled {
+	background-color: ${aux_bg_main};
+	color: ${clr_dimgrey};
+}
+QTabBar::close-button {
+	image: url("${aux_ICONPATH}/control-close.png");
+}
+QTabBar::close-button:hover {
+	background: ${aux_accent_hover};
+}
+QTabBar::close-button:pressed {
+	background: ${clr_navy};
+}
+
+/* Tooltips */
+QToolTip, QTipLabel {
+	border: 1px solid ${aux_accent_border};
+	border-radius: 0px;
+	background: ${aux_bg_main};
+	color: ${aux_fg_alt};
+}
+
+/* Containers */
+EditContainer, ChooserContainer,
+QListView, QTreeView, QGroupBox {
+	border: 1px solid ${aux_border_medium};
+	border-radius: 0px;
+}
+QGroupBox {
+	margin-top: 10px;
+}
+QGroupBox::title {
+	subcontrol-origin: margin;
+	subcontrol-position: top left;
+}
+
+/* Menu and bars */
+QMenuBar {
+	background-color: ${clr_transparent};
+}
+QMenuBar::item {
+	color : ${aux_fg_main};
+	margin-top:2px;
+	spacing: 2px;
+	padding: 1px 8px;
+	background: ${clr_transparent};
+	border-radius: 0px;
+}
+QMenuBar::item:selected {
+	background: ${aux_bg_hover_dark};
+}
+QMenuBar::item:pressed {
+	background: ${aux_bg_menu};
+}
+QMenu {
+	border: 1px solid ${aux_border_dark};
+	padding: 2px;
+	background: ${aux_bg_menu};
+}
+QMenu::icon {
+	padding-left: 2px;
+}
+QMenu::item {
+	padding-right: 2px;
+}
+QMenu::item:disabled {
+	background: ${aux_bg_menu};
+	color: ${clr_dimgrey};
+}
+QMenu::item:selected {
+	background-color: ${aux_bg_menu_selected};
+}
+QMenu::separator {
+	height: 1px;
+	background: ${aux_border_dark};
+}
+
+/* Buttons */
+QPushButton {
+	border: 0px;
+	background: ${aux_bg_button};
+	text-align: center;
+	min-height: 18px;
+	min-width: 50px;
+	padding: 2px 6px 2px 6px;
+}
+QPushButton:default {
+	border: 1px solid ${aux_accent_border};
+}
+QPushButton:hover {
+	background: ${aux_bg_button_hover};
+}
+QPushButton:pressed {
+	background: ${clr_blue};
+}
+QPushButton:!enabled {
+	background: ${aux_bg_overlay};
+	color: ${clr_dimgrey};
+}
+
+/* Checboxes, radio etc */
+QRadioButton, QCheckBox, QLabel {
+	background: ${clr_transparent};
+}
+QCheckBox::indicator, QRadioButton::indicator {
+	width: 14px;
+	height: 14px;
+}
+/* ... (rest of radio/checkbox indicators using aux_ICONPATH) ... */
+QRadioButton::indicator:checked { image: url("${aux_ICONPATH}/radio-checked.png"); }
+QRadioButton::indicator:checked:hover { image: url("${aux_ICONPATH}/radio-checked-hover.png"); }
+QRadioButton::indicator:checked:pressed { image: url("${aux_ICONPATH}/radio-checked-pressed.png"); }
+QRadioButton::indicator:checked:disabled { image: url("${aux_ICONPATH}/radio-checked-disabled.png"); }
+QRadioButton::indicator:unchecked { image: url("${aux_ICONPATH}/radio-unchecked.png"); }
+QRadioButton::indicator:unchecked:hover { image: url("${aux_ICONPATH}/radio-unchecked-hover.png"); }
+QRadioButton::indicator:unchecked:pressed { image: url("${aux_ICONPATH}/radio-unchecked-pressed.png"); }
+QRadioButton::indicator:unchecked:disabled { image: url("${aux_ICONPATH}/radio-unchecked-disabled.png"); }
+QCheckBox::indicator:checked { image: url("${aux_ICONPATH}/checkbox-checked.png"); }
+QCheckBox::indicator:unchecked { image: url("${aux_ICONPATH}/checkbox-unchecked.png"); }
+QCheckBox::indicator:checked:hover { image: url("${aux_ICONPATH}/checkbox-checked-hover.png"); }
+QCheckBox::indicator:unchecked:hover { image: url("${aux_ICONPATH}/checkbox-unchecked-hover.png"); }
+QCheckBox::indicator:checked:pressed { image: url("${aux_ICONPATH}/checkbox-checked-pressed.png"); }
+QCheckBox::indicator:unchecked:pressed { image: url("${aux_ICONPATH}/checkbox-unchecked-pressed.png"); }
+QCheckBox::indicator:checked:disabled { image: url("${aux_ICONPATH}/checkbox-checked-disabled.png"); }
+QCheckBox::indicator:unchecked:disabled { image: url("${aux_ICONPATH}/checkbox-unchecked-disabled.png"); }
+
+/* Edits */
+QTextEdit, QPlainTextEdit {
+	background-color: ${aux_bg_main};
+	border: 1px solid ${aux_accent_border};
+	border-radius: 0px;
+}
+QLineEdit {
+	border: 1px solid ${aux_border_medium};
+	min-height: 16px;
+	border-radius: 0px;
+	selection-background-color: ${clr_blue};
+}
+QLineEdit:hover, QLineEdit:focus {
+	border: 1px solid ${clr_blue};
+	border-radius: 0px;
+}
+QLineEdit:read-only, QLineEdit[readOnly="true"] {
+	color: ${clr_dimgrey};
+}
+
+/* ComboBox */
+QComboBox {
+	border: 1px solid ${aux_border_light};
+	border-radius: 0px;
+	background-color: ${aux_bg_button};
+	color: ${aux_fg_light_gray};
+	padding: 1px 0px 1px 2px;
+	min-height: 16px;
+}
+QComboBox QLineEdit {
+	background: ${clr_transparent};
+	padding: 0;
+	border: 0;
+	margin: 0px;
+}
+QComboBox > QLineEdit {
+	min-height: default;
+}
+QComboBox > QLineEdit:focus {
+	border: 0px;
+}
+QComboBox:editable {
+	border: 1px solid ${clr_transparent};
+}
+QComboBox:focus {
+	border: 1px solid ${clr_blue};
+}
+QComboBox:hover {
+	background-color: ${aux_bg_button_hover};
+}
+QComboBox:on {
+	background-color: ${clr_blue};
+}
+QComboBox::drop-down {
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	border-left-width: 1px;
+	border-left-color: ${aux_border_gray};
+	border-left-style: solid;
+	width: 16px;
+}
+QComboBox::down-arrow {
+	width: 6px;
+	height: 6px;
+	image: url("${aux_ICONPATH}/arrow-down-normal.png");
+}
+/* ... (rest of combo box arrows using aux_ICONPATH) ... */
+QComboBox::down-arrow:hover { image: url("${aux_ICONPATH}/arrow-down-hover.png"); }
+QComboBox::down-arrow:on { image: url("${aux_ICONPATH}/arrow-down.png"); }
+
+QComboBox QAbstractItemView {
+	border: 1px solid ${aux_border_darker};
+}
+QComboBox QAbstractItemView::item {
+	width: 16px;
+}
+QComboBox QAbstractItemView::item:!enabled {
+	color: ${clr_dimgrey};
+}
+QComboBox QAbstractItemView::disabled {
+	color: ${clr_dimgrey};
+}
+
+/* Flat scrolls */
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal,
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}
+QScrollBar:horizontal {
+	background: ${aux_bg_scrollbar};
+	height: 16px;
+	margin: 0 16px 0 16px;
+}
+QScrollBar::add-line:horizontal {
+	border: 0px;
+	background: ${aux_bg_scrollbar};
+	width: 16px;
+	subcontrol-position: right;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:horizontal {
+	border: 0px;
+	background: ${aux_bg_scrollbar};
+	width: 16px;
+	subcontrol-position: left;
+	subcontrol-origin: margin;
+}
+QScrollBar:vertical {
+	background: ${aux_bg_scrollbar};
+	width: 16px;
+	margin: 16px 0 16px 0;
+}
+QScrollBar::add-line:vertical {
+	border: 0px;
+	background: ${aux_bg_scrollbar};
+	height: 16px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+	border: 0px;
+	background: ${aux_bg_scrollbar};
+	height: 16px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::handle {
+	background: ${aux_scrollbar_handle};
+}
+QScrollBar::handle:horizontal {
+	margin: 4px 1px 4px 1px;
+	min-width: 16px;
+}
+QScrollBar::handle:vertical {
+	margin: 1px 4px 1px 4px;
+	min-height: 16px;
+}
+QScrollBar::handle:hover {
+	background: ${aux_scrollbar_handle_hover};
+}
+QScrollBar::handle:pressed {
+	background: ${aux_scrollbar_handle_pressed};
+}
+QScrollBar::handle:!enabled {
+	background: ${aux_bg_scrollbar};
+}
+QScrollBar:left-arrow:horizontal, QScrollBar::right-arrow:horizontal,
+QScrollBar:up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	width: 8px;
+	height: 8px;
+	background: none;
+}
+/* ... (rest of scrollbar arrows using aux_ICONPATH) ... */
+QScrollBar:down-arrow { image: url("${aux_ICONPATH}/arrow-down-normal.png"); }
+QScrollBar:down-arrow:hover { image: url("${aux_ICONPATH}/arrow-down-hover.png"); }
+QScrollBar:down-arrow:pressed { image: url("${aux_ICONPATH}/arrow-down-pressed.png"); }
+QScrollBar:down-arrow:!enabled { image: url("${aux_ICONPATH}/arrow-down-disabled.png"); }
+QScrollBar:up-arrow { image: url("${aux_ICONPATH}/arrow-up-normal.png"); }
+QScrollBar:up-arrow:hover { image: url("${aux_ICONPATH}/arrow-up-hover.png"); }
+QScrollBar:up-arrow:pressed { image: url("${aux_ICONPATH}/arrow-up-pressed.png"); }
+QScrollBar:up-arrow:!enabled { image: url("${aux_ICONPATH}/arrow-up-disabled.png"); }
+QScrollBar:left-arrow { image: url("${aux_ICONPATH}/arrow-left-normal.png"); }
+QScrollBar:left-arrow:hover { image: url("${aux_ICONPATH}/arrow-left-hover.png"); }
+QScrollBar:left-arrow:pressed { image: url("${aux_ICONPATH}/arrow-left-pressed.png"); }
+QScrollBar:left-arrow:!enabled { image: url("${aux_ICONPATH}/arrow-left-disabled.png"); }
+QScrollBar:right-arrow { image: url("${aux_ICONPATH}/arrow-right-normal.png"); }
+QScrollBar:right-arrow:hover { image: url("${aux_ICONPATH}/arrow-right-hover.png"); }
+QScrollBar:right-arrow:pressed { image: url("${aux_ICONPATH}/arrow-right-pressed.png"); }
+QScrollBar:right-arrow:!enabled { image: url("${aux_ICONPATH}/arrow-right-disabled.png"); }
+
+/* Tables and lists */
+QTableView {
+	border: 1px solid ${aux_border_table};
+	background-color: ${aux_bg_table};
+}
+QHeaderView::section {
+	subcontrol-position: top center;
+	background-color: ${aux_border_dark};
+	border: none;
+	border-left: 1px solid ${aux_border_gray};
+	border-right: 1px solid ${aux_bg_menu_selected};
+	padding: 2px;
+}
+QHeaderView:section:hover {
+	background-color: ${clr_blue};
+}
+QHeaderView::down-arrow {
+	width: 6px;
+	height: 6px;
+	subcontrol-origin:padding;
+	subcontrol-position: center top;
+	image: url("${aux_ICONPATH}/arrow-down-normal.png");
+}
+QHeaderView::up-arrow {
+	width: 6px;
+	height: 6px;
+	subcontrol-origin:padding;
+	subcontrol-position: center top;
+	image: url("${aux_ICONPATH}/arrow-up-normal.png");
+}
+QHeaderView:horizontal::section {
+	min-height: 16px;
+}
+QHeaderView:vertical::section {
+}
+QTableCornerButton::section {
+	background: ${aux_bg_table_corner};
+	border: 1px outset ${aux_bg_table_corner};
+}
+QTreeView::item:selected,
+QListView::item:selected,
+QTableView::item:selected {
+	selection-background-color: ${clr_blue};
+	selection-color: ${clr_white};
+	color: ${aux_fg_alt};
+}
+QListView::item:hover {
+	background-color: ${aux_border_medium};
+}
+QListView::item:selected {
+	background: ${clr_blue};
+}
+
+/* Toolbar */
+QToolBar {
+	border: none;
+}
+TNavBand > QPushButton,
+nav_scroll_button_t,
+RegJumpButton {
+	min-height: 0;
+	min-width: 0;
+	padding: 0;
+	border: none;
+}
+
+/* Status/state bar */
+QStatusBar QLabel {
+	border: none;
+}
+QStatusBar::item {
+	border: none;
+	border-right: 1px solid ${aux_border_statusbar_item};
+}
+IDAMainWindow > QStatusBar {
+	min-height: 0;
+	height: 20px;
+	padding-left: 6px;
+	background: ${clr_blue};
+	border-right: 1px solid ${aux_fg_light_gray};
+}
+IDAMainWindow > QStatusBar::item {
+	border-right: 1px solid ${aux_fg_light_gray};
+}
+
+/* Remove border from IDC/Python switch button */
+CLIWidget > QGroupBox > QPushButton,
+CLIWidget > QGroupBox > QPushButton:hover,
+CLIWidget > QGroupBox > QPushButton:focus {
+	border: none;
+}
+CLIWidget > QGroupBox {
+	margin-top: 0;
+}
+
+/* Log window */
+/* Light Theme */
+log_widget_t {
+    color            : ${light_log_fg};
+    background-color : ${light_log_bg};
+}
+/* Dark Theme */
+log_widget_t[os-dark-theme="true"],
+MainMsgList /* Keep my_template selector */ {
+	color: ${dark_log_fg};
+	background-color: ${dark_log_bg};
+}
+
+/* Source syntax */
+/* Light Theme */
+text_area_t {
+    qproperty-keyword1-fg: ${light_keyword1_fg};
+    qproperty-keyword1-weight: 0;
+    qproperty-keyword1-italic: 0;
+    qproperty-keyword2-fg: ${light_keyword2_fg};
+    qproperty-keyword2-weight: 0;
+    qproperty-keyword2-italic: 0;
+    qproperty-keyword3-fg: ${light_keyword3_fg};
+    qproperty-keyword3-weight: 0;
+    qproperty-keyword3-italic: 0;
+    qproperty-string-fg: ${light_string_fg};
+    qproperty-string-weight: 0;
+    qproperty-string-italic: 0;
+    qproperty-comment-fg: ${light_comment_fg};
+    qproperty-comment-weight: 0;
+    qproperty-comment-italic: 1; /* Note: Italic */
+    qproperty-preprocessor-fg: ${light_preprocessor_fg};
+    qproperty-preprocessor-weight: 1; /* Note: Bold */
+    qproperty-preprocessor-italic: 0;
+    qproperty-number-fg: ${light_number_fg};
+    qproperty-number-weight: 1; /* Note: Bold */
+    qproperty-number-italic: 0;
+    qproperty-user1-fg: ${light_user1_fg};
+    qproperty-user1-weight: 0;
+    qproperty-user1-italic: 0;
+    qproperty-user2-fg: ${light_user2_fg};
+    qproperty-user2-weight: 0;
+    qproperty-user2-italic: 0;
+    qproperty-user3-fg: ${light_user3_fg};
+    qproperty-user3-weight: 0;
+    qproperty-user3-italic: 0;
+    qproperty-user4-fg: ${light_user4_fg};
+    qproperty-user4-weight: 0;
+    qproperty-user4-italic: 0;
+}
+/* Dark Theme */
+text_area_t[os-dark-theme="true"],
+TextEdit /* Keep my_template selector */ {
+	qproperty-keyword1-fg: ${dark_fg_keyword};
+	qproperty-keyword1-weight: 0;
+	qproperty-keyword1-italic: 0;
+	qproperty-keyword2-fg: ${dark_fg_void_opnd};
+	qproperty-keyword2-weight: 0;
+	qproperty-keyword2-italic: 0;
+	qproperty-keyword3-fg: ${clr_red};
+    qproperty-string-fg: ${dark_fg_charlit_insn};
+    qproperty-string-weight: 0;
+    qproperty-string-italic: 0;
+	qproperty-comment-fg: ${dark_fg_reg_comment};
+	qproperty-comment-weight: 0;
+	qproperty-comment-italic: 0; /* Note: Not Italic */
+	qproperty-preprocessor-fg: ${dark_fg_macro};
+	qproperty-preprocessor-weight: 0;
+	qproperty-preprocessor-italic: 0;
+	qproperty-number-fg: ${dark_fg_numlit_insn};
+	qproperty-number-weight: 0; /* Note: Not Bold */
+	qproperty-number-italic: 0;
+    qproperty-user1-fg: ${dark_user1_fg}; /* Added from refactored */
+    qproperty-user1-weight: 0;
+    qproperty-user1-italic: 0;
+    /* Add user2-4 if needed */
+}
+text_area_t QWidget { /* Applies to both themes */
+	background-color: ${clr_transparent};
+}
+
+/* struct edit margin */
+/* Light Theme */
+text_area_t text_area_margin_widget_t {
+    color: ${light_margin_fg};
+    qproperty-header-color: ${light_margin_header};
+}
+/* Dark Theme */
+text_area_t[os-dark-theme="true"] text_area_margin_widget_t,
+text_area_t text_edit_margin_widget_t /* Keep my_template selector */ {
+	qproperty-header-color: ${aux_fg_main};
+	color: ${aux_border_gray};
+}
+
+/* search filter / Choosers */
+/* Light Theme */
+chooser_widget_t,
+standalone_dirtree_widget_t {
+    qproperty-highlight-bg-default: ${light_highlight_bg_base};
+    qproperty-highlight-bg-selected: ${light_highlight_bg_selected};
+    qproperty-cut-text-color-default : ${clr_silver};
+    qproperty-cut-text-color-selected : ${clr_gray};
+}
+/* Dark Theme */
+chooser_widget_t[os-dark-theme="true"],
+standalone_dirtree_widget_t[os-dark-theme="true"],
+TChooser /* Keep my_template selector */ {
+	qproperty-highlight-bg-default: ${dark_chooser_highlight_bg};
+	qproperty-highlight-bg-selected: ${dark_chooser_highlight_selected};
+    qproperty-cut-text-color-default : ${dark_chooser_cut_text};
+    qproperty-cut-text-color-selected : ${dark_chooser_cut_text_selected};
+    /* Diff colors */
+    qproperty-highlight-bg-diff-region-pick:             ${diff_region_pick_l};
+    qproperty-highlight-bg-diff-region-leave:            ${diff_region_leave_l};
+    qproperty-highlight-bg-diff-region-conflict:         ${diff_region_conflict_l};
+    qproperty-highlight-bg-diff-region-pick-current:     ${diff_region_pick};
+    qproperty-highlight-bg-diff-region-leave-current:    ${diff_region_leave};
+    qproperty-highlight-bg-diff-region-conflict-current: ${diff_region_conflict};
+}
+
+/* main dasm color scheme */
+/* Light Theme */
+CustomIDAMemo {
+    /* misc */
+    qproperty-line-fg-patched-bytes     : ${clr_brownish};
+    qproperty-line-fg-unsaved-changes   : ${clr_orange};
+    qproperty-line-bg-highlight         : ${light_highlight_bg_base};
+    qproperty-line-bg-highlight-2       : ${light_highlight_bg_2};
+    qproperty-line-bg-highlight-3       : ${light_highlight_bg_3};
+    qproperty-line-bg-highlight-4       : ${light_highlight_bg_4};
+    qproperty-line-bg-highlight-5       : ${light_highlight_bg_5};
+    qproperty-line-bg-highlight-6       : ${light_highlight_bg_6};
+    qproperty-line-bg-highlight-7       : ${light_highlight_bg_7};
+    qproperty-line-bg-highlight-8       : ${light_highlight_bg_8};
+    qproperty-caret                     : ${light_caret_color};
+    qproperty-line-pfx-current-item     : ${clr_transparent};
+    qproperty-line-bgovl-current-line   : ${light_bgovl_current_line};
+    qproperty-line-bgovl-trace          : ${light_bgovl_trace};
+    qproperty-line-bgovl-trace-ovl      : ${light_bgovl_trace_ovl};
+    qproperty-line-bgovl-extra-1        : ${light_bgovl_extra_1};
+    qproperty-line-bgovl-extra-2        : ${light_bgovl_extra_2};
+    qproperty-line-bgovl-extra-3        : ${light_bgovl_extra_3};
+    qproperty-line-bgovl-extra-4        : ${light_bgovl_extra_4};
+    qproperty-line-bgovl-extra-5        : ${light_bgovl_extra_5};
+    qproperty-line-bgovl-extra-6        : ${light_bgovl_extra_6};
+    qproperty-line-bgovl-extra-7        : ${light_bgovl_extra_7};
+    qproperty-line-bgovl-extra-8        : ${light_bgovl_extra_8};
+    qproperty-line-bgovl-extra-9        : ${light_bgovl_extra_9};
+    qproperty-line-bgovl-extra-10       : ${light_bgovl_extra_10};
+    qproperty-line-bgovl-extra-11       : ${light_bgovl_extra_11};
+    qproperty-line-bgovl-extra-12       : ${light_bgovl_extra_12};
+    qproperty-line-bgovl-extra-13       : ${light_bgovl_extra_13};
+    qproperty-line-bgovl-extra-14       : ${light_bgovl_extra_14};
+    qproperty-line-bgovl-extra-15       : ${light_bgovl_extra_15};
+    qproperty-line-bgovl-extra-16       : ${light_bgovl_extra_16};
+    /* graph */
+    qproperty-graph-bg-top              : ${light_graph_bg_top};
+    qproperty-graph-bg-bottom           : ${light_graph_bg_bottom};
+    qproperty-graph-node-title-normal   : ${light_graph_node_title_normal};
+    qproperty-graph-node-title-selected : ${light_graph_node_title_selected};
+    qproperty-graph-node-title-current  : ${light_graph_node_title_current};
+    qproperty-graph-node-frame-group    : ${light_graph_node_frame_group};
+    qproperty-graph-node-shadow         : ${light_graph_node_shadow};
+    qproperty-graph-node-high1          : ${light_graph_node_high1};
+    qproperty-graph-node-high2          : ${light_graph_node_high2};
+    qproperty-graph-node-foreign        : ${light_graph_node_foreign};
+    qproperty-graph-edge-normal         : ${light_graph_edge_normal};
+    qproperty-graph-edge-yes            : ${light_graph_edge_yes};
+    qproperty-graph-edge-no             : ${light_graph_edge_no};
+    qproperty-graph-edge-high           : ${light_graph_edge_high};
+    qproperty-graph-edge-selected       : ${light_graph_edge_selected};
+    qproperty-graph-node-frame-selected : ${light_graph_node_frame_selected};
+    /* bpts */
+    qproperty-line-bg-bpt-enabled        : ${light_bpt_enabled_bg};
+    qproperty-line-bg-bpt-disabled       : ${light_bpt_disabled_bg};
+    qproperty-line-bg-bpt-unavailable    : ${light_bpt_unavailable_bg};
+    /* diff/merge */
+    qproperty-line-bgovl-diff-region-pick:             ${diff_region_pick_l};
+    qproperty-line-bgovl-diff-region-leave:            ${diff_region_leave_l};
+    qproperty-line-bgovl-diff-region-conflict:         ${diff_region_conflict_l};
+    qproperty-line-bgovl-diff-region-pick-current:     ${diff_region_pick};
+    qproperty-line-bgovl-diff-region-leave-current:    ${diff_region_leave};
+    qproperty-line-bgovl-diff-region-conflict-current: ${diff_region_conflict};
+    /* bookmarks */
+    qproperty-line-bgovl-bookmark:      ${light_bgovl_bookmark};
+    qproperty-bookmark-star-outline:    ${light_bookmark_star_outline};
+    /* disassembly listing colors */
+    qproperty-line-fg-default                     : ${light_fg_default};
+    qproperty-line-fg-regular-comment             : ${light_fg_reg_comment};
+    qproperty-line-fg-repeatable-comment          : ${light_fg_rep_comment};
+    qproperty-line-fg-automatic-comment           : ${light_fg_auto_comment};
+    qproperty-line-fg-insn                        : ${light_fg_insn};
+    qproperty-line-fg-dummy-data-name             : ${light_fg_dummy_data};
+    qproperty-line-fg-regular-data-name           : ${light_fg_reg_data};
+    qproperty-line-fg-demangled-name              : ${light_fg_demangled};
+    qproperty-line-fg-punctuation                 : ${light_fg_punct};
+    qproperty-line-fg-charlit-in-insn             : ${light_fg_charlit_insn};
+    qproperty-line-fg-strlit-in-insn              : ${light_fg_strlit_insn};
+    qproperty-line-fg-numlit-in-insn              : ${light_fg_numlit_insn};
+    qproperty-line-fg-void-opnd                   : ${light_fg_void_opnd};
+    qproperty-line-fg-code-xref                   : ${light_fg_code_xref};
+    qproperty-line-fg-data-xref                   : ${light_fg_data_xref};
+    qproperty-line-fg-code-xref-to-tail           : ${light_fg_code_xref_tail};
+    qproperty-line-fg-data-xref-to-tail           : ${light_fg_data_xref_tail};
+    qproperty-line-fg-error                       : ${light_fg_error};
+    qproperty-line-fg-line-prefix                 : ${light_fg_line_prefix};
+    qproperty-line-fg-opcode-byte                 : ${light_fg_opcode};
+    qproperty-line-fg-extra-line                  : ${light_fg_extra_line};
+    qproperty-line-fg-alt-opnd                    : ${light_fg_alt_opnd};
+    qproperty-line-fg-hidden                      : ${light_fg_hidden};
+    qproperty-line-fg-libfunc                     : ${light_fg_libfunc};
+    qproperty-line-fg-locvar                      : ${light_fg_locvar};
+    qproperty-line-fg-dummy-code-name             : ${light_fg_dummy_code};
+    qproperty-line-fg-asm-directive               : ${light_fg_asm_directive};
+    qproperty-line-fg-macro                       : ${light_fg_macro};
+    qproperty-line-fg-strlit-in-data              : ${light_fg_strlit_data};
+    qproperty-line-fg-charlit-in-data             : ${light_fg_charlit_data};
+    qproperty-line-fg-numlit-in-data              : ${light_fg_numlit_data};
+    qproperty-line-fg-keyword                     : ${light_fg_keyword};
+    qproperty-line-fg-register-name               : ${light_fg_reg_name};
+    qproperty-line-fg-import-name                 : ${light_fg_import_name};
+    qproperty-line-fg-segment-name                : ${light_fg_seg_name};
+    qproperty-line-fg-dummy-unknown-name          : ${light_fg_dummy_unknown};
+    qproperty-line-fg-code-name                   : ${light_fg_code_name};
+    qproperty-line-fg-unknown-name                : ${light_fg_unknown_name};
+    qproperty-line-fg-collapsed-line              : ${light_fg_collapsed};
+    qproperty-line-bg-default                     : ${light_bg_default};
+    qproperty-line-bg-selected                    : ${light_bg_selected};
+    qproperty-line-pfx-libfunc                    : ${light_pfx_libfunc};
+    qproperty-line-pfx-func                       : ${light_pfx_func};
+    qproperty-line-pfx-insn                       : ${light_pfx_insn};
+    qproperty-line-pfx-data                       : ${light_pfx_data};
+    qproperty-line-pfx-unexplored                 : ${light_pfx_unexplored};
+    qproperty-line-pfx-extern                     : ${light_pfx_extern};
+    qproperty-line-pfx-current-line               : ${light_pfx_current_line};
+    qproperty-line-pfx-current-item               : ${light_pfx_current_item};
+    qproperty-line-pfx-hidden-line                : ${light_pfx_hidden};
+    qproperty-line-pfx-lumina                     : ${light_pfx_lumina};
+}
+/* Dark Theme */
+CustomIDAMemo[os-dark-theme="true"] {
+	border: none; /* From refactored */
+	qproperty-line-bgovl-current-line: ${aux_bg_overlay}; /* From my_template */
+	qproperty-line-fg-default: ${dark_fg_default};
+	qproperty-line-fg-regular-comment: ${dark_fg_reg_comment};
+	qproperty-line-fg-repeatable-comment: ${dark_fg_rep_comment};
+	qproperty-line-fg-automatic-comment: ${dark_fg_auto_comment};
+	qproperty-line-fg-insn: ${dark_fg_insn};
+	qproperty-line-fg-dummy-data-name: ${dark_fg_dummy_data};
+	qproperty-line-fg-regular-data-name: ${dark_fg_reg_data};
+	qproperty-line-fg-demangled-name: ${dark_fg_demangled};
+	qproperty-line-fg-punctuation: ${dark_fg_punct};
+	qproperty-line-fg-charlit-in-insn: ${dark_fg_charlit_insn};
+	qproperty-line-fg-strlit-in-insn: ${dark_fg_strlit_insn};
+	qproperty-line-fg-numlit-in-insn: ${dark_fg_numlit_insn};
+	qproperty-line-fg-void-opnd: ${dark_fg_void_opnd};
+	qproperty-line-fg-code-xref: ${dark_fg_code_xref};
+	qproperty-line-fg-data-xref: ${dark_fg_data_xref};
+	qproperty-line-fg-code-xref-to-tail: ${dark_fg_code_xref_tail};
+	qproperty-line-fg-data-xref-to-tail: ${dark_fg_data_xref_tail};
+	qproperty-line-fg-error: ${dark_fg_error};
+	qproperty-line-fg-line-prefix: ${dark_fg_line_prefix};
+	qproperty-line-fg-opcode-byte: ${dark_fg_opcode};
+	qproperty-line-fg-extra-line: ${dark_fg_extra_line};
+	qproperty-line-fg-alt-opnd: ${dark_fg_alt_opnd};
+	qproperty-line-fg-hidden: ${dark_fg_hidden};
+	qproperty-line-fg-libfunc: ${dark_fg_libfunc};
+	qproperty-line-fg-locvar: ${dark_fg_locvar};
+	qproperty-line-fg-dummy-code-name: ${dark_fg_dummy_code};
+	qproperty-line-fg-asm-directive: ${dark_fg_asm_directive};
+	qproperty-line-fg-macro: ${dark_fg_macro};
+	qproperty-line-fg-strlit-in-data: ${dark_fg_strlit_data};
+	qproperty-line-fg-charlit-in-data: ${dark_fg_charlit_data};
+	qproperty-line-fg-numlit-in-data: ${dark_fg_numlit_data}; /* Non-debug */
+	qproperty-line-fg-keyword: ${dark_fg_keyword};
+	qproperty-line-fg-register-name: ${dark_fg_reg_name};
+	qproperty-line-fg-import-name: ${dark_fg_import_name};
+	qproperty-line-fg-segment-name: ${dark_fg_seg_name};
+	qproperty-line-fg-dummy-unknown-name: ${dark_fg_dummy_unknown};
+	qproperty-line-fg-code-name: ${dark_fg_code_name};
+	qproperty-line-fg-unknown-name: ${dark_fg_unknown_name};
+	qproperty-line-fg-collapsed-line: ${dark_fg_collapsed};
+	qproperty-line-bg-default: ${dark_bg_default};
+	qproperty-line-bg-selected: ${dark_bg_selected};
+	qproperty-line-pfx-libfunc: ${dark_pfx_libfunc};
+	qproperty-line-pfx-func: ${dark_pfx_func};
+	qproperty-line-pfx-insn: ${dark_pfx_insn};
+	qproperty-line-pfx-data: ${dark_pfx_data};
+	qproperty-line-pfx-unexplored: ${dark_pfx_unexplored};
+	qproperty-line-pfx-extern: ${dark_pfx_extern};
+	qproperty-line-pfx-current-item: ${dark_fg_default}; /* From my_template */
+	qproperty-line-pfx-current-line: ${dark_pfx_current_line};
+    qproperty-line-pfx-hidden-line: ${clr_black}; /* Added from refactored */
+    qproperty-line-pfx-lumina: ${dark_pfx_lumina};
+	qproperty-line-bg-bpt-enabled: ${dark_bpt_enabled_bg};
+	qproperty-line-bg-bpt-disabled: ${dark_bpt_disabled_bg};
+	qproperty-line-bg-bpt-unavailable: ${dark_bpt_unavailable_bg};
+	qproperty-graph-bg-top: ${dark_graph_bg};
+	qproperty-graph-bg-bottom: ${dark_graph_bg};
+	qproperty-graph-node-title-normal: ${dark_graph_node_title_normal};
+	qproperty-graph-node-title-selected: ${dark_graph_node_title_selected};
+	qproperty-graph-node-title-current: ${dark_graph_node_title_current};
+	qproperty-graph-node-frame-group: ${dark_graph_node_frame_group};
+	qproperty-graph-node-shadow: ${dark_graph_node_shadow};
+	qproperty-graph-node-high1: ${dark_graph_node_high1};
+	qproperty-graph-node-high2: ${dark_graph_node_high2};
+	qproperty-graph-node-foreign: ${dark_graph_node_foreign};
+	qproperty-graph-edge-normal: ${dark_graph_edge_normal};
+	qproperty-graph-edge-yes: ${dark_graph_edge_yes};
+	qproperty-graph-edge-no: ${dark_graph_edge_no};
+	qproperty-graph-edge-high: ${dark_graph_edge_high};
+	qproperty-graph-edge-current: ${aux_graph_edge_current_white}; /* From my_template */
+    qproperty-graph-edge-selected: ${dark_graph_edge_selected};
+    qproperty-graph-node-frame-selected: ${dark_graph_node_frame_selected};
+	qproperty-line-fg-patched-bytes: ${clr_red};
+	qproperty-line-fg-unsaved-changes: ${dark_pfx_current_line};
+	qproperty-line-bg-highlight: ${dark_highlight_bg_base};
+	qproperty-line-bg-hint: ${dark_fg_void_opnd}; /* From my_template */
+    /* bookmarks */
+    qproperty-bookmark-star-outline: ${dark_bookmark_star_outline};
+	/* extra colors */
+	qproperty-line-bgovl-extra-13: ${aux_bg_extra_overlay}; /* From my_template */
+    /* Add other highlight/overlay colors from refactored if needed */
+    /* Diff colors */
+    qproperty-line-bgovl-diff-region-pick:             ${diff_region_pick_l};
+    qproperty-line-bgovl-diff-region-leave:            ${diff_region_leave_l};
+    qproperty-line-bgovl-diff-region-conflict:         ${diff_region_conflict_l};
+    qproperty-line-bgovl-diff-region-pick-current:     ${diff_region_pick};
+    qproperty-line-bgovl-diff-region-leave-current:    ${diff_region_leave};
+    qproperty-line-bgovl-diff-region-conflict-current: ${diff_region_conflict};
+}
+
+/* Light Theme Debugging/Hints */
+CustomIDAMemo[debugging="true"] {
+    qproperty-line-bg-default            : ${light_debugging_bg};
+    qproperty-line-bgovl-current-ip      : ${light_debugging_ip_overlay};
+}
+CustomIDAMemo[hints="true"] {
+    qproperty-line-bg-default            : ${light_hints_bg};
+}
+/* Dark Theme Debugging/Hints */
+CustomIDAMemo[os-dark-theme="true"][debugging="true"] {
+	qproperty-line-bgovl-current-ip: ${aux_bg_ip_overlay};
+	qproperty-line-bg-default: ${dark_debugging_bg};
+	qproperty-graph-bg-top: ${dark_bg_default};
+	qproperty-graph-bg-bottom: ${dark_bg_default};
+	qproperty-line-fg-numlit-in-data: ${aux_fg_num_debug_green};
+	qproperty-line-fg-numlit-in-insn: ${dark_reg_changed};
+}
+CustomIDAMemo[os-dark-theme="true"][hints="true"] {
+	qproperty-line-bg-default: ${dark_hints_bg};
+}
+
+/* dasm jump arrows */
+/* Light Theme */
+TextArrows {
+    qproperty-jump-in-function          : ${light_arrow_jump_in_func};
+    qproperty-jump-external-to-function : ${light_arrow_jump_external};
+    qproperty-jump-under-cursor         : ${light_arrow_jump_cursor};
+    qproperty-jump-target               : ${light_arrow_jump_target};
+    qproperty-register-target           : ${light_arrow_reg_target};
+    qproperty-bpt-possible              : ${light_arrow_bpt_possible};
+}
+/* Dark Theme */
+TextArrows[os-dark-theme="true"] { /* Assuming dark theme for my_template values */
+	qproperty-jump-in-function: ${dark_graph_edge_yes};
+	qproperty-jump-external-to-function: ${dark_fg_default};
+	qproperty-jump-under-cursor: ${aux_arrow_jump_cursor_blue};
+	qproperty-jump-target: ${dark_graph_bg};
+	qproperty-register-target: ${dark_graph_bg};
+    qproperty-bpt-possible: ${aux_arrow_jump_cursor_blue}; /* Added from refactored, using similar color */
+}
+
+/* registers */
+/* Light Theme */
+TCpuRegs {
+    background-color: ${light_reg_bg};
+    qproperty-register-defined: ${light_reg_defined};
+    qproperty-register-changed: ${light_reg_changed};
+    qproperty-register-edited: ${light_reg_edited};
+    qproperty-register-unavailable: ${light_reg_unavailable};
+}
+TCpuRegs QPushButton { /* Applies to both */
+	background: ${clr_transparent};
+}
+TCpuRegs ui_label_t {
+    color: ${light_reg_label};
+}
+/* Dark Theme */
+TCpuRegs[os-dark-theme="true"] {
+	background-color: ${dark_reg_bg};
+	qproperty-register-defined: ${dark_reg_defined};
+	qproperty-register-changed: ${dark_reg_changed};
+	qproperty-register-edited: ${dark_reg_edited};
+	qproperty-register-unavailable: ${dark_reg_unavailable};
+}
+TCpuRegs[os-dark-theme="true"] QPushButton:hover {
+	background: ${dark_reg_changed};
+	color: ${clr_dimgrey};
+}
+TCpuRegs[os-dark-theme="true"] QPushButton:!enabled {
+	background: ${clr_transparent};
+	color: ${clr_dimgrey};
+}
+TCpuRegs[os-dark-theme="true"] IDALabel,
+TCpuRegs[os-dark-theme="true"] ui_label_t {
+	font-style: inherit;
+	color: ${dark_reg_label};
+}
+
+/* Navigation band */
+/* Light Theme */
+navband_t {
+    qproperty-lib-function : ${light_nav_lib_func};
+    qproperty-function : ${light_nav_func};
+    qproperty-code : ${light_nav_code};
+    qproperty-data : ${light_nav_data};
+    qproperty-undefined : ${light_nav_undef};
+    qproperty-extern : ${light_nav_extern};
+    qproperty-lumina-function : ${light_nav_lumina};
+    qproperty-hl-lib-function : ${light_nav_hl_lib_func};
+    qproperty-hl-function : ${light_nav_hl_func};
+    qproperty-hl-code : ${light_nav_hl_code};
+    qproperty-hl-data : ${light_nav_hl_data};
+    qproperty-hl-undefined : ${light_nav_hl_undef};
+    qproperty-hl-extern : ${light_nav_hl_extern};
+    qproperty-hl-lumina-function : ${light_nav_hl_lumina};
+    qproperty-hl-outline : ${light_nav_hl_outline};
+    qproperty-error : ${light_nav_error};
+    qproperty-gap : ${light_nav_gap};
+    qproperty-cursor : ${light_nav_cursor};
+    qproperty-auto-analysis-cursor : ${light_nav_auto_cursor};
+}
+/* Dark Theme */
+navband_t[os-dark-theme="true"] {
+	qproperty-lib-function: ${dark_nav_lib_func};
+	qproperty-function: ${dark_nav_func};
+	qproperty-code: ${dark_nav_code};
+	qproperty-data: ${dark_nav_data};
+	qproperty-undefined: ${dark_nav_undef};
+	qproperty-extern: ${dark_nav_extern};
+	qproperty-error: ${dark_nav_error};
+	qproperty-gap: ${dark_nav_gap};
+	qproperty-cursor: ${dark_nav_cursor};
+	qproperty-auto-analysis-cursor: ${dark_nav_auto_cursor};
+	qproperty-lumina-function: ${dark_nav_lumina};
+    /* Added dark highlights from refactored */
+    qproperty-hl-lib-function: ${dark_nav_hl_lib_func};
+    qproperty-hl-function: ${dark_nav_hl_func};
+    qproperty-hl-code: ${dark_nav_hl_code};
+    qproperty-hl-data: ${dark_nav_hl_data};
+    qproperty-hl-undefined: ${dark_nav_hl_undef};
+    qproperty-hl-extern: ${dark_nav_hl_extern};
+    qproperty-hl-lumina-function: ${dark_nav_hl_lumina};
+    qproperty-hl-outline : ${dark_nav_hl_outline};
+}
+
+/* Misc */
+AskText QLabel#counterlabel[invalid=true] {
+	color: ${clr_green}; /* Assuming green for both themes? */
+}
+QWidget[field_validity=false] { /* Added from refactored */
+    border-color: ${clr_red}; /* Assuming red for both themes? */
+    border-width: 1.2px;
+    border-style: inset;
+}
+.hint { /* Added from refactored */
+    padding: 12px;
+    margin: 0 12px 12px 12px;
+    /* background-color: ${light_hint_bg}; */ /* Light */
+    background-color: ${dark_hints_bg}; /* Dark */
+    /* border-color: ${light_hint_border}; */ /* Light */
+    border-color: ${clr_yellow}; /* Dark - Example */
+    border-width: 1.2px;
+    border-radius: 12px;
+    border-style: solid;
+    text-align: center;
+    /* color: ${light_hint_fg}; */ /* Light */
+    color: ${clr_white}; /* Dark */
+}
+GraphMiniView { /* Added from refactored */
+    /* qproperty-fog        : ${light_minimap_fog}; */ /* Light */
+    qproperty-fog        : rgba(0, 0, 0, 0.35); /* Dark - Same as light default */
+    /* qproperty-crosshairs : ${light_minimap_crosshairs}; */ /* Light */
+    qproperty-crosshairs : ${clr_yellow}; /* Dark */
+}
+diff_fringe_t { /* Added from refactored */
+    /* background-color: ${light_bg_default}; */ /* Light */
+    background-color: ${dark_bg_default}; /* Dark */
+    qproperty-diff-region-pick:                             ${diff_region_pick_l};
+    qproperty-diff-region-pick-boundaries:                  ${diff_region_pick_l};
+    qproperty-diff-region-pick-current:                     ${diff_region_pick};
+    qproperty-diff-region-pick-current-boundaries:          ${diff_region_pick_d};
+    qproperty-diff-region-leave:                            ${diff_region_leave_l};
+    qproperty-diff-region-leave-boundaries:                 ${diff_region_leave_l};
+    qproperty-diff-region-leave-current:                    ${diff_region_leave};
+    qproperty-diff-region-leave-current-boundaries:         ${diff_region_leave_d};
+    qproperty-diff-region-conflict:                         ${diff_region_conflict_l};
+    qproperty-diff-region-conflict-boundaries:              ${diff_region_conflict_l};
+    qproperty-diff-region-conflict-current:                 ${diff_region_conflict};
+    qproperty-diff-region-conflict-current-boundaries:      ${diff_region_conflict_d};
+}
+
+/* Keep icon definitions from refactored template if desired */
+/* IDAMainWindow { ... qproperty-themeicon-... } */
+
+/*
+ Block for personalization
+*/
+QWidget {
+	font-family: ${aux_font_ui};
+	font-size: ${aux_font_size_small};
+}
+TCpuRegs QLabel { /* Applies to both themes */
+	font-family: ${aux_font_code_mono};
+	font-size: ${aux_font_size_small};
+}
+QTabWidget::tab {
+	font-size: 8pt;
+}
+CustomIDAMemo, EditContainer,
+IDAView, hexview_t, MainMsgList { /* Applies to both themes */
+	font-family: ${aux_font_mono};
+	font-size: ${aux_font_size_small};
+}
+
+/* Additions from refactored template that were missing */
+@ifdef __MAC__
+DockWidgetTitle > QPushButton,
+DockAreaDragTitle > QPushButton {
+    border: none;
+}
+@endif
+LabeledWidgetContainer {
+    border: 0;
+    padding: 0;
+}
+QSplitter::handle:horizontal {
+    width: 4px;
+}
+QSplitter::handle:vertical {
+    height: 4px;
+}
+ActionsInspector QLineEdit {
+    width: 16em;
+}
+ActionsInspector QKeySequenceEdit {
+    width: 16em;
+}
