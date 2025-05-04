@@ -31,11 +31,20 @@ Beyond theme conversion, `ida-themr` also simplifies CSS theme files by resolvin
 3. **CSS Processing**: Resolves variables and simplifies functions in CSS, ensuring clean and maintainable output. 🧑‍💻
 4. **Output Generation**: Creates new theme directories with remapped CSS files ready for IDA Pro. 📤
 
+## IDA supports some `SASS` directives
+
+- `@def`
+- `@lighten`
+- `@darken`
+- `@importtheme`
+- `@ifdef/@ifndef` -> optional `@else` -> `@endif`
+
 ## Installation 📥
 
 Get started with `ida-themr` in just a few steps! 🚀
 
 1. **Clone the Repository**:
+
    ```bash
    git clone https://github.com/mahmoudimus/ida-themr.git
    cd ida-themr
@@ -43,6 +52,7 @@ Get started with `ida-themr` in just a few steps! 🚀
 
 2. **Ensure Python 3 is Installed**:
    Make sure you have Python 3 installed on your system. You can check with:
+
    ```bash
    python3 --version
    ```

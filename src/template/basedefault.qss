@@ -1,0 +1,1092 @@
+/* ======================================================================== */
+/*  Color Definitions                                                       */
+/* ======================================================================== */
+
+/* Base & Common Colors */
+@def clr_transparent                rgba(0, 0, 0, 0);
+@def clr_black                      #000000;
+@def clr_white                      #ffffff;
+@def clr_red                        #ff0000;
+@def clr_green                      #008000;
+@def clr_blue                       #0000ff;
+@def clr_cyan                       #00ffff;
+@def clr_lime                       #00ff00;
+@def clr_yellow                     #ffff00;
+@def clr_fuchsia                    #ff00ff;
+@def clr_silver                     silver;      /* #c0c0c0 */
+@def clr_gray                       gray;        /* #808080 */
+@def clr_maroon                     maroon;      /* #800000 */
+@def clr_olive                      olive;       /* #808000 */
+@def clr_navy                       navy;        /* #000080 */
+@def clr_purple                     purple;      /* #800080 */
+@def clr_pink                       pink;        /* #ffc0cb */
+@def clr_darkgrey                   darkgrey;    /* #a9a9a9 */
+@def clr_dimgrey                    dimgrey;     /* #696969 */
+@def clr_darkred                    darkred;     /* #8b0000 */
+@def clr_darkgreen                  darkgreen;   /* #006400 */
+@def clr_darkcyan                   darkcyan;    /* #008b8b */
+@def clr_darkblue                   #00008b;
+@def clr_indigo                     indigo;      /* #4b0082 */
+@def clr_sienna                     sienna;      /* #a0522d */
+@def clr_darkturquoise              darkturquoise; /* #00ced1 */
+@def clr_orange                     #ff8000;
+@def clr_brownish                   #804040;
+@def clr_brownish_dark              #aa5500;
+@def clr_error_num                  #010101;
+@def clr_data_xref_alt              #8080ff;
+@def clr_numlit_data                #008040;
+
+/* Light Theme Specific Colors */
+@def light_highlight_bg_base        rgba(255, 255, 0, 0.80);
+@def light_highlight_bg_selected    rgba(0, 192, 192, 0.80);
+@def light_log_fg                   ${clr_black};
+@def light_log_bg                   ${clr_white};
+@def light_keyword1_fg              ${clr_blue};
+@def light_keyword2_fg              ${clr_purple};
+@def light_keyword3_fg              ${clr_red};
+@def light_string_fg                ${clr_darkred};
+@def light_comment_fg               ${clr_darkgreen};
+@def light_preprocessor_fg          ${clr_blue};
+@def light_number_fg                ${clr_darkcyan};
+@def light_user1_fg                 ${clr_darkblue};
+@def light_user2_fg                 ${clr_dimgrey};
+@def light_user3_fg                 ${clr_indigo};
+@def light_user4_fg                 ${clr_sienna};
+@def light_margin_fg                ${clr_gray};
+@def light_margin_header            ${clr_dimgrey};
+@def light_counter_label_fg         ${clr_gray};
+@def light_counter_label_invalid    ${clr_red};
+@def light_invalid_border           ${clr_red};
+@def light_hint_bg                  #f0f0d0;
+@def light_hint_border              #d0d020;
+@def light_hint_fg                  ${clr_black};
+@def light_highlight_bg_2           rgba(255, 192, 128, 0.80);
+@def light_highlight_bg_3           rgba(255, 128, 255, 0.80);
+@def light_highlight_bg_4           rgba(128, 255, 255, 0.80);
+@def light_highlight_bg_5           rgba(192, 128, 128, 0.80);
+@def light_highlight_bg_6           rgba(128, 192, 128, 0.80);
+@def light_highlight_bg_7           rgba(128, 128, 192, 0.80);
+@def light_highlight_bg_8           rgba(208, 208, 208, 0.80);
+@def light_caret_color              ${clr_black};
+@def light_bgovl_current_line       rgba(80, 80, 80, 0.15);
+@def light_bgovl_trace              rgba(255, 255, 0, 0.20);
+@def light_bgovl_trace_ovl          rgba(255, 188, 180, 0.40);
+@def light_bgovl_extra_1            rgba(80, 255, 80, 0.25);
+@def light_bgovl_extra_2            rgba(238, 255, 136, 0.25);
+@def light_bgovl_extra_3            rgba(255, 170, 0, 0.4);
+@def light_bgovl_extra_4            rgba(255, 126, 232, 0.4);
+@def light_bgovl_extra_5            rgba(219, 150, 69, 0.4);
+@def light_bgovl_extra_6            rgba(69, 207, 219, 0.4);
+@def light_bgovl_extra_7            rgba(143, 219, 69, 0.4);
+@def light_bgovl_extra_8            rgba(86, 88, 126, 0.4);
+@def light_bgovl_extra_9            rgba(217, 90, 111, 0.4);
+@def light_bgovl_extra_10           rgba(128, 147, 132, 0.4);
+@def light_bgovl_extra_11           rgba(255, 0, 120, 0.4);
+@def light_bgovl_extra_12           rgba(255, 192, 0, 0.4);
+@def light_bgovl_extra_13           rgba(255, 192, 255, 0.4);
+@def light_bgovl_extra_14           rgba(133, 133, 133, 0.4);
+@def light_bgovl_extra_15           rgba(203, 210, 166, 0.4);
+@def light_bgovl_extra_16           rgba(0, 90, 0, 0.4);
+@def light_graph_bg_top             ${clr_white};
+@def light_graph_bg_bottom          #e0f8ff;
+@def light_graph_node_title_normal  ${clr_white};
+@def light_graph_node_title_selected #b1f9f9;
+@def light_graph_node_title_current #a0cfcf;
+@def light_graph_node_frame_group   ${clr_yellow};
+@def light_graph_node_shadow        ${clr_black};
+@def light_graph_node_high1         #ccffff;
+@def light_graph_node_high2         #ccffcc;
+@def light_graph_node_foreign       ${clr_red};
+@def light_graph_edge_normal        ${clr_blue};
+@def light_graph_edge_yes           ${clr_green};
+@def light_graph_edge_no            ${clr_red};
+@def light_graph_edge_high          ${clr_cyan};
+@def light_graph_edge_selected      ${clr_brownish_dark};
+@def light_graph_node_frame_selected ${clr_brownish_dark};
+@def light_bpt_enabled_bg           ${clr_red};
+@def light_bpt_disabled_bg          ${clr_lime};
+@def light_bpt_unavailable_bg       ${clr_orange};
+@def light_bgovl_bookmark           rgba(0, 255, 128, 0.125);
+@def light_bookmark_star_outline    rgba(0, 255, 128, 0.45);
+@def light_debugging_bg             ${light_graph_node_high1}; /* #ccffff */
+@def light_debugging_ip_overlay     rgba(0, 195, 255, .45);
+@def light_hints_bg                 #ffffe1;
+@def light_minimap_fog              rgba(0, 0, 0, 0.35);
+@def light_minimap_crosshairs       rgba(255, 255, 0, 1);
+@def light_arrow_jump_in_func       ${clr_silver};
+@def light_arrow_jump_external      ${clr_red};
+@def light_arrow_jump_cursor        ${clr_black};
+@def light_arrow_jump_target        ${clr_green};
+@def light_arrow_reg_target         #4040ff;
+@def light_arrow_bpt_possible       #60d0ff;
+@def light_reg_bg                   ${light_graph_node_high1}; /* #ccffff */
+@def light_reg_defined              ${clr_black};
+@def light_reg_changed              ${clr_blue};
+@def light_reg_edited               ${clr_purple};
+@def light_reg_unavailable          ${clr_gray};
+@def light_reg_label                ${clr_blue};
+@def light_nav_lib_func             #aaffff;
+@def light_nav_func                 #00a2e8;
+@def light_nav_code                 #b97a57;
+@def light_nav_data                 ${clr_silver};
+@def light_nav_undef                #b6b66b;
+@def light_nav_extern               #ffa6ff;
+@def light_nav_lumina               #32cd32;
+@def light_nav_hl_lib_func          #c3ffff;
+@def light_nav_hl_func              #3cc4ff;
+@def light_nav_hl_code              #cda189;
+@def light_nav_hl_data              #d2d2d2;
+@def light_nav_hl_undef             #cbcb97;
+@def light_nav_hl_extern            #ffc0ff;
+@def light_nav_hl_lumina            #6fdb6f;
+@def light_nav_hl_outline           #ff0080;
+@def light_nav_error                #ff5b5b;
+@def light_nav_gap                  ${clr_black};
+@def light_nav_cursor               #ffff7f;
+@def light_nav_auto_cursor          #ffaa00;
+@def light_fg_default               ${clr_blue};
+@def light_fg_reg_comment           ${clr_blue};
+@def light_fg_rep_comment           ${clr_gray};
+@def light_fg_auto_comment          ${clr_gray};
+@def light_fg_insn                  ${clr_navy};
+@def light_fg_dummy_data            ${clr_navy};
+@def light_fg_reg_data              ${clr_blue};
+@def light_fg_demangled             ${clr_blue};
+@def light_fg_punct                 ${clr_navy};
+@def light_fg_charlit_insn          ${clr_green};
+@def light_fg_strlit_insn           ${clr_lime};
+@def light_fg_numlit_insn           ${clr_green};
+@def light_fg_void_opnd             ${clr_orange};
+@def light_fg_code_xref             ${clr_green};
+@def light_fg_data_xref             ${clr_data_xref_alt}; /* #8080FF */
+@def light_fg_code_xref_tail        ${clr_red};
+@def light_fg_data_xref_tail        ${clr_olive};
+@def light_fg_error                 ${clr_error_num}; /* #010101 */
+@def light_fg_line_prefix           ${clr_silver};
+@def light_fg_opcode                ${clr_blue};
+@def light_fg_extra_line            ${clr_blue};
+@def light_fg_alt_opnd              ${clr_blue};
+@def light_fg_hidden                ${clr_gray};
+@def light_fg_libfunc               ${clr_data_xref_alt}; /* #8080FF */
+@def light_fg_locvar                ${clr_green};
+@def light_fg_dummy_code            ${clr_navy};
+@def light_fg_asm_directive         ${clr_blue};
+@def light_fg_macro                 ${clr_purple};
+@def light_fg_strlit_data           ${clr_green};
+@def light_fg_charlit_data          ${clr_green};
+@def light_fg_numlit_data           ${clr_numlit_data}; /* #008040 */
+@def light_fg_keyword               ${clr_navy};
+@def light_fg_reg_name              ${clr_navy};
+@def light_fg_import_name           ${clr_fuchsia};
+@def light_fg_seg_name              ${clr_olive};
+@def light_fg_dummy_unknown         ${clr_navy};
+@def light_fg_code_name             ${clr_blue};
+@def light_fg_unknown_name          ${clr_navy};
+@def light_fg_collapsed             ${clr_blue};
+@def light_bg_default               ${clr_white};
+@def light_bg_selected              #c0bbaf;
+@def light_pfx_libfunc              ${clr_cyan};
+@def light_pfx_func                 ${clr_black};
+@def light_pfx_insn                 ${clr_maroon};
+@def light_pfx_data                 ${clr_gray};
+@def light_pfx_unexplored           ${clr_olive};
+@def light_pfx_extern               ${clr_fuchsia};
+@def light_pfx_current_line         ${clr_blue};
+@def light_pfx_current_item         #0044ff;
+@def light_pfx_hidden               ${clr_black};
+@def light_pfx_lumina               ${light_nav_lumina}; /* #32CD32 */
+
+/* Dark Theme Specific Colors */
+@def dark_highlight_bg_base         rgba(96, 0, 96, 0.80);
+@def dark_chooser_highlight_bg      ${clr_red};
+@def dark_chooser_highlight_selected ${clr_pink};
+@def dark_chooser_cut_text          ${clr_darkgrey};
+@def dark_chooser_cut_text_selected ${clr_gray};
+@def dark_log_fg                    #ddd;
+@def dark_log_bg                    #2d2d2d;
+@def dark_user1_fg                  ${clr_darkturquoise};
+@def dark_fg_default                #aaaaaa;
+@def dark_fg_reg_comment            #ffc5f3;
+@def dark_fg_rep_comment            #82607e;
+@def dark_fg_auto_comment           #666666;
+@def dark_fg_insn                   ${clr_white};
+@def dark_fg_dummy_data             #ebebb9;
+@def dark_fg_reg_data               #ebebb9;
+@def dark_fg_demangled              #ffecbb;
+@def dark_fg_punct                  ${clr_silver};
+@def dark_fg_charlit_insn           #69d200;
+@def dark_fg_strlit_insn            ${clr_lime};
+@def dark_fg_numlit_insn            #d25032;
+@def dark_fg_void_opnd              #ff4646;
+@def dark_fg_code_xref              #ffaa7f;
+@def dark_fg_data_xref              #7c7c61;
+@def dark_fg_code_xref_tail         ${dark_fg_numlit_insn};
+@def dark_fg_data_xref_tail         ${clr_olive};
+@def dark_fg_error                  #ff3437;
+@def dark_fg_line_prefix            ${clr_silver};
+@def dark_fg_opcode                 #595959;
+@def dark_fg_extra_line             ${dark_fg_reg_comment};
+@def dark_fg_alt_opnd               #ffaaff;
+@def dark_fg_hidden                 #ffd200;
+@def dark_fg_libfunc                ${clr_cyan};
+@def dark_fg_locvar                 ${clr_orange};
+@def dark_fg_dummy_code             ${dark_fg_hidden};
+@def dark_fg_asm_directive          #9dd600;
+@def dark_fg_macro                  #df077e;
+@def dark_fg_strlit_data            ${dark_fg_charlit_insn};
+@def dark_fg_charlit_data           #79f300;
+@def dark_fg_numlit_data            ${dark_fg_numlit_insn};
+@def dark_fg_keyword                #ababab;
+@def dark_fg_reg_name               #73adad;
+@def dark_fg_import_name            #ff5afd;
+@def dark_fg_seg_name               ${light_nav_cursor}; /* #ffff7f */
+@def dark_fg_dummy_unknown          #aaff00;
+@def dark_fg_code_name              ${dark_fg_hidden};
+@def dark_fg_unknown_name           ${dark_fg_alt_opnd};
+@def dark_fg_collapsed              ${clr_yellow};
+@def dark_bg_default                ${dark_log_bg}; /* #2d2d2d */
+@def dark_bg_selected               #e1ad32;
+@def dark_pfx_libfunc               ${clr_cyan};
+@def dark_pfx_func                  ${dark_fg_auto_comment}; /* #666666 */
+@def dark_pfx_insn                  #aa0000;
+@def dark_pfx_data                  ${dark_fg_data_xref}; /* #7c7c61 */
+@def dark_pfx_unexplored            #9d9d00;
+@def dark_pfx_extern                #ff55ff;
+@def dark_pfx_current_line          ${light_nav_auto_cursor}; /* #ffaa00 */
+@def dark_pfx_lumina                ${light_nav_lumina}; /* #32cd32 */
+@def dark_graph_bg                  #b2b2b2;
+@def dark_graph_node_title_normal   #f5f5f5;
+@def dark_graph_node_title_selected #aa9f98;
+@def dark_graph_node_title_current  #5e5854;
+@def dark_graph_node_frame_group    ${clr_yellow};
+@def dark_graph_node_shadow         #242424;
+@def dark_graph_node_high1          #003900;
+@def dark_graph_node_high2          #6d0000;
+@def dark_graph_node_foreign        ${clr_red};
+@def dark_graph_edge_normal         #0043cb;
+@def dark_graph_edge_yes            #009100;
+@def dark_graph_edge_no             #bc0000;
+@def dark_graph_edge_high           #c68e00;
+@def dark_graph_edge_selected       ${light_graph_edge_selected}; /* #aa5500 */
+@def dark_graph_node_frame_selected ${light_graph_node_frame_selected}; /* #aa5500 */
+@def dark_bpt_enabled_bg            #760000;
+@def dark_bpt_disabled_bg           ${clr_lime};
+@def dark_bpt_unavailable_bg        ${clr_orange};
+@def dark_bookmark_star_outline     ${clr_white};
+@def dark_hints_bg                  #424242;
+@def dark_debugging_bg              #4d4d4d;
+@def dark_reg_bg                    ${dark_debugging_bg}; /* #4d4d4d */
+@def dark_reg_defined               ${clr_white};
+@def dark_reg_changed               ${light_nav_cursor}; /* #ffff7f */
+@def dark_reg_edited                #ff7f17;
+@def dark_reg_unavailable           ${clr_gray};
+@def dark_reg_label                 ${dark_fg_default}; /* #aaaaaa */
+@def dark_nav_lib_func              #00aaff;
+@def dark_nav_func                  ${light_nav_auto_cursor}; /* #ffaa00 */
+@def dark_nav_code                  ${clr_maroon};
+@def dark_nav_data                  ${dark_fg_dummy_data}; /* #ebebb9 */
+@def dark_nav_undef                 #787800;
+@def dark_nav_extern                ${clr_fuchsia};
+@def dark_nav_lumina                ${light_nav_lumina}; /* #32cd32 */
+@def dark_nav_hl_lib_func           #4cc3fe;
+@def dark_nav_hl_func               #fec34c;
+@def dark_nav_hl_code               #f20000;
+@def dark_nav_hl_data               #f1f1ce;
+@def dark_nav_hl_undef              #ecec00;
+@def dark_nav_hl_extern             #fe4cfe;
+@def dark_nav_hl_lumina             ${light_nav_hl_lumina}; /* #6fdb6f */
+@def dark_nav_hl_outline            ${clr_cyan};
+@def dark_nav_error                 #ca0000;
+@def dark_nav_gap                   #4a4a4a;
+@def dark_nav_cursor                #80ff00;
+@def dark_nav_auto_cursor           ${clr_orange};
+
+/* Diff Colors */
+@def darkening 125;
+@def lightening 125;
+
+@def diff_region_pick               #8AD1A9; /* light green */
+@def diff_region_pick_l             @lighten(${diff_region_pick}, ${lightening});
+@def diff_region_pick_d             @darken(${diff_region_pick}, ${darkening});
+
+@def diff_region_leave              ${clr_silver}; /* Use base silver color */
+@def diff_region_leave_l            @lighten(${diff_region_leave}, ${lightening});
+@def diff_region_leave_d            @darken(${diff_region_leave}, ${darkening});
+
+@def diff_region_conflict           #FF7C4C; /* light orange/red */
+@def diff_region_conflict_l         @lighten(${diff_region_conflict}, ${lightening});
+@def diff_region_conflict_d         @darken(${diff_region_conflict}, ${darkening});
+
+
+/* ======================================================================== */
+/*  Original Styles (Refactored with Color Variables)                     */
+/* ======================================================================== */
+
+DockWidgetTitle
+{
+    padding: 0px;
+    margin-bottom: 2px;
+}
+
+DockAreaDragTitle
+{
+    background-color: palette(dark);
+}
+
+DockWidgetTitle[active="true"]
+{
+    background-color: palette(base);
+}
+
+DockWidgetTitle > QPushButton,
+DockAreaDragTitle > QPushButton
+{
+    min-width: 20px;
+    min-height: 20px;
+}
+
+DockWidgetTitle > QPushButton:!hover,
+DockAreaDragTitle > QPushButton:!hover
+{
+    border: none;
+}
+
+chooser_widget_t,
+standalone_dirtree_widget_t
+{
+    qproperty-highlight-bg-default: ${light_highlight_bg_base};
+    qproperty-highlight-bg-selected: ${light_highlight_bg_selected};
+
+    qproperty-cut-text-color-default : ${clr_silver};
+    qproperty-cut-text-color-selected : ${clr_gray};
+}
+
+chooser_widget_t[os-dark-theme="true"],
+standalone_dirtree_widget_t[os-dark-theme="true"]
+{
+    qproperty-highlight-bg-default: ${dark_chooser_highlight_bg};
+    qproperty-highlight-bg-selected: ${dark_chooser_highlight_selected};
+
+    qproperty-cut-text-color-default : ${dark_chooser_cut_text};
+    qproperty-cut-text-color-selected : ${dark_chooser_cut_text_selected};
+}
+
+log_widget_t
+{
+    color            : ${light_log_fg};
+    background-color : ${light_log_bg};
+}
+
+log_widget_t[os-dark-theme="true"]
+{
+    color: ${dark_log_fg};
+    background-color: ${dark_log_bg};
+}
+
+text_area_t
+{
+    qproperty-keyword1-fg: ${light_keyword1_fg};
+    qproperty-keyword1-weight: 0;
+    qproperty-keyword1-italic: 0;
+
+    qproperty-keyword2-fg: ${light_keyword2_fg};
+    qproperty-keyword2-weight: 0;
+    qproperty-keyword2-italic: 0;
+
+    qproperty-keyword3-fg: ${light_keyword3_fg};
+    qproperty-keyword3-weight: 0;
+    qproperty-keyword3-italic: 0;
+
+    qproperty-string-fg: ${light_string_fg};
+    qproperty-string-weight: 0;
+    qproperty-string-italic: 0;
+
+    qproperty-comment-fg: ${light_comment_fg};
+    qproperty-comment-weight: 0;
+    qproperty-comment-italic: 1;
+
+    qproperty-preprocessor-fg: ${light_preprocessor_fg};
+    qproperty-preprocessor-weight: 1;
+    qproperty-preprocessor-italic: 0;
+
+    qproperty-number-fg: ${light_number_fg};
+    qproperty-number-weight: 1;
+    qproperty-number-italic: 0;
+
+    qproperty-user1-fg: ${light_user1_fg};
+    qproperty-user1-weight: 0;
+    qproperty-user1-italic: 0;
+
+    qproperty-user2-fg: ${light_user2_fg};
+    qproperty-user2-weight: 0;
+    qproperty-user2-italic: 0;
+
+    qproperty-user3-fg: ${light_user3_fg};
+    qproperty-user3-weight: 0;
+    qproperty-user3-italic: 0;
+
+    qproperty-user4-fg: ${light_user4_fg};
+    qproperty-user4-weight: 0;
+    qproperty-user4-italic: 0;
+}
+
+text_area_t[os-dark-theme="true"]
+{
+    qproperty-user1-fg: ${dark_user1_fg};
+}
+
+text_area_t text_area_margin_widget_t
+{
+    color: ${light_margin_fg};
+    qproperty-header-color: ${light_margin_header};
+}
+
+text_area_dialog_t QLabel#counter_label
+{
+    color: ${light_counter_label_fg};
+}
+
+text_area_dialog_t QLabel#counter_label[invalid=true]
+{
+    color: ${light_counter_label_invalid};
+}
+
+QWidget[field_validity=false]
+{
+    border-color: ${light_invalid_border};
+    border-width: 1.2px;
+    border-style: inset;
+}
+
+.hint
+{
+    padding: 12px;
+    margin: 0 12px 12px 12px;
+    background-color: ${light_hint_bg};
+    border-color: ${light_hint_border};
+    border-width: 1.2px;
+    border-radius: 12px;
+    border-style: solid;
+    text-align: center;
+    color: ${light_hint_fg};
+}
+
+@ifdef __MAC__
+/* drawing borders on macOS seems to be glitchy with Qt 5.15.2. see IDA-3041 */
+DockWidgetTitle > QPushButton,
+DockAreaDragTitle > QPushButton
+{
+    border: none;
+}
+@endif
+
+/* make that guy behave as if it were a regular widget, by killing the default QGroupBox spacing */
+LabeledWidgetContainer
+{
+    border: 0;
+    padding: 0;
+}
+
+QSplitter::handle:horizontal
+{
+    width: 4px;
+}
+
+QSplitter::handle:vertical
+{
+    height: 4px;
+}
+
+ActionsInspector QLineEdit
+{
+    width: 16em;
+}
+
+ActionsInspector QKeySequenceEdit
+{
+    width: 16em;
+}
+
+CustomIDAMemo
+{
+    /* misc */
+    qproperty-line-fg-patched-bytes     : ${clr_brownish};            /* patched bytes (brown-ish) */
+    qproperty-line-fg-unsaved-changes   : ${clr_orange};              /* unsaved changes (orange-ish) */
+    qproperty-line-bg-highlight         : ${light_highlight_bg_base}; /* highlighting background */
+    qproperty-line-bg-highlight-2       : ${light_highlight_bg_2};    /* highlighting background #2 */
+    qproperty-line-bg-highlight-3       : ${light_highlight_bg_3};    /* highlighting background #3 */
+    qproperty-line-bg-highlight-4       : ${light_highlight_bg_4};    /* highlighting background #4 */
+    qproperty-line-bg-highlight-5       : ${light_highlight_bg_5};    /* highlighting background #5 */
+    qproperty-line-bg-highlight-6       : ${light_highlight_bg_6};    /* highlighting background #6 */
+    qproperty-line-bg-highlight-7       : ${light_highlight_bg_7};    /* highlighting background #7 */
+    qproperty-line-bg-highlight-8       : ${light_highlight_bg_8};    /* highlighting background #8 */
+    qproperty-caret                     : ${light_caret_color};       /* Caret (cursor) */
+    qproperty-line-pfx-current-item     : ${clr_transparent};         /* Line prefix: Current item (transparent by default) */
+    qproperty-line-bgovl-current-line   : ${light_bgovl_current_line};/* current line background overlay */
+    qproperty-line-bgovl-trace          : ${light_bgovl_trace};       /* Trace line background overlay */
+    qproperty-line-bgovl-trace-ovl      : ${light_bgovl_trace_ovl};   /* Second trace line background overlay */
+    qproperty-line-bgovl-extra-1        : ${light_bgovl_extra_1};     /* Extra background overlay #1 */
+    qproperty-line-bgovl-extra-2        : ${light_bgovl_extra_2};     /* Extra background overlay #2 */
+    qproperty-line-bgovl-extra-3        : ${light_bgovl_extra_3};     /* Extra background overlay #3 */
+    qproperty-line-bgovl-extra-4        : ${light_bgovl_extra_4};     /* Extra background overlay #4 */
+    qproperty-line-bgovl-extra-5        : ${light_bgovl_extra_5};     /* Extra background overlay #5 */
+    qproperty-line-bgovl-extra-6        : ${light_bgovl_extra_6};     /* Extra background overlay #6 */
+    qproperty-line-bgovl-extra-7        : ${light_bgovl_extra_7};     /* Extra background overlay #7 */
+    qproperty-line-bgovl-extra-8        : ${light_bgovl_extra_8};     /* Extra background overlay #8 */
+    qproperty-line-bgovl-extra-9        : ${light_bgovl_extra_9};     /* Extra background overlay #9 */
+    qproperty-line-bgovl-extra-10       : ${light_bgovl_extra_10};    /* Extra background overlay #10 */
+    qproperty-line-bgovl-extra-11       : ${light_bgovl_extra_11};    /* Extra background overlay #11 */
+    qproperty-line-bgovl_extra-12       : ${light_bgovl_extra_12};    /* Extra background overlay #12 */
+    qproperty-line-bgovl_extra-13       : ${light_bgovl_extra_13};    /* Extra background overlay #13 */
+    qproperty-line-bgovl_extra-14       : ${light_bgovl_extra_14};    /* Extra background overlay #14 */
+    qproperty-line-bgovl_extra-15       : ${light_bgovl_extra_15};    /* Extra background overlay #15 */
+    qproperty-line-bgovl_extra-16       : ${light_bgovl_extra_16};    /* Extra background overlay #16 */
+
+    /* graph */
+    qproperty-graph-bg-top              : ${light_graph_bg_top};
+    qproperty-graph-bg-bottom           : ${light_graph_bg_bottom};
+    qproperty-graph-node-title-normal   : ${light_graph_node_title_normal};
+    qproperty-graph-node-title-selected : ${light_graph_node_title_selected};
+    qproperty-graph-node-title-current  : ${light_graph_node_title_current};
+    qproperty-graph-node-frame-group    : ${light_graph_node_frame_group};
+    qproperty-graph-node-shadow         : ${light_graph_node_shadow};
+    qproperty-graph-node-high1          : ${light_graph_node_high1};
+    qproperty-graph-node-high2          : ${light_graph_node_high2};
+    qproperty-graph-node-foreign        : ${light_graph_node_foreign};
+    qproperty-graph-edge-normal         : ${light_graph_edge_normal};
+    qproperty-graph-edge-yes            : ${light_graph_edge_yes};
+    qproperty-graph-edge-no             : ${light_graph_edge_no};
+    qproperty-graph-edge-high           : ${light_graph_edge_high};
+    qproperty-graph-edge-selected       : ${light_graph_edge_selected};
+    qproperty-graph-node-frame-selected : ${light_graph_node_frame_selected};
+
+    /* bpts */
+    qproperty-line-bg-bpt-enabled        : ${light_bpt_enabled_bg};
+    qproperty-line-bg-bpt-disabled       : ${light_bpt_disabled_bg};
+    qproperty-line-bg-bpt-unavailable    : ${light_bpt_unavailable_bg};
+
+    /* diff/merge */
+    qproperty-line-bgovl-diff-region-pick:             ${diff_region_pick_l};
+    qproperty-line-bgovl-diff-region-leave:            ${diff_region_leave_l};
+    qproperty-line-bgovl-diff-region-conflict:         ${diff_region_conflict_l};
+
+    qproperty-line-bgovl-diff-region-pick-current:     ${diff_region_pick};
+    qproperty-line-bgovl-diff-region-leave-current:    ${diff_region_leave};
+    qproperty-line-bgovl-diff-region-conflict-current: ${diff_region_conflict};
+
+    /* bookmarks */
+    qproperty-line-bgovl-bookmark:      ${light_bgovl_bookmark};
+    qproperty-bookmark-star-outline:    ${light_bookmark_star_outline};
+
+    /* disassembly listing colors */
+    qproperty-line-fg-default                     : ${light_fg_default};
+    qproperty-line-fg-regular-comment             : ${light_fg_reg_comment};
+    qproperty-line-fg-repeatable-comment          : ${light_fg_rep_comment};
+    qproperty-line-fg-automatic-comment           : ${light_fg_auto_comment};
+    qproperty-line-fg-insn                        : ${light_fg_insn};
+    qproperty-line-fg-dummy-data-name             : ${light_fg_dummy_data};
+    qproperty-line-fg-regular-data-name           : ${light_fg_reg_data};
+    qproperty-line-fg-demangled-name              : ${light_fg_demangled};
+    qproperty-line-fg-punctuation                 : ${light_fg_punct};
+    qproperty-line-fg-charlit-in-insn             : ${light_fg_charlit_insn};
+    qproperty-line-fg-strlit-in-insn              : ${light_fg_strlit_insn};
+    qproperty-line-fg-numlit-in-insn              : ${light_fg_numlit_insn};
+    qproperty-line-fg-void-opnd                   : ${light_fg_void_opnd};
+    qproperty-line-fg-code-xref                   : ${light_fg_code_xref};
+    qproperty-line-fg-data-xref                   : ${light_fg_data_xref};
+    qproperty-line-fg-code-xref-to-tail           : ${light_fg_code_xref_tail};
+    qproperty-line-fg-data-xref-to-tail           : ${light_fg_data_xref_tail};
+    qproperty-line-fg-error                       : ${light_fg_error};
+    qproperty-line-fg-line-prefix                 : ${light_fg_line_prefix};
+    qproperty-line-fg-opcode-byte                 : ${light_fg_opcode};
+    qproperty-line-fg-extra-line                  : ${light_fg_extra_line};
+    qproperty-line-fg-alt-opnd                    : ${light_fg_alt_opnd};
+    qproperty-line-fg-hidden                      : ${light_fg_hidden};
+    qproperty-line-fg-libfunc                     : ${light_fg_libfunc};
+    qproperty-line-fg-locvar                      : ${light_fg_locvar};
+    qproperty-line-fg-dummy-code-name             : ${light_fg_dummy_code};
+    qproperty-line-fg-asm-directive               : ${light_fg_asm_directive};
+    qproperty-line-fg-macro                       : ${light_fg_macro};
+    qproperty-line-fg-strlit-in-data              : ${light_fg_strlit_data};
+    qproperty-line-fg-charlit-in-data             : ${light_fg_charlit_data};
+    qproperty-line-fg-numlit-in-data              : ${light_fg_numlit_data};
+    qproperty-line-fg-keyword                     : ${light_fg_keyword};
+    qproperty-line-fg-register-name               : ${light_fg_reg_name};
+    qproperty-line-fg-import-name                 : ${light_fg_import_name};
+    qproperty-line-fg-segment-name                : ${light_fg_seg_name};
+    qproperty-line-fg-dummy-unknown-name          : ${light_fg_dummy_unknown};
+    qproperty-line-fg-code-name                   : ${light_fg_code_name};
+    qproperty-line-fg-unknown-name                : ${light_fg_unknown_name};
+    qproperty-line-fg-collapsed-line              : ${light_fg_collapsed};
+    qproperty-line-bg-default                     : ${light_bg_default};
+    qproperty-line-bg-selected                    : ${light_bg_selected};
+    qproperty-line-pfx-libfunc                    : ${light_pfx_libfunc};
+    qproperty-line-pfx-func                       : ${light_pfx_func};
+    qproperty-line-pfx-insn                       : ${light_pfx_insn};
+    qproperty-line-pfx-data                       : ${light_pfx_data};
+    qproperty-line-pfx-unexplored                 : ${light_pfx_unexplored};
+    qproperty-line-pfx-extern                     : ${light_pfx_extern};
+    qproperty-line-pfx-current-line               : ${light_pfx_current_line};
+    qproperty-line-pfx-current-item               : ${light_pfx_current_item};
+    qproperty-line-pfx-hidden-line                : ${light_pfx_hidden};
+    qproperty-line-pfx-lumina                     : ${light_pfx_lumina};
+}
+
+CustomIDAMemo[debugging="true"]
+{
+    qproperty-line-bg-default            : ${light_debugging_bg};
+    qproperty-line-bgovl-current-ip      : ${light_debugging_ip_overlay};
+}
+
+CustomIDAMemo[hints="true"]
+{
+    qproperty-line-bg-default            : ${light_hints_bg}; /* hints background (pale yellow) */
+}
+
+GraphMiniView
+{
+    qproperty-fog        : ${light_minimap_fog};
+    qproperty-crosshairs : ${light_minimap_crosshairs};
+}
+
+TextArrows
+{
+    qproperty-jump-in-function          : ${light_arrow_jump_in_func};
+    qproperty-jump-external-to-function : ${light_arrow_jump_external};
+    qproperty-jump-under-cursor         : ${light_arrow_jump_cursor};
+    qproperty-jump-target               : ${light_arrow_jump_target};
+    qproperty-register-target           : ${light_arrow_reg_target};
+    qproperty-bpt-possible              : ${light_arrow_bpt_possible};
+}
+
+TCpuRegs
+{
+    background-color: ${light_reg_bg};
+    qproperty-register-defined: ${light_reg_defined};
+    qproperty-register-changed: ${light_reg_changed};
+    qproperty-register-edited: ${light_reg_edited};
+    qproperty-register-unavailable: ${light_reg_unavailable};
+}
+
+TCpuRegs QPushButton
+{
+    background: ${clr_transparent};
+}
+
+TCpuRegs ui_label_t
+{
+    color: ${light_reg_label};
+}
+
+TCpuRegs[os-dark-theme="true"]
+{
+    background-color: ${dark_reg_bg};
+    qproperty-register-defined: ${dark_reg_defined};
+    qproperty-register-changed: ${dark_reg_changed};
+    qproperty-register-edited: ${dark_reg_edited};
+    qproperty-register-unavailable: ${dark_reg_unavailable};
+}
+
+TCpuRegs ui_label_t[os-dark-theme="true"]
+{
+    color: ${dark_reg_label};
+}
+
+navband_t
+{
+    qproperty-lib-function : ${light_nav_lib_func};
+    qproperty-function : ${light_nav_func};
+    qproperty-code : ${light_nav_code};
+    qproperty-data : ${light_nav_data};
+    qproperty-undefined : ${light_nav_undef};
+    qproperty-extern : ${light_nav_extern};
+    qproperty-lumina-function : ${light_nav_lumina};
+
+    qproperty-hl-lib-function : ${light_nav_hl_lib_func};
+    qproperty-hl-function : ${light_nav_hl_func};
+    qproperty-hl-code : ${light_nav_hl_code};
+    qproperty-hl-data : ${light_nav_hl_data};
+    qproperty-hl-undefined : ${light_nav_hl_undef};
+    qproperty-hl-extern : ${light_nav_hl_extern};
+    qproperty-hl-lumina-function : ${light_nav_hl_lumina};
+
+    qproperty-hl-outline : ${light_nav_hl_outline};
+
+    qproperty-error : ${light_nav_error};
+    qproperty-gap : ${light_nav_gap};
+    qproperty-cursor : ${light_nav_cursor};
+    qproperty-auto-analysis-cursor : ${light_nav_auto_cursor};
+}
+
+navband_t[os-dark-theme="true"]
+{
+    qproperty-lib-function: ${dark_nav_lib_func};
+    qproperty-function: ${dark_nav_func};
+    qproperty-code: ${dark_nav_code};
+    qproperty-data: ${dark_nav_data};
+    qproperty-undefined: ${dark_nav_undef};
+    qproperty-extern: ${dark_nav_extern};
+    qproperty-lumina-function: ${dark_nav_lumina};
+
+    qproperty-hl-lib-function: ${dark_nav_hl_lib_func};
+    qproperty-hl-function: ${dark_nav_hl_func};
+    qproperty-hl-code: ${dark_nav_hl_code};
+    qproperty-hl-data: ${dark_nav_hl_data};
+    qproperty-hl-undefined: ${dark_nav_hl_undef};
+    qproperty-hl-extern: ${dark_nav_hl_extern};
+    qproperty-hl-lumina-function: ${dark_nav_hl_lumina};
+
+    qproperty-hl-outline : ${dark_nav_hl_outline};
+
+    qproperty-error: ${dark_nav_error};
+    qproperty-gap: ${dark_nav_gap};
+    qproperty-cursor: ${dark_nav_cursor};
+    qproperty-auto-analysis-cursor: ${dark_nav_auto_cursor};
+}
+
+TChooser,
+generic_dirtree_widget_t
+{
+    qproperty-highlight-bg-diff-region-pick:             ${diff_region_pick_l};
+    qproperty-highlight-bg-diff-region-leave:            ${diff_region_leave_l};
+    qproperty-highlight-bg-diff-region-conflict:         ${diff_region_conflict_l};
+
+    qproperty-highlight-bg-diff-region-pick-current:     ${diff_region_pick};
+    qproperty-highlight-bg-diff-region-leave-current:    ${diff_region_leave};
+    qproperty-highlight-bg-diff-region-conflict-current: ${diff_region_conflict};
+}
+
+diff_fringe_t
+{
+    background-color: ${clr_white};
+
+    qproperty-diff-region-pick:                             ${diff_region_pick_l};
+    qproperty-diff-region-pick-boundaries:                  ${diff_region_pick_l};
+    qproperty-diff-region-pick-current:                     ${diff_region_pick};
+    qproperty-diff-region-pick-current-boundaries:          ${diff_region_pick_d};
+
+    qproperty-diff-region-leave:                            ${diff_region_leave_l};
+    qproperty-diff-region-leave-boundaries:                 ${diff_region_leave_l};
+    qproperty-diff-region-leave-current:                    ${diff_region_leave};
+    qproperty-diff-region-leave-current-boundaries:         ${diff_region_leave_d};
+
+    qproperty-diff-region-conflict:                         ${diff_region_conflict_l};
+    qproperty-diff-region-conflict-boundaries:              ${diff_region_conflict_l};
+    qproperty-diff-region-conflict-current:                 ${diff_region_conflict};
+    qproperty-diff-region-conflict-current-boundaries:      ${diff_region_conflict_d};
+}
+
+/* Icon Definitions (Unaffected by color extraction) */
+IDAMainWindow
+{
+    /* ... (all qproperty-themeicon definitions remain unchanged) ... */
+    qproperty-themeicon-AddConst:                                   url(":/IDAG/resources/menu/AddConst.svg");
+    qproperty-themeicon-AddEnum:                                    url(":/IDAG/resources/menu/AddEnum.svg");
+    qproperty-themeicon-AddWatch:                                   url(":/IDAG/resources/menu/AddWatch.svg");
+    qproperty-themeicon-Analysis:                                   url(":/IDAG/resources/menu/Analysis.svg");
+    qproperty-themeicon-AskBinaryText:                              url(":/IDAG/resources/menu/AskBinaryText.svg");
+    qproperty-themeicon-AskNextImmediate:                           url(":/IDAG/resources/menu/AskNextImmediate.svg");
+    qproperty-themeicon-AskNextText:                                url(":/IDAG/resources/menu/AskNextText.svg");
+    qproperty-themeicon-BitwiseNegate:                              url(":/IDAG/resources/menu/BitwiseNegate.svg");
+    qproperty-themeicon-BreakpointAdd:                              url(":/IDAG/resources/menu/BreakpointAdd.svg");
+    qproperty-themeicon-BreakpointDel:                              url(":/IDAG/resources/menu/BreakpointDel.svg");
+    qproperty-themeicon-BreakpointDisable:                          url(":/IDAG/resources/menu/BreakpointDisable.svg");
+    qproperty-themeicon-BreakpointEdit:                             url(":/IDAG/resources/menu/BreakpointEdit.svg");
+    qproperty-themeicon-BreakpointEnable:                           url(":/IDAG/resources/menu/BreakpointEnable.svg");
+    qproperty-themeicon-Breakpoints:                                url(":/IDAG/resources/menu/Breakpoints.svg");
+    qproperty-themeicon-Calculate:                                  url(":/IDAG/resources/menu/Calculate.svg");
+    qproperty-themeicon-CallFlow:                                   url(":/IDAG/resources/menu/CallFlow.svg");
+    qproperty-themeicon-ChangeSign:                                 url(":/IDAG/resources/menu/ChangeSign.svg");
+    qproperty-themeicon-ChartXrefsFrom:                             url(":/IDAG/resources/menu/ChartXrefsFrom.svg");
+    qproperty-themeicon-ChartXrefsTo:                               url(":/IDAG/resources/menu/ChartXrefsTo.svg");
+    qproperty-themeicon-ChartXrefsUser:                             url(":/IDAG/resources/menu/ChartXrefsUser.svg");
+    qproperty-themeicon-CopyStruct:                                 url(":/IDAG/resources/menu/CopyStruct.svg");
+    qproperty-themeicon-CreateStructFromData:                       url(":/IDAG/resources/menu/CreateStructFromData.svg");
+    qproperty-themeicon-Debugger:                                   url(":/IDAG/resources/menu/Debugger.svg");
+    qproperty-themeicon-DeclareStructVar:                           url(":/IDAG/resources/menu/DeclareStructVar.svg");
+    qproperty-themeicon-DelConst:                                   url(":/IDAG/resources/menu/DelConst.svg");
+    qproperty-themeicon-DelEnum:                                    url(":/IDAG/resources/menu/DelEnum.svg");
+    qproperty-themeicon-DelHiddenRange:                             url(":/IDAG/resources/menu/DelHiddenRange.svg");
+    qproperty-themeicon-DelWatch:                                   url(":/IDAG/resources/menu/DelWatch.svg");
+    qproperty-themeicon-DumpDatabase:                               url(":/IDAG/resources/menu/DumpDatabase.svg");
+    qproperty-themeicon-DeleteDesktop:                              url(":/IDAG/resources/menu/DeleteDesktop.svg");
+    qproperty-themeicon-DumpTypes:                                  url(":/IDAG/resources/menu/DumpTypes.svg");
+    qproperty-themeicon-EditCopy:                                   url(":/IDAG/resources/menu/EditCopy.svg");
+    qproperty-themeicon-EditFullTypeCopy:                           url(":/IDAG/resources/menu/EditFullTypeCopy.svg");
+    qproperty-themeicon-EditEnum:                                   url(":/IDAG/resources/menu/EditEnum.svg");
+    qproperty-themeicon-EditFunction:                               url(":/IDAG/resources/menu/EditFunction.svg");
+    qproperty-themeicon-ExecTraceAdd:                               url(":/IDAG/resources/menu/ExecTraceAdd.svg");
+    qproperty-themeicon-Execute:                                    url(":/IDAG/resources/menu/Execute.svg");
+    qproperty-themeicon-ExecuteLine:                                url(":/IDAG/resources/menu/ExecuteLine.svg");
+    qproperty-themeicon-Function:                                   url(":/IDAG/resources/menu/Function.svg");
+    qproperty-themeicon-GraphColor:                                 url(":/IDAG/resources/menu/GraphColor.svg");
+    qproperty-themeicon-GraphFlatView:                              url(":/IDAG/resources/menu/GraphFlatView.svg");
+    qproperty-themeicon-GraphFunc:                                  url(":/IDAG/resources/menu/GraphFunc.svg");
+    qproperty-themeicon-GraphGraphView:                             url(":/IDAG/resources/menu/GraphGraphView.svg");
+    qproperty-themeicon-GraphGroup:                                 url(":/IDAG/resources/menu/GraphGroup.svg");
+    qproperty-themeicon-GraphLayout:                                url(":/IDAG/resources/menu/GraphLayout.svg");
+    qproperty-themeicon-GraphNewProximityView:                      url(":/IDAG/resources/menu/GraphNewProximityView.svg");
+    qproperty-themeicon-GraphOrthogonalLayout:                      url(":/IDAG/resources/menu/GraphOrthogonalLayout.svg");
+    qproperty-themeicon-GraphOverview:                              url(":/IDAG/resources/menu/GraphOverview.svg");
+    qproperty-themeicon-GraphPrint:                                 url(":/IDAG/resources/menu/GraphPrint.svg");
+    qproperty-themeicon-GraphProximityAddGraph:                     url(":/IDAG/resources/menu/GraphProximityAddGraph.svg");
+    qproperty-themeicon-GraphProximityAddNode:                      url(":/IDAG/resources/menu/GraphProximityAddNode.svg");
+    qproperty-themeicon-GraphProximityAddNodeByAddr:                url(":/IDAG/resources/menu/GraphProximityAddNodeByAddr.svg");
+    qproperty-themeicon-GraphProximityAddParents:                   url(":/IDAG/resources/menu/GraphProximityAddParents.svg");
+    qproperty-themeicon-GraphProximityDelChilds:                    url(":/IDAG/resources/menu/GraphProximityDelChilds.svg");
+    qproperty-themeicon-GraphProximityDelNode:                      url(":/IDAG/resources/menu/GraphProximityDelNode.svg");
+    qproperty-themeicon-GraphProximityDelParents:                   url(":/IDAG/resources/menu/GraphProximityDelParents.svg");
+    qproperty-themeicon-GraphProximityFindPath:                     url(":/IDAG/resources/menu/GraphProximityFindPath.svg");
+    qproperty-themeicon-GraphProximityView:                         url(":/IDAG/resources/menu/GraphProximityView.svg");
+    qproperty-themeicon-GraphSetupColors:                           url(":/IDAG/resources/menu/GraphSetupColors.svg");
+    qproperty-themeicon-GraphSetupOptions:                          url(":/IDAG/resources/menu/GraphSetupOptions.svg");
+    qproperty-themeicon-GraphUngroup:                               url(":/IDAG/resources/menu/GraphUngroup.svg");
+    qproperty-themeicon-GraphZoom100:                               url(":/IDAG/resources/menu/GraphZoom100.svg");
+    qproperty-themeicon-GraphZoomFit:                               url(":/IDAG/resources/menu/GraphZoomFit.svg");
+    qproperty-themeicon-Hide:                                       url(":/IDAG/resources/menu/Hide.svg");
+    qproperty-themeicon-HideAll:                                    url(":/IDAG/resources/menu/HideAll.svg");
+    qproperty-themeicon-JumpBinaryText:                             url(":/IDAG/resources/menu/JumpBinaryText.svg");
+    qproperty-themeicon-JumpEnter:                                  url(":/IDAG/resources/menu/JumpEnter.svg");
+    qproperty-themeicon-JumpEnterNew:                               url(":/IDAG/resources/menu/JumpEnterNew.svg");
+    qproperty-themeicon-JumpImmediate:                              url(":/IDAG/resources/menu/JumpImmediate.svg");
+    qproperty-themeicon-JumpNewDump:                                url(":/IDAG/resources/menu/JumpNewDump.svg");
+    qproperty-themeicon-JumpText:                                   url(":/IDAG/resources/menu/JumpText.svg");
+    qproperty-themeicon-JumpToIP:                                   url(":/IDAG/resources/menu/JumpToIP.svg");
+    qproperty-themeicon-LoadDesktop:                                url(":/IDAG/resources/menu/LoadDesktop.svg");
+    qproperty-themeicon-LoadFile:                                   url(":/IDAG/resources/menu/LoadFile.svg");
+    qproperty-themeicon-LoadNewFile:                                url(":/IDAG/resources/menu/LoadNewFile.svg");
+    qproperty-themeicon-LoadSigFile:                                url(":/IDAG/resources/menu/LoadSigFile.svg");
+    qproperty-themeicon-Locals:                                     url(":/IDAG/resources/menu/Locals.svg");
+    qproperty-themeicon-MakeArray:                                  url(":/IDAG/resources/menu/MakeArray.svg");
+    qproperty-themeicon-MakeStrlit:                                 url(":/IDAG/resources/menu/MakeStrlit.svg");
+    qproperty-themeicon-MakeCode:                                   url(":/IDAG/resources/menu/MakeCode.svg");
+    qproperty-themeicon-MakeComment:                                url(":/IDAG/resources/menu/MakeComment.svg");
+    qproperty-themeicon-MakeData:                                   url(":/IDAG/resources/menu/MakeData.svg");
+    qproperty-themeicon-MakeExtraLineA:                             url(":/IDAG/resources/menu/MakeExtraLineA.svg");
+    qproperty-themeicon-MakeExtraLineB:                             url(":/IDAG/resources/menu/MakeExtraLineB.svg");
+    qproperty-themeicon-MakeFunction:                               url(":/IDAG/resources/menu/MakeFunction.svg");
+    qproperty-themeicon-MakeName:                                   url(":/IDAG/resources/menu/MakeName.svg");
+    qproperty-themeicon-MakeRptCmt:                                 url(":/IDAG/resources/menu/MakeRptCmt.svg");
+    qproperty-themeicon-MakeUnknown:                                url(":/IDAG/resources/menu/MakeUnknown.svg");
+    qproperty-themeicon-ManualOperand:                              url(":/IDAG/resources/menu/ManualOperand.svg");
+    qproperty-themeicon-Modules:                                    url(":/IDAG/resources/menu/Modules.svg");
+    qproperty-themeicon-OpAnyOffset:                                url(":/IDAG/resources/menu/OpAnyOffset.svg");
+    qproperty-themeicon-OpBinary:                                   url(":/IDAG/resources/menu/OpBinary.svg");
+    qproperty-themeicon-OpChar:                                     url(":/IDAG/resources/menu/OpChar.svg");
+    qproperty-themeicon-OpDecimal:                                  url(":/IDAG/resources/menu/OpDecimal.svg");
+    qproperty-themeicon-OpEnum:                                     url(":/IDAG/resources/menu/OpEnum.svg");
+    qproperty-themeicon-OpFloat:                                    url(":/IDAG/resources/menu/OpFloat.svg");
+    qproperty-themeicon-OpHex:                                      url(":/IDAG/resources/menu/OpHex.svg");
+    qproperty-themeicon-OpNumber:                                   url(":/IDAG/resources/menu/OpNumber.svg");
+    qproperty-themeicon-OpOctal:                                    url(":/IDAG/resources/menu/OpOctal.svg");
+    qproperty-themeicon-OpOffset:                                   url(":/IDAG/resources/menu/OpOffset.svg");
+    qproperty-themeicon-OpOffsetCs:                                 url(":/IDAG/resources/menu/OpOffsetCs.svg");
+    qproperty-themeicon-OpSegment:                                  url(":/IDAG/resources/menu/OpSegment.svg");
+    qproperty-themeicon-OpStackVariable:                            url(":/IDAG/resources/menu/OpStackVariable.svg");
+    qproperty-themeicon-OpStructOffset:                             url(":/IDAG/resources/menu/OpStructOffset.svg");
+    qproperty-themeicon-OpUserOffset:                               url(":/IDAG/resources/menu/OpUserOffset.svg");
+    qproperty-themeicon-OpenCallers:                                url(":/IDAG/resources/menu/OpenCallers.svg");
+    qproperty-themeicon-OpenExports:                                url(":/IDAG/resources/menu/OpenExports.svg");
+    qproperty-themeicon-OpenFunctions:                              url(":/IDAG/resources/menu/OpenFunctions.svg");
+    qproperty-themeicon-OpenImports:                                url(":/IDAG/resources/menu/OpenImports.svg");
+    qproperty-themeicon-OpenLocalTypes:                             url(":/IDAG/resources/menu/OpenLocalTypes.svg");
+    qproperty-themeicon-OpenNames:                                  url(":/IDAG/resources/menu/OpenNames.svg");
+    qproperty-themeicon-OpenNotepad:                                url(":/IDAG/resources/menu/OpenNotepad.svg");
+    qproperty-themeicon-OpenProblems:                               url(":/IDAG/resources/menu/OpenProblems.svg");
+    qproperty-themeicon-OpenSegmentRegisters:                       url(":/IDAG/resources/menu/OpenSegmentRegisters.svg");
+    qproperty-themeicon-OpenSegments:                               url(":/IDAG/resources/menu/OpenSegments.svg");
+    qproperty-themeicon-OpenSelectors:                              url(":/IDAG/resources/menu/OpenSelectors.svg");
+    qproperty-themeicon-OpenSignatures:                             url(":/IDAG/resources/menu/OpenSignatures.svg");
+    qproperty-themeicon-OpenStackVariables:                         url(":/IDAG/resources/menu/OpenStackVariables.svg");
+    qproperty-themeicon-OpenStrings:                                url(":/IDAG/resources/menu/OpenStrings.svg");
+    qproperty-themeicon-OpenTypeLibraries:                          url(":/IDAG/resources/menu/OpenTypeLibraries.svg");
+    qproperty-themeicon-OpenXrefs:                                  url(":/IDAG/resources/menu/OpenXrefs.svg");
+    qproperty-themeicon-Options:                                    url(":/IDAG/resources/menu/Options.svg");
+    qproperty-themeicon-OutputWindow:                               url(":/IDAG/resources/menu/OutputWindow.svg");
+    qproperty-themeicon-PatchedBytes:                               url(":/IDAG/resources/menu/PatchedBytes.svg");
+    qproperty-themeicon-ProcessExit:                                url(":/IDAG/resources/menu/ProcessExit.svg");
+    qproperty-themeicon-ProcessGoBackwards:                         url(":/IDAG/resources/menu/ProcessGoBackwards.svg");
+    qproperty-themeicon-ProcessPause:                               url(":/IDAG/resources/menu/ProcessPause.svg");
+    qproperty-themeicon-ProcessStart:                               url(":/IDAG/resources/menu/ProcessStart.svg");
+    qproperty-themeicon-ProduceAsm:                                 url(":/IDAG/resources/menu/ProduceAsm.svg");
+    qproperty-themeicon-ProduceHeader:                              url(":/IDAG/resources/menu/ProduceHeader.svg");
+    qproperty-themeicon-ProduceInc:                                 url(":/IDAG/resources/menu/ProduceInc.svg");
+    qproperty-themeicon-ProduceLst:                                 url(":/IDAG/resources/menu/ProduceLst.svg");
+    qproperty-themeicon-QuitIDA:                                    url(":/IDAG/resources/menu/QuitIDA.svg");
+    qproperty-themeicon-ReadWriteTraceAdd:                          url(":/IDAG/resources/menu/ReadWriteTraceAdd.svg");
+    qproperty-themeicon-RecentScripts:                              url(":/IDAG/resources/menu/RecentScripts.svg");
+    qproperty-themeicon-Return:                                     url(":/IDAG/resources/menu/Return.svg");
+    qproperty-themeicon-SaveBase:                                   url(":/IDAG/resources/menu/SaveBase.svg");
+    qproperty-themeicon-SaveBaseSnap:                               url(":/IDAG/resources/menu/SaveBaseSnap.svg");
+    qproperty-themeicon-SaveDesktop:                                url(":/IDAG/resources/menu/SaveDesktop.svg");
+    qproperty-themeicon-SearchNext:                                 url(":/IDAG/resources/menu/SearchNext.svg");
+    qproperty-themeicon-SetDirection:                               url(":/IDAG/resources/menu/SetDirection.svg");
+    qproperty-themeicon-SetType:                                    url(":/IDAG/resources/menu/SetType.svg");
+    qproperty-themeicon-ShortcutEditor:                             url(":/IDAG/resources/menu/ShortcutEditor.svg");
+    qproperty-themeicon-ShowFlags:                                  url(":/IDAG/resources/menu/ShowFlags.svg");
+    qproperty-themeicon-ShowHelp:                                   url(":/IDAG/resources/menu/ShowHelp.svg");
+    qproperty-themeicon-ShowRegisters:                              url(":/IDAG/resources/menu/ShowRegisters.svg");
+    qproperty-themeicon-ShowSnapMan:                                url(":/IDAG/resources/menu/ShowSnapMan.svg");
+    qproperty-themeicon-ShrinkStruct:                               url(":/IDAG/resources/menu/ShrinkStruct.svg");
+    qproperty-themeicon-StackTrace:                                 url(":/IDAG/resources/menu/StackTrace.svg");
+    qproperty-themeicon-StackView:                                  url(":/IDAG/resources/menu/StackView.svg");
+    qproperty-themeicon-StringC:                                    url(":/IDAG/resources/menu/StringC.svg");
+    qproperty-themeicon-StringDOS:                                  url(":/IDAG/resources/menu/StringDOS.svg");
+    qproperty-themeicon-StringDelphi:                               url(":/IDAG/resources/menu/StringDelphi.svg");
+    qproperty-themeicon-StringPascal1:                              url(":/IDAG/resources/menu/StringPascal1.svg");
+    qproperty-themeicon-StringPascal2:                              url(":/IDAG/resources/menu/StringPascal2.svg");
+    qproperty-themeicon-StringUnicode:                              url(":/IDAG/resources/menu/StringUnicode.svg");
+    qproperty-themeicon-StringUnicodePascal2:                       url(":/IDAG/resources/menu/StringUnicodePascal2.svg");
+    qproperty-themeicon-StringUnicodePascal4:                       url(":/IDAG/resources/menu/StringUnicodePascal4.svg");
+    qproperty-themeicon-SwitchToSource:                             url(":/IDAG/resources/menu/SwitchToSource.svg");
+    qproperty-themeicon-TakeSnapshot:                               url(":/IDAG/resources/menu/TakeSnapshot.svg");
+    qproperty-themeicon-ThreadRunToCursor:                          url(":/IDAG/resources/menu/ThreadRunToCursor.svg");
+    qproperty-themeicon-ThreadRunToCursorBackwards:                 url(":/IDAG/resources/menu/ThreadRunToCursorBackwards.svg");
+    qproperty-themeicon-ThreadRunUntilReturn:                       url(":/IDAG/resources/menu/ThreadRunUntilReturn.svg");
+    qproperty-themeicon-ThreadSetCurrentIp:                         url(":/IDAG/resources/menu/ThreadSetCurrentIp.svg");
+    qproperty-themeicon-ThreadStepInto:                             url(":/IDAG/resources/menu/ThreadStepInto.svg");
+    qproperty-themeicon-ThreadStepIntoBackwards:                    url(":/IDAG/resources/menu/ThreadStepIntoBackwards.svg");
+    qproperty-themeicon-ThreadStepOver:                             url(":/IDAG/resources/menu/ThreadStepOver.svg");
+    qproperty-themeicon-ThreadStepOverBackwards:                    url(":/IDAG/resources/menu/ThreadStepOverBackwards.svg");
+    qproperty-themeicon-Threads:                                    url(":/IDAG/resources/menu/Threads.svg");
+    qproperty-themeicon-TilAddFuncArg:                              url(":/IDAG/resources/menu/TilAddFuncArg.svg");
+    qproperty-themeicon-TilAddType:                                 url(":/IDAG/resources/menu/TilAddType.svg");
+    qproperty-themeicon-TilDelType:                                 url(":/IDAG/resources/menu/TilDelType.svg");
+    qproperty-themeicon-TilEditConst:                               url(":/IDAG/resources/menu/TilEditConst.svg");
+    qproperty-themeicon-ToggleDump:                                 url(":/IDAG/resources/menu/ToggleDump.svg");
+    qproperty-themeicon-ToggleLeadingZeroes:                        url(":/IDAG/resources/menu/ToggleLeadingZeroes.svg");
+    qproperty-themeicon-ToggleSourceDebug:                          url(":/IDAG/resources/menu/ToggleSourceDebug.svg");
+    qproperty-themeicon-ToggleTraceFunctions:                       url(":/IDAG/resources/menu/ToggleTraceFunctions.svg");
+    qproperty-themeicon-ToggleTraceInstructions:                    url(":/IDAG/resources/menu/ToggleTraceInstructions.svg");
+    qproperty-themeicon-TracingWindow:                              url(":/IDAG/resources/menu/TracingWindow.svg");
+    qproperty-themeicon-UnHide:                                     url(":/IDAG/resources/menu/UnHide.svg");
+    qproperty-themeicon-UnHideAll:                                  url(":/IDAG/resources/menu/UnHideAll.svg");
+    qproperty-themeicon-UndoReturn:                                 url(":/IDAG/resources/menu/UndoReturn.svg");
+    qproperty-themeicon-WatchList:                                  url(":/IDAG/resources/menu/WatchList.svg");
+    qproperty-themeicon-WatchView:                                  url(":/IDAG/resources/menu/WatchView.svg");
+    qproperty-themeicon-WindowOpen:                                 url(":/IDAG/resources/menu/WindowOpen.svg");
+    qproperty-themeicon-WindowsList:                                url(":/IDAG/resources/menu/WindowsList.svg");
+    qproperty-themeicon-WriteTraceAdd:                              url(":/IDAG/resources/menu/WriteTraceAdd.svg");
+    qproperty-themeicon-LocalTypesExportToHeader:                   url(":/IDAG/resources/menu/LocalTypesExportToHeader.svg");
+    qproperty-themeicon-DebuggerSuspendThread:                      url(":/IDAG/resources/menu/DebuggerSuspendThread.svg");
+    qproperty-themeicon-DebuggerResumeThread:                       url(":/IDAG/resources/menu/DebuggerResumeThread.svg");
+    qproperty-themeicon-ShowUndoHistory:                            url(":/IDAG/resources/menu/ShowUndoHistory.svg");
+    qproperty-themeicon-ActinsQuickFilter:                          url(":/IDAG/resources/menu/ActinsQuickFilter.svg");
+    qproperty-themeicon-DiffPrevChunk:                              url(":/IDAG/resources/menu/DiffPrevChunk.svg");
+    qproperty-themeicon-DiffCenterChunk:                            url(":/IDAG/resources/menu/DiffCenterChunk.svg");
+    qproperty-themeicon-DiffNextChunk:                              url(":/IDAG/resources/menu/DiffNextChunk.svg");
+    qproperty-themeicon-DiffPrevConflict:                           url(":/IDAG/resources/menu/DiffPrevConflict.svg");
+    qproperty-themeicon-DiffNextConflict:                           url(":/IDAG/resources/menu/DiffNextConflict.svg");
+    qproperty-themeicon-DiffApplyHandlerNoConflicts:                url(":/IDAG/resources/menu/DiffApplyHandlerNoConflicts.svg");
+    qproperty-themeicon-DiffApplyHandlerPickLocalOnConflict:        url(":/IDAG/resources/menu/DiffApplyHandlerPickLocalOnConflict.svg");
+    qproperty-themeicon-DiffProceedToTheNextStep:                   url(":/IDAG/resources/menu/DiffProceedToTheNextStep.svg");
+    qproperty-themeicon-DiffApplyHandlerPickRemoteOnConflict:       url(":/IDAG/resources/menu/DiffApplyHandlerPickRemoteOnConflict.svg");
+    qproperty-themeicon-DiffApplyPickLocal:                         url(":/IDAG/resources/menu/DiffApplyPickLocal.svg");
+    qproperty-themeicon-DiffApplyPickRemote:                        url(":/IDAG/resources/menu/DiffApplyPickRemote.svg");
+    qproperty-themeicon-DiffToggleBasePanel:                        url(":/IDAG/resources/menu/DiffToggleBasePanel.svg");
+    qproperty-themeicon-DiffToggleDetails:                          url(":/IDAG/resources/menu/DiffToggleDetails.svg");
+    qproperty-themeicon-FuncChangeCC:                               url(":/IDAG/resources/menu/FuncChangeCC.svg");
+    qproperty-themeicon-EditArgloc:                                 url(":/IDAG/resources/menu/EditArgloc.svg");
+    qproperty-themeicon-AddressDetails:                             url(":/IDAG/resources/menu/AddressDetails.svg");
+    qproperty-themeicon-Bookmarks:                                  url(":/IDAG/resources/menu/Bookmarks.svg");
+    qproperty-themeicon-FunctionCallGraph:                          url(":/IDAG/resources/menu/FunctionCallGraph.svg");
+    qproperty-themeicon-Waiting:                                    url(":/IDAG/resources/menu/Waiting.svg");
+}
+
+/* Dark Theme Overrides */
+CustomIDAMemo[os-dark-theme="true"]
+{
+    border: none;
+
+    /* Disassembly Listing Colors */
+    qproperty-line-fg-default: ${dark_fg_default};
+    qproperty-line-fg-regular-comment: ${dark_fg_reg_comment};
+    qproperty-line-fg-repeatable-comment: ${dark_fg_rep_comment};
+    qproperty-line-fg-automatic-comment: ${dark_fg_auto_comment};
+    qproperty-line-fg-insn: ${dark_fg_insn};
+    qproperty-line-fg-dummy-data-name: ${dark_fg_dummy_data};
+    qproperty-line-fg-regular-data-name: ${dark_fg_reg_data};
+    qproperty-line-fg-demangled-name: ${dark_fg_demangled};
+    qproperty-line-fg-punctuation: ${dark_fg_punct};
+    qproperty-line-fg-charlit-in-insn: ${dark_fg_charlit_insn};
+    qproperty-line-fg-strlit-in-insn: ${dark_fg_strlit_insn};
+    qproperty-line-fg-numlit-in-insn: ${dark_fg_numlit_insn};
+    qproperty-line-fg-void-opnd: ${dark_fg_void_opnd};
+    qproperty-line-fg-code-xref: ${dark_fg_code_xref};
+    qproperty-line-fg-data-xref: ${dark_fg_data_xref};
+    qproperty-line-fg-code-xref-to-tail: ${dark_fg_code_xref_tail};
+    qproperty-line-fg-data-xref-to-tail: ${dark_fg_data_xref_tail};
+    qproperty-line-fg-error: ${dark_fg_error};
+    qproperty-line-fg-line-prefix: ${dark_fg_line_prefix};
+    qproperty-line-fg-opcode-byte: ${dark_fg_opcode};
+    qproperty-line-fg-extra-line: ${dark_fg_extra_line};
+    qproperty-line-fg-alt-opnd: ${dark_fg_alt_opnd};
+    qproperty-line-fg-hidden: ${dark_fg_hidden};
+    qproperty-line-fg-libfunc: ${dark_fg_libfunc};
+    qproperty-line-fg-locvar: ${dark_fg_locvar};
+    qproperty-line-fg-dummy-code-name: ${dark_fg_dummy_code};
+    qproperty-line-fg-asm-directive: ${dark_fg_asm_directive};
+    qproperty-line-fg-macro: ${dark_fg_macro};
+    qproperty-line-fg-strlit-in-data: ${dark_fg_strlit_data};
+    qproperty-line-fg-charlit-in-data: ${dark_fg_charlit_data};
+    qproperty-line-fg-numlit-in-data: ${dark_fg_numlit_data};
+    qproperty-line-fg-keyword: ${dark_fg_keyword};
+    qproperty-line-fg-register-name: ${dark_fg_reg_name};
+    qproperty-line-fg-import-name: ${dark_fg_import_name};
+    qproperty-line-fg-segment-name: ${dark_fg_seg_name};
+    qproperty-line-fg-dummy-unknown-name: ${dark_fg_dummy_unknown};
+    qproperty-line-fg-code-name: ${dark_fg_code_name};
+    qproperty-line-fg-unknown-name: ${dark_fg_unknown_name};
+    qproperty-line-fg-collapsed-line: ${dark_fg_collapsed};
+    qproperty-line-bg-default: ${dark_bg_default};
+    qproperty-line-bg-selected: ${dark_bg_selected};
+    qproperty-line-pfx-libfunc: ${dark_pfx_libfunc};
+    qproperty-line-pfx-func: ${dark_pfx_func};
+    qproperty-line-pfx-insn: ${dark_pfx_insn};
+    qproperty-line-pfx-data: ${dark_pfx_data};
+    qproperty-line-pfx-unexplored: ${dark_pfx_unexplored};
+    qproperty-line-pfx-extern: ${dark_pfx_extern};
+    qproperty-line-pfx-current-line: ${dark_pfx_current_line};
+    qproperty-line-pfx-lumina: ${dark_pfx_lumina};
+
+    /* graph */
+    qproperty-graph-bg-top: ${dark_graph_bg};
+    qproperty-graph-bg-bottom: ${dark_graph_bg};
+    qproperty-graph-node-title-normal: ${dark_graph_node_title_normal};
+    qproperty-graph-node-title-selected: ${dark_graph_node_title_selected};
+    qproperty-graph-node-title-current: ${dark_graph_node_title_current};
+    qproperty-graph-node-frame-group: ${dark_graph_node_frame_group};
+    qproperty-graph-node-shadow: ${dark_graph_node_shadow};
+    qproperty-graph-node-high1: ${dark_graph_node_high1};
+    qproperty-graph-node-high2: ${dark_graph_node_high2};
+    qproperty-graph-node-foreign: ${dark_graph_node_foreign};
+    qproperty-graph-edge-normal: ${dark_graph_edge_normal};
+    qproperty-graph-edge-yes: ${dark_graph_edge_yes};
+    qproperty-graph-edge-no: ${dark_graph_edge_no};
+    qproperty-graph-edge-high: ${dark_graph_edge_high};
+    qproperty-graph-edge-selected: ${dark_graph_edge_selected};
+    qproperty-graph-node-frame-selected: ${dark_graph_node_frame_selected};
+
+    /* misc */
+    qproperty-line-fg-patched-bytes: ${clr_brownish}; /* Same as light */
+    qproperty-line-fg-unsaved-changes: ${clr_orange}; /* Same as light */
+    qproperty-line-bg-highlight: ${dark_highlight_bg_base};
+
+    /* bpts */
+    qproperty-line-bg-bpt-enabled: ${dark_bpt_enabled_bg};
+    qproperty-line-bg-bpt-disabled: ${dark_bpt_disabled_bg};
+    qproperty-line-bg-bpt-unavailable: ${dark_bpt_unavailable_bg};
+
+    /* bookmarks */
+    qproperty-bookmark-star-outline: ${dark_bookmark_star_outline};
+}
+
+CustomIDAMemo[os-dark-theme="true"][hints="true"]
+{
+    qproperty-line-bg-default: ${dark_hints_bg};
+}
+
+CustomIDAMemo[os-dark-theme="true"][debugging="true"]
+{
+    qproperty-line-bg-default: ${dark_debugging_bg};
+}
