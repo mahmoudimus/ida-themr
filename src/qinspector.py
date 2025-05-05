@@ -1,26 +1,18 @@
 import sys
 
-from PyQt5.QtCore import Qt, QEvent
-from PyQt5.QtGui import (
-    QCursor,
-    QFont,
-    QKeySequence,
-    QPalette,
-    QPixmap,
-    QColor,
-    QIcon,
-)
+from PyQt5.QtCore import QEvent, Qt
+from PyQt5.QtGui import QColor, QCursor, QFont, QIcon, QKeySequence, QPalette, QPixmap
 from PyQt5.QtWidgets import (
     QApplication,
     QHBoxLayout,
     QLabel,
     QPushButton,
     QShortcut,
+    QSizePolicy,
     QTableWidget,
     QTableWidgetItem,
     QVBoxLayout,
     QWidget,
-    QSizePolicy,
 )
 
 
@@ -118,6 +110,87 @@ class ObjectInspector(QWidget):
         if parent and parent.inherits("QWidget"):
             self._inspect_widget(parent)
 
+    def _get_specific_css_selector(self, widget):
+        """Generate the most specific CSS selector for a widget."""
+        widget_type = widget.metaObject().className()
+        object_name = widget.objectName()
+
+        if object_name:
+            return f'{widget_type}[objectName="{object_name}"]'
+        else:
+            return widget_type
+
+    def _get_css_selector_with_parent(self, widget):
+        """Generate a CSS selector that includes the immediate parent."""
+        if not widget.parent():
+            return self._get_specific_css_selector(widget)
+
+        parent_selector = self._get_specific_css_selector(widget.parent())
+        widget_selector = self._get_specific_css_selector(widget)
+        return f"{parent_selector} > {widget_selector}"
+
+    def _get_full_hierarchy_css_selector(self, widget):
+        """Generate a CSS selector with the full widget hierarchy from root to widget."""
+        selectors = []
+        current = widget
+
+        while current:
+            selectors.insert(0, self._get_specific_css_selector(current))
+            current = current.parent()
+
+        return " > ".join(selectors)
+
+    def _add_css_selector_hierarchy(self, widget, properties):
+        """Add CSS selectors for the widget and all its parents to the properties."""
+        # Add the most specific selector for this widget
+        properties.append(
+            ("CSS Selector (Specific)", self._get_specific_css_selector(widget))
+        )
+
+        # Build a list of all ancestors
+        ancestors = []
+        current = widget
+        while current.parent():
+            ancestors.insert(0, current.parent())
+            current = current.parent()
+
+        # Add a selector for each level of the hierarchy
+        if ancestors:
+            # First, add the immediate parent relationship
+            properties.append(
+                (
+                    "CSS Selector (With Parent)",
+                    self._get_css_selector_with_parent(widget),
+                )
+            )
+
+            # Then add the full hierarchy selector
+            properties.append(
+                (
+                    "CSS Selector (Full Hierarchy)",
+                    self._get_full_hierarchy_css_selector(widget),
+                )
+            )
+
+            # Add intermediate levels if there are more than one parent
+            if len(ancestors) > 1:
+                # Start building from the root
+                path_selectors = []
+                for i, ancestor in enumerate(ancestors):
+                    path_selectors.append(self._get_specific_css_selector(ancestor))
+                    # Skip the immediate parent (already covered) and full hierarchy (already covered)
+                    if 0 < i < len(ancestors) - 1:
+                        path_selectors_copy = path_selectors.copy()
+                        path_selectors_copy.append(
+                            self._get_specific_css_selector(widget)
+                        )
+                        properties.append(
+                            (
+                                f"CSS Selector (With {i+1} Parents)",
+                                " > ".join(path_selectors_copy),
+                            )
+                        )
+
     def _inspect_widget(self, widget):
         # Disconnect previous destroyed signal
         if self.selected_widget is not None:
@@ -147,6 +220,10 @@ class ObjectInspector(QWidget):
                 ("Name", widget.objectName() or "<none>"),
                 ("Children Count", str(len(widget.children()))),
             ]
+
+            # Add CSS selectors
+            self._add_css_selector_hierarchy(widget, properties)
+
             # Parent info
             parent = widget.parent()
             properties += [
