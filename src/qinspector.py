@@ -1,7 +1,16 @@
 import sys
 
 from PyQt5.QtCore import QEvent, Qt
-from PyQt5.QtGui import QColor, QCursor, QFont, QIcon, QKeySequence, QPalette, QPixmap
+from PyQt5.QtGui import (
+    QColor,
+    QCursor,
+    QFont,
+    QIcon,
+    QKeyEvent,
+    QKeySequence,
+    QPalette,
+    QPixmap,
+)
 from PyQt5.QtWidgets import (
     QApplication,
     QHBoxLayout,
@@ -9,6 +18,7 @@ from PyQt5.QtWidgets import (
     QPushButton,
     QShortcut,
     QSizePolicy,
+    QStatusBar,
     QTableWidget,
     QTableWidgetItem,
     QVBoxLayout,
@@ -31,6 +41,9 @@ class ObjectInspector(QWidget):
         self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint | Qt.Tool)
         self.setAttribute(Qt.WA_ShowWithoutActivating)
 
+        # Flag to track if updates are suspended
+        self.updates_suspended = False
+
         # Install event filter for hover events
         app = QApplication.instance()
         app.installEventFilter(self)
@@ -44,6 +57,9 @@ class ObjectInspector(QWidget):
 
         self._create_ui()
         self._set_table_style()
+
+        # Enable key tracking
+        self.setFocusPolicy(Qt.StrongFocus)
 
     def _create_ui(self):
         self.setWindowTitle("Object Inspector")
@@ -83,12 +99,18 @@ class ObjectInspector(QWidget):
         self.tbl_inspection.setSelectionMode(QTableWidget.NoSelection)
         self.tbl_inspection.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
+        # Status bar
+        self.status_bar = QStatusBar(self)
+        self.status_bar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.status_bar.showMessage("Hold Ctrl OR Shift to suspend updates")
+
         # Main layout
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(4, 4, 4, 4)
         main_layout.setSpacing(6)
         main_layout.addLayout(top_layout)
         main_layout.addWidget(self.tbl_inspection)
+        main_layout.addWidget(self.status_bar)
         self.setLayout(main_layout)
 
     def _set_table_style(self):
@@ -96,11 +118,36 @@ class ObjectInspector(QWidget):
         font.setStyleHint(QFont.TypeWriter)
         self.tbl_inspection.setFont(font)
 
+    def _update_suspended_state(self):
+        """Check and update the suspended state based on modifier keys."""
+        modifiers = QApplication.keyboardModifiers()
+        was_suspended = self.updates_suspended
+        self.updates_suspended = bool(
+            modifiers & Qt.ControlModifier or modifiers & Qt.ShiftModifier
+        )
+
+        if self.updates_suspended != was_suspended:
+            if self.updates_suspended:
+                self.status_bar.showMessage("Updates suspended")
+            else:
+                self.status_bar.showMessage("Hold Ctrl OR Shift to suspend updates")
+
+        return self.updates_suspended
+
     def eventFilter(self, obj, event):
-        if event.type() == QEvent.Enter and isinstance(obj, QWidget):
+        # Check if modifiers changed on any event
+        if event.type() in (QEvent.KeyPress, QEvent.KeyRelease):
+            self._update_suspended_state()
+
+        # Handle Enter events for widget inspection
+        elif event.type() == QEvent.Enter and isinstance(obj, QWidget):
             if obj is self or self.isAncestorOf(obj):
                 return super().eventFilter(obj, event)
-            self._inspect_widget(obj)
+
+            # Check keyboard modifiers
+            if not self._update_suspended_state() and obj is not self:
+                self._inspect_widget(obj)
+
         return super().eventFilter(obj, event)
 
     def select_parent(self):
