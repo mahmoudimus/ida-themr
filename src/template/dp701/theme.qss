@@ -14,7 +14,8 @@
 @def scroll_margin_h         0 16px 0 16px;
 @def scroll_margin_v         16px 0 16px 0;
 @def scroll_handle_margin    4px 1px 4px 1px;
-@def arrow_size              8px;
+@def arrow_size              8
+px;
 @def statusbar_h             20px;
 @def font_size_small         8pt;
 @def font_size_normal        9pt;

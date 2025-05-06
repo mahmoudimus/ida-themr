@@ -1,26 +1,23 @@
-import sys
+import configparser
+import json
+from datetime import datetime
 
-from PyQt5.QtCore import QEvent, Qt
-from PyQt5.QtGui import (
-    QColor,
-    QCursor,
-    QFont,
-    QIcon,
-    QKeyEvent,
-    QKeySequence,
-    QPalette,
-    QPixmap,
-)
+from PyQt5.QtCore import QEvent, Qt, QTimer
+from PyQt5.QtGui import QColor, QFont, QIcon, QKeySequence, QPalette, QPixmap
 from PyQt5.QtWidgets import (
     QApplication,
+    QCheckBox,
+    QFileDialog,
     QHBoxLayout,
+    QHeaderView,
     QLabel,
+    QMenu,
     QPushButton,
     QShortcut,
     QSizePolicy,
     QStatusBar,
-    QTableWidget,
-    QTableWidgetItem,
+    QTreeWidget,
+    QTreeWidgetItem,
     QVBoxLayout,
     QWidget,
 )
@@ -30,7 +27,7 @@ class ObjectInspector(QWidget):
     """
     Rudimentary Qt object inspector.
     Automatically inspects widgets on hover without stealing focus.
-    Presents inspection data in a two-column table with copy capability.
+    Presents inspection data in a tree widget with collapsible categories.
     Includes deep metadata: style engine, cursor, autofill, focus, dynamic properties, palette, actions.
     """
 
@@ -43,6 +40,22 @@ class ObjectInspector(QWidget):
 
         # Flag to track if updates are suspended
         self.updates_suspended = False
+        # Flag to track if updates are manually suspended (for context menu)
+        self.menu_suspended = False
+
+        # Flag for expand on updates
+        self.expand_on_updates = False
+
+        # For status message handling
+        self.status_timer = QTimer(self)
+        self.status_timer.setSingleShot(True)
+        self.status_timer.timeout.connect(self.restore_default_status)
+
+        # Tracking categories for tree widget
+        self.categories = {}
+
+        # Store context menu data
+        self.context_menu_data = None
 
         # Install event filter for hover events
         app = QApplication.instance()
@@ -56,7 +69,10 @@ class ObjectInspector(QWidget):
         self.selected_widget = None
 
         self._create_ui()
-        self._set_table_style()
+        self._set_tree_style()
+
+        # Set window dimensions
+        self.resize(1200, 980)
 
         # Enable key tracking
         self.setFocusPolicy(Qt.StrongFocus)
@@ -64,16 +80,28 @@ class ObjectInspector(QWidget):
     def _create_ui(self):
         self.setWindowTitle("Object Inspector")
 
-        # Buttons
+        # Top buttons
         self.btn_select_parent = QPushButton("Select parent", self)
         self.btn_select_parent.released.connect(self.select_parent)
 
-        self.btn_copy = QPushButton("Copy", self)
+        self.btn_copy = QPushButton("Copy All", self)
         self.btn_copy.released.connect(self.copy_to_clipboard)
+
+        self.btn_export = QPushButton("Export...", self)
+        self.btn_export.released.connect(self.export_data)
+
+        self.btn_expand_all = QPushButton("Expand All", self)
+        self.btn_expand_all.released.connect(self.expand_all_categories)
+
+        self.btn_collapse_all = QPushButton("Collapse All", self)
+        self.btn_collapse_all.released.connect(self.collapse_all_categories)
+
+        self.chk_expand_on_updates = QCheckBox("Expand on Updates", self)
+        self.chk_expand_on_updates.stateChanged.connect(self.toggle_expand_on_updates)
 
         # Help label
         self.lbl_help = QLabel(
-            "Hover over any widget to inspect it; press F7 to select its parent.",
+            "Hover over any widget to inspect it; press F7 to select its parent. Right-click for context menu.",
             self,
         )
 
@@ -86,40 +114,312 @@ class ObjectInspector(QWidget):
         top_layout.setSpacing(4)
         top_layout.addWidget(self.btn_select_parent)
         top_layout.addWidget(self.btn_copy)
-        top_layout.addWidget(self.lbl_help)
+        top_layout.addWidget(self.btn_export)
+        top_layout.addWidget(self.btn_expand_all)
+        top_layout.addWidget(self.btn_collapse_all)
+        top_layout.addWidget(self.chk_expand_on_updates)
         top_layout.addWidget(spacer)
 
-        # Inspection table
-        self.tbl_inspection = QTableWidget(self)
-        self.tbl_inspection.setColumnCount(2)
-        self.tbl_inspection.setHorizontalHeaderLabels(["Property", "Value"])
-        self.tbl_inspection.horizontalHeader().setStretchLastSection(True)
-        self.tbl_inspection.verticalHeader().setVisible(False)
-        self.tbl_inspection.setEditTriggers(QTableWidget.NoEditTriggers)
-        self.tbl_inspection.setSelectionMode(QTableWidget.NoSelection)
-        self.tbl_inspection.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        # Second row layout
+        second_row_layout = QHBoxLayout()
+        second_row_layout.setContentsMargins(2, 2, 2, 2)
+        second_row_layout.setSpacing(4)
+        second_row_layout.addWidget(self.lbl_help)
+        second_row_layout.addStretch()
+
+        # Inspection tree
+        self.tree_inspection = QTreeWidget(self)
+        self.tree_inspection.setColumnCount(2)
+        self.tree_inspection.setHeaderLabels(["Property", "Value"])
+        self.tree_inspection.header().setSectionResizeMode(
+            0, QHeaderView.ResizeToContents
+        )
+        self.tree_inspection.header().setSectionResizeMode(1, QHeaderView.Stretch)
+        self.tree_inspection.setEditTriggers(QTreeWidget.NoEditTriggers)
+        self.tree_inspection.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.tree_inspection.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.tree_inspection.customContextMenuRequested.connect(self.show_context_menu)
 
         # Status bar
         self.status_bar = QStatusBar(self)
         self.status_bar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        self.status_bar.showMessage("Hold Ctrl OR Shift to suspend updates")
+        self.set_status_message("Hold Ctrl OR Shift to suspend updates")
 
         # Main layout
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(4, 4, 4, 4)
         main_layout.setSpacing(6)
         main_layout.addLayout(top_layout)
-        main_layout.addWidget(self.tbl_inspection)
+        main_layout.addLayout(second_row_layout)
+        main_layout.addWidget(self.tree_inspection)
         main_layout.addWidget(self.status_bar)
         self.setLayout(main_layout)
 
-    def _set_table_style(self):
+    def set_status_message(self, message, timeout=0):
+        """
+        Set a status message with optional timeout.
+        If timeout > 0, the message will be shown for that many milliseconds
+        and then revert to the default message.
+        """
+        # Cancel any pending timer
+        self.status_timer.stop()
+
+        # Set the new message
+        self.status_bar.showMessage(message)
+
+        # If timeout specified, schedule restoration of default message
+        if timeout > 0:
+            self.status_timer.start(timeout)
+
+    def restore_default_status(self):
+        """Restore the default status message based on the current state."""
+        if self.updates_suspended:
+            self.status_bar.showMessage("Updates suspended")
+        else:
+            self.status_bar.showMessage("Hold Ctrl OR Shift to suspend updates")
+
+    def toggle_expand_on_updates(self, state):
+        """Toggle whether categories should be expanded on inspection updates."""
+        self.expand_on_updates = state == Qt.Checked
+
+    def expand_all_categories(self):
+        """Expand all categories in the tree."""
+        for category_idx in range(self.tree_inspection.topLevelItemCount()):
+            category = self.tree_inspection.topLevelItem(category_idx)
+            category.setExpanded(True)
+
+    def collapse_all_categories(self):
+        """Collapse all categories in the tree."""
+        for category_idx in range(self.tree_inspection.topLevelItemCount()):
+            category = self.tree_inspection.topLevelItem(category_idx)
+            category.setExpanded(False)
+
+    def show_context_menu(self, position):
+        """Show a context menu for the tree item at the given position."""
+        item = self.tree_inspection.itemAt(position)
+        if not item:
+            return
+
+        # Suspend updates while the context menu is active
+        self.menu_suspended = True
+        self.updates_suspended = True
+        self.set_status_message("Updates suspended for menu operation")
+
+        menu = QMenu(self)
+        # Connect to aboutToHide to resume updates if menu is cancelled
+        menu.aboutToHide.connect(self.resume_updates_after_menu)
+
+        # Store item data before showing menu
+        is_category = item.parent() is None
+
+        if is_category:
+            # For category, store all property data
+            category_name = item.text(0)
+            properties = []
+
+            for prop_idx in range(item.childCount()):
+                prop_item = item.child(prop_idx)
+                properties.append((prop_item.text(0), prop_item.text(1)))
+
+            self.context_menu_data = {
+                "type": "category",
+                "name": category_name,
+                "properties": properties,
+                "item": item,  # Keep reference for expand/collapse actions
+            }
+
+            # Category item
+            copy_action = menu.addAction("Copy Category")
+            copy_action.triggered.connect(self.copy_context_category)
+
+            expand_action = menu.addAction("Expand")
+            expand_action.triggered.connect(self.expand_context_category)
+
+            collapse_action = menu.addAction("Collapse")
+            collapse_action.triggered.connect(self.collapse_context_category)
+        else:
+            # For property, just store the property data
+            prop_name = item.text(0)
+            prop_value = item.text(1)
+
+            self.context_menu_data = {
+                "type": "property",
+                "name": prop_name,
+                "value": prop_value,
+            }
+
+            # Property item
+            copy_action = menu.addAction("Copy Property")
+            copy_action.triggered.connect(self.copy_context_property)
+
+        menu.exec_(self.tree_inspection.viewport().mapToGlobal(position))
+
+    def resume_updates_after_menu(self):
+        """Resume updates after the context menu is hidden."""
+        # Only resume if suspension was due to menu (not Ctrl/Shift keys)
+        if self.menu_suspended:
+            self.menu_suspended = False
+            # Check if Ctrl/Shift are still pressed
+            modifiers = QApplication.keyboardModifiers()
+            if not (modifiers & Qt.ControlModifier or modifiers & Qt.ShiftModifier):
+                self.updates_suspended = False
+                self.restore_default_status()
+
+    def copy_context_category(self):
+        """Copy all properties in the context menu category to the clipboard."""
+        if not self.context_menu_data or self.context_menu_data["type"] != "category":
+            return
+
+        category_name = self.context_menu_data["name"]
+        properties = self.context_menu_data["properties"]
+
+        lines = [f"{category_name}:"]
+        for prop_name, prop_value in properties:
+            lines.append(f"  {prop_name}: {prop_value}")
+
+        QApplication.clipboard().setText("\n".join(lines))
+        self.set_status_message(f"Category '{category_name}' copied to clipboard", 3000)
+
+        # Resume updates after copy
+        self.resume_updates_after_menu()
+
+    def copy_context_property(self):
+        """Copy a single property from the context menu to the clipboard."""
+        if not self.context_menu_data or self.context_menu_data["type"] != "property":
+            return
+
+        prop_name = self.context_menu_data["name"]
+        prop_value = self.context_menu_data["value"]
+
+        text = f"{prop_name}: {prop_value}"
+        QApplication.clipboard().setText(text)
+        self.set_status_message(f"Property '{prop_name}' copied to clipboard", 3000)
+
+        # Resume updates after copy
+        self.resume_updates_after_menu()
+
+    def expand_context_category(self):
+        """Expand the category from the context menu."""
+        if not self.context_menu_data or self.context_menu_data["type"] != "category":
+            return
+
+        item = self.context_menu_data["item"]
+        if item and self.tree_inspection.indexOfTopLevelItem(item) >= 0:
+            item.setExpanded(True)
+
+        # Resume updates after expand
+        self.resume_updates_after_menu()
+
+    def collapse_context_category(self):
+        """Collapse the category from the context menu."""
+        if not self.context_menu_data or self.context_menu_data["type"] != "category":
+            return
+
+        item = self.context_menu_data["item"]
+        if item and self.tree_inspection.indexOfTopLevelItem(item) >= 0:
+            item.setExpanded(False)
+
+        # Resume updates after collapse
+        self.resume_updates_after_menu()
+
+    def export_data(self):
+        """Export the inspection data to a file."""
+        if not self.selected_widget:
+            self.set_status_message("No widget selected to export", 3000)
+            return
+
+        # Suspend updates during export
+        was_suspended = self.updates_suspended
+        self.updates_suspended = True
+        self.set_status_message("Updates suspended for export operation")
+
+        # Prepare data for export
+        data = self._get_data_as_dict()
+
+        # Ask user for file location and format
+        file_path, selected_filter = QFileDialog.getSaveFileName(
+            self,
+            "Save Inspection Data",
+            f"widget_inspection_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+            "JSON Files (*.json);;INI Files (*.ini);;All Files (*)",
+        )
+
+        if not file_path:
+            # Resume updates if export was cancelled
+            if not was_suspended:
+                self.updates_suspended = False
+                self.restore_default_status()
+            return  # User canceled
+
+        try:
+            if file_path.endswith(".json") or "JSON" in selected_filter:
+                self._export_as_json(file_path, data)
+            elif file_path.endswith(".ini") or "INI" in selected_filter:
+                self._export_as_ini(file_path, data)
+            else:
+                # Default to JSON if no extension specified
+                if not "." in file_path:
+                    file_path += ".json"
+                self._export_as_json(file_path, data)
+
+            self.set_status_message(f"Exported data to {file_path}", 3000)
+        except Exception as e:
+            self.set_status_message(f"Error exporting data: {str(e)}", 5000)
+        finally:
+            # Resume updates if they weren't suspended before
+            if not was_suspended:
+                self.updates_suspended = False
+                # Status will be restored by the timer set in set_status_message
+
+    def _get_data_as_dict(self):
+        """Get the inspection data as a nested dictionary."""
+        data = {}
+
+        # Iterate through all categories
+        for category_idx in range(self.tree_inspection.topLevelItemCount()):
+            category = self.tree_inspection.topLevelItem(category_idx)
+            category_name = category.text(0)
+            category_data = {}
+
+            # Iterate through properties in this category
+            for prop_idx in range(category.childCount()):
+                prop_item = category.child(prop_idx)
+                prop_name = prop_item.text(0)
+                prop_value = prop_item.text(1)
+                category_data[prop_name] = prop_value
+
+            data[category_name] = category_data
+
+        return data
+
+    def _export_as_json(self, file_path, data):
+        """Export data as JSON."""
+        with open(file_path, "w") as f:
+            json.dump(data, f, indent=2)
+
+    def _export_as_ini(self, file_path, data):
+        """Export data as INI file."""
+        config = configparser.ConfigParser()
+
+        for category, props in data.items():
+            # Replace any characters not allowed in INI section names
+            safe_category = category.replace("[", "(").replace("]", ")")
+            config[safe_category] = props
+
+        with open(file_path, "w") as f:
+            config.write(f)
+
+    def _set_tree_style(self):
         font = QFont("Monospace")
         font.setStyleHint(QFont.TypeWriter)
-        self.tbl_inspection.setFont(font)
+        self.tree_inspection.setFont(font)
 
     def _update_suspended_state(self):
         """Check and update the suspended state based on modifier keys."""
+        # Don't change state if menu is active
+        if self.menu_suspended:
+            return True
+
         modifiers = QApplication.keyboardModifiers()
         was_suspended = self.updates_suspended
         self.updates_suspended = bool(
@@ -128,9 +428,9 @@ class ObjectInspector(QWidget):
 
         if self.updates_suspended != was_suspended:
             if self.updates_suspended:
-                self.status_bar.showMessage("Updates suspended")
+                self.set_status_message("Updates suspended")
             else:
-                self.status_bar.showMessage("Hold Ctrl OR Shift to suspend updates")
+                self.set_status_message("Hold Ctrl OR Shift to suspend updates")
 
         return self.updates_suspended
 
@@ -187,11 +487,11 @@ class ObjectInspector(QWidget):
 
         return " > ".join(selectors)
 
-    def _add_css_selector_hierarchy(self, widget, properties):
-        """Add CSS selectors for the widget and all its parents to the properties."""
+    def _add_css_selector_hierarchy(self, widget, css_selectors):
+        """Add CSS selectors for the widget and all its parents to the css_selectors dict."""
         # Add the most specific selector for this widget
-        properties.append(
-            ("CSS Selector (Specific)", self._get_specific_css_selector(widget))
+        css_selectors["CSS Selector (Specific)"] = self._get_specific_css_selector(
+            widget
         )
 
         # Build a list of all ancestors
@@ -204,19 +504,13 @@ class ObjectInspector(QWidget):
         # Add a selector for each level of the hierarchy
         if ancestors:
             # First, add the immediate parent relationship
-            properties.append(
-                (
-                    "CSS Selector (With Parent)",
-                    self._get_css_selector_with_parent(widget),
-                )
+            css_selectors["CSS Selector (With Parent)"] = (
+                self._get_css_selector_with_parent(widget)
             )
 
             # Then add the full hierarchy selector
-            properties.append(
-                (
-                    "CSS Selector (Full Hierarchy)",
-                    self._get_full_hierarchy_css_selector(widget),
-                )
+            css_selectors["CSS Selector (Full Hierarchy)"] = (
+                self._get_full_hierarchy_css_selector(widget)
             )
 
             # Add intermediate levels if there are more than one parent
@@ -231,12 +525,26 @@ class ObjectInspector(QWidget):
                         path_selectors_copy.append(
                             self._get_specific_css_selector(widget)
                         )
-                        properties.append(
-                            (
-                                f"CSS Selector (With {i+1} Parents)",
-                                " > ".join(path_selectors_copy),
-                            )
+                        css_selectors[f"CSS Selector (With {i+1} Parents)"] = (
+                            " > ".join(path_selectors_copy)
                         )
+
+    def _add_category(self, name, collapsed=True):
+        """Add a category to the tree widget."""
+        category = QTreeWidgetItem(self.tree_inspection)
+        category.setText(0, name)
+        category.setExpanded(not collapsed and not self.expand_on_updates)
+        self.categories[name] = category
+        return category
+
+    def _add_property(self, category, prop, val, icon=None):
+        """Add a property to a category in the tree widget."""
+        item = QTreeWidgetItem(category)
+        item.setText(0, prop)
+        item.setText(1, val)
+        if icon:
+            item.setIcon(1, icon)
+        return item
 
     def _inspect_widget(self, widget):
         # Disconnect previous destroyed signal
@@ -247,148 +555,257 @@ class ObjectInspector(QWidget):
                 pass
 
         self.selected_widget = widget
-        properties = []
+
+        # Clear existing tree and categories
+        self.tree_inspection.clear()
+        self.categories = {}
+
+        # Clear context menu data
+        self.context_menu_data = None
+
+        if not widget:
+            self._add_property(self.tree_inspection, "<no widget>", "")
+            return
+
+        # Create categories with appropriate collapsed state (might be overridden by expand_on_updates)
+        self._add_category("Screen Information", collapsed=True)
+        self._add_category("Basic Information", collapsed=False)
+        self._add_category("CSS Selectors", collapsed=True)
+        self._add_category("Parent Information", collapsed=False)
+        self._add_category("Widget State", collapsed=False)
+        self._add_category("Style & Appearance", collapsed=False)
+        self._add_category("Layout", collapsed=False)
+        self._add_category("Properties", collapsed=False)
+        self._add_category("Palette Colors", collapsed=True)
+        self._add_category("Interactivity", collapsed=False)
+        self._add_category("Miscellaneous", collapsed=False)
 
         # Screen info
         screen = QApplication.primaryScreen()
         res = screen.size()
         phy = screen.physicalSize()
         dpi = screen.logicalDotsPerInch()
-        properties += [
-            ("Screen Resolution", f"{res.width()}×{res.height()} px"),
-            ("Physical Size", f"{phy.width()}×{phy.height()} mm"),
-            ("DPI", f"{dpi:.1f}"),
-        ]
+        self._add_property(
+            self.categories["Screen Information"],
+            "Screen Resolution",
+            f"{res.width()}×{res.height()} px",
+        )
+        self._add_property(
+            self.categories["Screen Information"],
+            "Physical Size",
+            f"{phy.width()}×{phy.height()} mm",
+        )
+        self._add_property(self.categories["Screen Information"], "DPI", f"{dpi:.1f}")
 
-        if widget:
-            # Basic info
-            properties += [
-                ("Type", widget.metaObject().className()),
-                ("Name", widget.objectName() or "<none>"),
-                ("Children Count", str(len(widget.children()))),
-            ]
+        # Basic info
+        self._add_property(
+            self.categories["Basic Information"],
+            "Type",
+            widget.metaObject().className(),
+        )
+        self._add_property(
+            self.categories["Basic Information"],
+            "Name",
+            widget.objectName() or "<none>",
+        )
+        self._add_property(
+            self.categories["Basic Information"],
+            "Children Count",
+            str(len(widget.children())),
+        )
 
-            # Add CSS selectors
-            self._add_css_selector_hierarchy(widget, properties)
+        # CSS selectors
+        css_selectors = {}
+        self._add_css_selector_hierarchy(widget, css_selectors)
+        for name, value in css_selectors.items():
+            self._add_property(self.categories["CSS Selectors"], name, value)
 
-            # Parent info
-            parent = widget.parent()
-            properties += [
-                (
-                    "Parent Type",
-                    parent.metaObject().className() if parent else "<none>",
-                ),
-                (
-                    "Parent Name",
-                    parent.objectName() if parent and parent.objectName() else "<none>",
-                ),
-            ]
-            # Pseudo states
-            properties += [
-                ("Enabled", str(widget.isEnabled())),
-                ("Visible", str(widget.isVisible())),
-                ("Under Mouse", str(widget.underMouse())),
-                ("Has Focus", str(widget.hasFocus())),
-            ]
-            # Style engine
-            properties.append(("Style Engine", widget.style().metaObject().className()))
-            # Cursor
-            properties.append(("Cursor Shape", str(widget.cursor().shape())))
-            # Auto fill background
-            properties.append(("AutoFillBackground", str(widget.autoFillBackground())))
-            # Focus policy
-            properties.append(("Focus Policy", str(widget.focusPolicy())))
-            # Font
-            font = widget.font()
-            properties.append(
-                (
-                    "Font",
-                    f"family={font.family()}, size={font.pointSize()}, "
-                    f"weight={font.weight()}, italic={font.italic()}",
-                )
-            )
-            # Geometry
-            geom = widget.geometry()
-            properties.append(
-                (
-                    "Geometry",
-                    f"x={geom.x()}, y={geom.y()}, width={geom.width()}, height={geom.height()}",
-                )
-            )
-            # Layout margins
-            layout = widget.layout()
-            if layout:
-                m = layout.contentsMargins()
-                properties.append(
-                    (
-                        "Layout Margins",
-                        f"left={m.left()}, top={m.top()}, right={m.right()}, bottom={m.bottom()}",
-                    )
-                )
-            else:
-                properties.append(("Layout Margins", "<no layout>"))
-            # Style sheet
-            properties.append(("StyleSheet", widget.styleSheet() or "<none>"))
-            # Dynamic properties
-            dp = [name.data().decode() for name in widget.dynamicPropertyNames()]
-            properties.append(("Dynamic Properties", ", ".join(dp) or "<none>"))
-            # Palette colors
-            pal = widget.palette()
-            roles = {
-                "Window": QPalette.Window,
-                "WindowText": QPalette.WindowText,
-                "Base": QPalette.Base,
-                "Text": QPalette.Text,
-                "Button": QPalette.Button,
-                "ButtonText": QPalette.ButtonText,
-                "Highlight": QPalette.Highlight,
-                "HighlightedText": QPalette.HighlightedText,
-            }
-            for name, role in roles.items():
-                color = pal.color(role).name()
-                properties.append((f"Palette.{name}", color))
-            # Shortcuts
-            shortcuts = widget.findChildren(QShortcut)
-            sc_list = [sc.key().toString() for sc in shortcuts]
-            properties.append(("Shortcuts", ", ".join(sc_list) or "<none>"))
-            # Actions
-            actions = widget.actions()
-            act_list = [
-                f"{act.text()} ({act.shortcut().toString()})" for act in actions
-            ]
-            properties.append(("Actions", "; ".join(act_list) or "<none>"))
-            # Paint engine
-            engine = widget.paintEngine()
-            properties.append(
-                ("Paint Engine", engine.__class__.__name__ if engine else "<none>")
+        # Parent info
+        parent = widget.parent()
+        self._add_property(
+            self.categories["Parent Information"],
+            "Parent Type",
+            parent.metaObject().className() if parent else "<none>",
+        )
+        self._add_property(
+            self.categories["Parent Information"],
+            "Parent Name",
+            parent.objectName() if parent and parent.objectName() else "<none>",
+        )
+
+        # Widget state
+        self._add_property(
+            self.categories["Widget State"], "Enabled", str(widget.isEnabled())
+        )
+        self._add_property(
+            self.categories["Widget State"], "Visible", str(widget.isVisible())
+        )
+        self._add_property(
+            self.categories["Widget State"], "Under Mouse", str(widget.underMouse())
+        )
+        self._add_property(
+            self.categories["Widget State"], "Has Focus", str(widget.hasFocus())
+        )
+
+        # Style & Appearance
+        self._add_property(
+            self.categories["Style & Appearance"],
+            "Style Engine",
+            widget.style().metaObject().className(),
+        )
+        self._add_property(
+            self.categories["Style & Appearance"],
+            "Cursor Shape",
+            str(widget.cursor().shape()),
+        )
+        self._add_property(
+            self.categories["Style & Appearance"],
+            "AutoFillBackground",
+            str(widget.autoFillBackground()),
+        )
+        self._add_property(
+            self.categories["Style & Appearance"],
+            "Focus Policy",
+            str(widget.focusPolicy()),
+        )
+
+        # Font
+        font = widget.font()
+        self._add_property(
+            self.categories["Style & Appearance"],
+            "Font",
+            f"family={font.family()}, size={font.pointSize()}, weight={font.weight()}, italic={font.italic()}",
+        )
+
+        # Layout
+        geom = widget.geometry()
+        self._add_property(
+            self.categories["Layout"],
+            "Geometry",
+            f"x={geom.x()}, y={geom.y()}, width={geom.width()}, height={geom.height()}",
+        )
+
+        # Layout margins
+        layout = widget.layout()
+        if layout:
+            m = layout.contentsMargins()
+            self._add_property(
+                self.categories["Layout"],
+                "Layout Margins",
+                f"left={m.left()}, top={m.top()}, right={m.right()}, bottom={m.bottom()}",
             )
         else:
-            properties.append(("<no widget>", ""))
+            self._add_property(
+                self.categories["Layout"], "Layout Margins", "<no layout>"
+            )
 
-        # Populate table with icons for palette colors
-        self.tbl_inspection.setRowCount(len(properties))
-        for row, (prop, val) in enumerate(properties):
-            key_item = QTableWidgetItem(prop)
-            val_item = QTableWidgetItem(val)
-            if prop.startswith("Palette."):
-                pix = QPixmap(16, 16)
-                pix.fill(QColor(val))
-                val_item.setIcon(QIcon(pix))
-            self.tbl_inspection.setItem(row, 0, key_item)
-            self.tbl_inspection.setItem(row, 1, val_item)
+        # Style sheet
+        self._add_property(
+            self.categories["Layout"], "StyleSheet", widget.styleSheet() or "<none>"
+        )
 
+        # Dynamic properties
+        dp = [name.data().decode() for name in widget.dynamicPropertyNames()]
+        self._add_property(
+            self.categories["Properties"],
+            "Dynamic Properties",
+            ", ".join(dp) or "<none>",
+        )
+
+        # Palette colors - dynamic version
+        pal = widget.palette()
+        roles = {}
+        for i in range(QPalette.NColorRoles):
+            try:
+                col = pal.color(i)
+                if not col.isValid():
+                    continue
+
+                # find the matching attribute name on QPalette
+                name = next(
+                    (
+                        name
+                        for name, val in QPalette.__dict__.items()
+                        if isinstance(val, int) and val == i
+                    ),
+                    f"Role_{i}",  # Fallback name if not found
+                )
+                # store the integer role (not the color string)
+                roles[name] = i
+            except Exception:
+                continue  # Skip any role that causes an error
+
+        # now pull each color back out and append
+        for name in sorted(roles):
+            role = roles[name]
+            color = pal.color(role).name()
+            pix = QPixmap(16, 16)
+            pix.fill(QColor(color))
+            icon = QIcon(pix)
+            self._add_property(self.categories["Palette Colors"], name, color, icon)
+
+        # Shortcuts
+        shortcuts = widget.findChildren(QShortcut)
+        sc_list = [sc.key().toString() for sc in shortcuts]
+        self._add_property(
+            self.categories["Interactivity"],
+            "Shortcuts",
+            ", ".join(sc_list) or "<none>",
+        )
+
+        # Actions
+        actions = widget.actions()
+        act_list = [f"{act.text()} ({act.shortcut().toString()})" for act in actions]
+        self._add_property(
+            self.categories["Interactivity"], "Actions", "; ".join(act_list) or "<none>"
+        )
+
+        # Paint engine
+        engine = widget.paintEngine()
+        self._add_property(
+            self.categories["Miscellaneous"],
+            "Paint Engine",
+            engine.__class__.__name__ if engine else "<none>",
+        )
+
+        # If expand_on_updates is enabled, expand all categories
+        if self.expand_on_updates:
+            self.expand_all_categories()
+
+        # Connect destroyed signal
         widget.destroyed.connect(self.on_widget_destroyed)
 
     def copy_to_clipboard(self):
         if not self.selected_widget:
             return
-        rows = self.tbl_inspection.rowCount()
+
+        # Suspend updates during copy
+        was_suspended = self.updates_suspended
+        self.updates_suspended = True
+        self.set_status_message("Updates suspended for copy operation")
+
         lines = []
-        for row in range(rows):
-            prop = self.tbl_inspection.item(row, 0).text()
-            val = self.tbl_inspection.item(row, 1).text()
-            lines.append(f"{prop}: {val}")
+
+        # Iterate through all categories
+        for category_idx in range(self.tree_inspection.topLevelItemCount()):
+            category = self.tree_inspection.topLevelItem(category_idx)
+            category_name = category.text(0)
+            lines.append(f"{category_name}:")
+
+            # Iterate through properties in this category
+            for prop_idx in range(category.childCount()):
+                prop_item = category.child(prop_idx)
+                prop_name = prop_item.text(0)
+                prop_value = prop_item.text(1)
+                lines.append(f"  {prop_name}: {prop_value}")
+
         QApplication.clipboard().setText("\n".join(lines))
+        self.set_status_message("All data copied to clipboard", 3000)
+
+        # Resume updates if they weren't suspended before
+        if not was_suspended:
+            self.updates_suspended = False
+            # Status will be restored by timer set in set_status_message
 
     def on_widget_destroyed(self, _):
         self.selected_widget = None
