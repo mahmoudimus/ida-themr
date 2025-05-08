@@ -2,70 +2,40 @@
 /* ==                       Color Definitions                            == */
 /* ======================================================================== */
 
-/* --- Base & Common Colors (Values based on previous merge) --- */
 @def clr_transparent transparent;
 @def clr_black #000000;
 @def clr_white #fff;
 @def clr_red #d85050;
-/* Value from my_template: color_syntax_red */
 @def clr_green green;
-/* Value from my_template: color_green */
 @def clr_blue #007acc;
-/* Value from my_template: color_accent */
 @def clr_cyan #00ffff;
-/* Value from my_template: color_pfx_libfunc_cyan */
 @def clr_lime #00ff00;
-/* Value from refactored_template */
 @def clr_yellow #dcdcaa;
-/* Value from my_template: color_fg_demangled_yellow */
 @def clr_fuchsia #d8a0df;
-/* Value from my_template: color_syntax_purple */
 @def clr_silver #c0c0c0;
-/* Value from my_template: color_fg_prefix_silver */
 @def clr_gray #808080;
-/* Value from my_template: color_comment_gray */
 @def clr_maroon #8f4545;
-/* Value from my_template: color_nav_code_brown */
 @def clr_olive #dda95b;
-/* Value from my_template: color_fg_xref_tail_orange */
 @def clr_navy #0e6198;
-/* Value from my_template: color_accent_pressed */
 @def clr_purple #d8a0df;
-/* Value from my_template: color_syntax_purple */
 @def clr_pink pink;
-/* Value from refactored_template */
 @def clr_darkgrey darkgrey;
-/* Value from refactored_template */
 @def clr_dimgrey #656565;
-/* Value from my_template: color_fg_disabled */
 @def clr_darkred #d85050;
-/* Value from my_template: color_syntax_red */
 @def clr_darkgreen #57a64a;
-/* Value from my_template: color_syntax_comment_green */
 @def clr_darkcyan #339999;
-/* Value from my_template: color_fg_segment_teal */
 @def clr_darkblue #0e6198;
-/* Value from my_template: color_accent_pressed */
 @def clr_indigo indigo;
-/* Value from refactored_template */
 @def clr_sienna #d69d85;
-/* Value from my_template: color_syntax_string */
 @def clr_darkturquoise #4ec9b0;
-/* Value from my_template: color_syntax_teal */
 @def clr_orange #ffaa00;
-/* Value from my_template: color_nav_analysis_cursor_orange */
 @def clr_brownish #a06161;
-/* Value from my_template: color_pfx_insn_brown */
 @def clr_brownish_dark #aa5500;
-/* Value from refactored_template */
 @def clr_error_num #010101;
-/* Value from my_template: color_fg_error_black */
 @def clr_data_xref_alt #8080ff;
-/* Value from my_template: color_fg_xref_blue */
 @def clr_numlit_data #b5cea8;
-/* Value from my_template: color_syntax_number_green */
 
-/* --- Light Theme Specific Colors (Values from refactored_template) --- */
+/* --- Light Theme Specific Colors --- */
 @def light_highlight_bg_base rgba(255, 255, 0, 0.80);
 @def light_highlight_bg_selected rgba(0, 192, 192, 0.80);
 @def light_log_fg ${clr_black};
@@ -345,67 +315,36 @@
 
 /* --- Auxiliary UI/Font/Icon Definitions --- */
 @def aux_light_bg_main #f0f0f0;
-/* Placeholder light gray */
 @def aux_light_fg_main #1e1e1e;
-/* Placeholder dark gray */
 @def aux_light_accent_hover #add8e6;
-/* Placeholder light blue */
 @def aux_light_accent_border #87ceeb;
-/* Placeholder sky blue */
 @def aux_light_fg_alt #333333;
-/* Placeholder dark gray */
 @def aux_light_fg_light_gray #555555;
-/* Placeholder gray */
 @def aux_light_border_medium #cccccc;
-/* Placeholder light gray border */
 @def aux_light_border_light #d3d3d3;
-/* Placeholder lighter gray border */
 @def aux_light_border_gray #b0b0b0;
-/* Placeholder gray border */
 @def aux_light_border_dark #a9a9a9;
-/* Placeholder dark gray border */
 @def aux_light_border_darker #909090;
-/* Placeholder darker gray border */
 @def aux_light_border_table #c0c0c0;
-/* Placeholder silver border */
 @def aux_light_border_statusbar_item #b0b0b0;
-/* Placeholder gray border */
 @def aux_light_bg_hover_dark #e0e0e0;
-/* Placeholder light gray hover */
 @def aux_light_bg_menu #ffffff;
-/* Placeholder white */
 @def aux_light_bg_menu_selected #d3d3d3;
-/* Placeholder light gray */
 @def aux_light_bg_button #e8e8e8;
-/* Placeholder light gray */
 @def aux_light_bg_button_hover #dcdcdc;
-/* Placeholder lighter gray */
 @def aux_light_bg_overlay rgba(180, 180, 180, 0.25);
-/* Placeholder light overlay */
 @def aux_light_bg_scrollbar #f5f5f5;
-/* Placeholder very light gray */
 @def aux_light_scrollbar_handle #c0c0c0;
-/* Placeholder silver */
 @def aux_light_scrollbar_handle_hover #a9a9a9;
-/* Placeholder dark gray */
 @def aux_light_scrollbar_handle_pressed #808080;
-/* Placeholder gray */
 @def aux_light_bg_table #ffffff;
-/* Placeholder white */
 @def aux_light_bg_table_corner #f0f0f0;
-/* Placeholder light gray */
 @def aux_light_graph_edge_current_white #000000;
-/* Placeholder black */
 @def aux_light_highlight_magenta #ffddff;
-/* Placeholder light pink */
 @def aux_light_bg_extra_overlay rgba(150, 100, 200, 0.4);
-/* Placeholder light purple overlay */
 @def aux_light_bg_ip_overlay rgba(100, 150, 255, .2);
-/* Placeholder light blue overlay */
 @def aux_light_fg_num_debug_green #006400;
-/* Placeholder dark green */
 @def aux_light_arrow_jump_cursor_blue #0000ff;
-/* Placeholder blue */
 
 /* Auxiliary Dark UI Colors (Originated from my_template) */
 @def aux_bg_main #2d2d30;
@@ -1378,7 +1317,6 @@ QListView[os-dark-theme="true"]::item:selected {
     /* Dark */
     background: ${clr_blue};
 }
-
 
 QStatusBar {
     /* Light */
