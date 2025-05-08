@@ -6,19 +6,34 @@ A pure Python IDA Pro theme toolkit that helps make theming IDA Pro easier. Tran
 
 ## Overview 🌟
 
-`ida-themr` is a powerful toolkit designed to build maintainable IDA Pro color schemes. 
+`ida-themr` is a powerful toolkit designed to build maintainable IDA Pro color schemes.
 
 Beyond theme conversion, `ida-themr` also simplifies CSS theme files by resolving variable references and functions, making themes easier to maintain and debug. There is a dearth of information regarding how to make themes etc and I am hoping to consolidate it here for others to benefit! 🛠️
 
-### Pics
+## Screenshots
 
-Here are some examples of themes created with ida-themr:
+Here are some pictures demonstrating some of IDA theming toolkit's functionality:
 
-![Dark Theme Example](img/qt-style-switcher.png)
-![Light Theme Example](img/stylesheet-editor-and-processor.png)
-![Colorful Theme Example](img/widget-inspector.png)
+### Widget Inspector
 
-### Features ✨
+Chrome DevTools like element inspector written completely in Python without any external dependencies:
+![Widget Inspector](img/widget-inspector.png)
+
+### QT Style Switcher
+
+Allows you to save the Qt style based on your operating system (i.e. Fusion, windowsvista, windows):
+
+![Qt Style Switcher](img/qt-style-switcher.png)
+
+Also a `Dark Mode` toggler that will go through and set `os-dark-theme="true"` on every property to toggle `Dark Mode`. Allows you to save the settings and toggle `Dark Mode` when IDA starts up.
+
+### Stylesheet Editor + QSS Processor
+
+A very rudimentary way to fiddle with the generated stylesheet from IDA Pro and a way to edit the QSS stylesheet w/ some basic helper functions for maintainable themes:
+
+![Stylesheet Editor + Processor](img/stylesheet-editor-and-processor.png)
+
+## Features
 
 - **Theme Conversion**: Convert individual VS Code themes to IDA Pro effortlessly. 🎭
 - **Batch Processing**: Convert all installed VS Code extension themes in one go. 📦
@@ -29,23 +44,6 @@ Here are some examples of themes created with ida-themr:
 - **Error Logging**: Provides warnings for undefined variables or malformed function calls. ⚠️
 - **Custom Output**: Generates new theme files in a specified output directory for easy integration. 📁
 - **Well-Tested**: Comprehensive unit tests ensure reliability and accuracy in color conversion and CSS processing. ✅
-
-## How It Works 🛠️
-
-`ida-themr` operates by parsing VS Code theme files (JSONC format), mapping colors to an existing IDA Pro theme, and generating compatible CSS files for IDA Pro. Here's the breakdown:
-
-1. **Color Parsing**: Supports CSS hex formats (`#RGB`, `#RGBA`, `#RRGGBB`, `#RRGGBBAA`) and converts them to normalized RGB/RGBA values. 🎨
-2. **Theme Mapping**: Uses theme keys to match colors directly or falls back to nearest-color matching with Euclidean distance and HSL adjustments. 📏
-3. **CSS Processing**: Resolves variables and simplifies functions in CSS, ensuring clean and maintainable output. 🧑‍💻
-4. **Output Generation**: Creates new theme directories with remapped CSS files ready for IDA Pro. 📤
-
-## IDA supports some `SASS` directives
-
-- `@def`
-- `@lighten`
-- `@darken`
-- `@importtheme`
-- `@ifdef/@ifndef` -> optional `@else` -> `@endif`
 
 ## Installation 📥
 
@@ -70,7 +68,39 @@ Get started with `ida-themr` in just a few steps! 🚀
 
 ## Usage 🖥️
 
-Run `ida-themr` to convert themes with the following commands. Make sure you're in the project directory. 📂
+Two ways to us it:
+
+Cli + IDA Plugin.
+
+Copy the folders in `src` and put them in your `idaapi.get_user_idadir()` directory.
+
+## Cli
+
+Included a simple algorithm to port vscode themes to IDA Pro based on a reference IDA Pro template by parsing VS Code theme files (JSONC format), mapping colors to an existing IDA Pro theme, and generating compatible CSS files for IDA Pro.
+
+### How It Works 🛠️
+
+- Extracting colors from both source (VS Code) and target (IDA Pro) themes.
+- Building mappings to associate colors with theme elements.
+- Using Euclidean distance in RGB space to find the closest color matches when direct matches aren't available.
+- Applying a three-way adjustment in HSL space to fine-tune colors to maintain relative contrast and brightness. We compare the saturation and lightness of the source and destination colors, then adjust the remapped color's saturation and lightness by a fraction of the difference to maintain relative contrast and brightness.
+- Replacing colors in a template CSS file for IDA Pro with the remapped colors.
+- Generating the final theme files.
+
+### Supports
+
+1. **Color Parsing**: Supports CSS hex formats (`#RGB`, `#RGBA`, `#RRGGBB`, `#RRGGBBAA`) and converts them to normalized RGB/RGBA values. 🎨
+2. **Theme Mapping**: Uses theme keys to match colors directly or falls back to nearest-color matching with Euclidean distance and HSL adjustments. 📏
+3. **CSS Processing**: Resolves variables and simplifies functions in CSS, ensuring clean and maintainable output. 🧑‍💻
+4. **Output Generation**: Creates new theme directories with remapped CSS files ready for IDA Pro. 📤
+
+### IDA supports some `SASS` directives
+
+- `@def`
+- `@lighten`
+- `@darken`
+- `@importtheme`
+- `@ifdef/@ifndef` -> optional `@else` -> `@endif`
 
 ### Convert a Single Theme 🎯
 
