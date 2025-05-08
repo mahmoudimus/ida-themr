@@ -1,14 +1,22 @@
 # ida-themr 🎨
 
-A pure Python IDA Pro theme porter from VS Code. Transform your reversing environment with ease! 🚀
+A pure Python IDA Pro theme toolkit that helps make theming IDA Pro easier. Transform your reversing environment with ease! 🚀
 
 ![CI Status](https://github.com/mahmoudimus/ida-themr/actions/workflows/python.yml/badge.svg)
 
 ## Overview 🌟
 
-`ida-themr` is a powerful tool designed to convert VS Code themes to IDA Pro color schemes, allowing you to bring your favorite VS Code aesthetics into IDA Pro. Whether you're a reverse engineer, a security researcher, or a developer, this plugin ensures the IDA Pro workspace matches your style with intelligent color mapping and theme preservation. 🖌️
+`ida-themr` is a powerful toolkit designed to build maintainable IDA Pro color schemes. 
 
 Beyond theme conversion, `ida-themr` also simplifies CSS theme files by resolving variable references and functions, making themes easier to maintain and debug. There is a dearth of information regarding how to make themes etc and I am hoping to consolidate it here for others to benefit! 🛠️
+
+### Pics
+
+Here are some examples of themes created with ida-themr:
+
+![Dark Theme Example](img/dark-theme-example.png)
+![Light Theme Example](img/light-theme-example.png)
+![Colorful Theme Example](img/colorful-theme-example.png)
 
 ### Features ✨
 
