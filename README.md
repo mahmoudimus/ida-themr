@@ -14,9 +14,9 @@ Beyond theme conversion, `ida-themr` also simplifies CSS theme files by resolvin
 
 Here are some examples of themes created with ida-themr:
 
-![Dark Theme Example](img/dark-theme-example.png)
-![Light Theme Example](img/light-theme-example.png)
-![Colorful Theme Example](img/colorful-theme-example.png)
+![Dark Theme Example](img/qt-style-switcher.png)
+![Light Theme Example](img/stylesheet-editor-and-processor.png)
+![Colorful Theme Example](img/widget-inspector.png)
 
 ### Features ✨
 
