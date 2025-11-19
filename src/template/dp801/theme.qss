@@ -2,6 +2,7 @@
 /* ==                       Color Definitions                            == */
 /* ======================================================================== */
 
+/* --- Base & Common Colors (Values based on previous merge) --- */
 @def clr_transparent transparent;
 @def clr_black #000000;
 @def clr_white #fff;
@@ -320,13 +321,13 @@
 @def aux_light_accent_border #87ceeb;
 @def aux_light_fg_alt #333333;
 @def aux_light_fg_light_gray #555555;
-@def aux_light_border_medium #cccccc;
-@def aux_light_border_light #d3d3d3;
-@def aux_light_border_gray #b0b0b0;
-@def aux_light_border_dark #a9a9a9;
-@def aux_light_border_darker #909090;
-@def aux_light_border_table #c0c0c0;
-@def aux_light_border_statusbar_item #b0b0b0;
+@def aux_light_border_medium #f38518;
+@def aux_light_border_light #f38518;
+@def aux_light_border_gray #f38518;
+@def aux_light_border_dark #f38518;
+@def aux_light_border_darker #f38518;
+@def aux_light_border_table #f38518;
+@def aux_light_border_statusbar_item #f38518;
 @def aux_light_bg_hover_dark #e0e0e0;
 @def aux_light_bg_menu #ffffff;
 @def aux_light_bg_menu_selected #d3d3d3;
@@ -346,20 +347,20 @@
 @def aux_light_fg_num_debug_green #006400;
 @def aux_light_arrow_jump_cursor_blue #0000ff;
 
-/* Auxiliary Dark UI Colors (Originated from my_template) */
+/* Auxiliary Dark UI Colors */
 @def aux_bg_main #2d2d30;
 @def aux_fg_main #f1f1f1;
 @def aux_accent_hover #56bafc;
-@def aux_accent_border #1c97ea;
+@def aux_accent_border rgba(111, 195, 223, 0.5);
 @def aux_fg_alt #eee;
 @def aux_fg_light_gray #ddd;
-@def aux_border_medium #3f3f46;
-@def aux_border_light #434346;
-@def aux_border_gray #666;
-@def aux_border_dark #333337;
-@def aux_border_darker #2a2a2a;
-@def aux_border_table #474747;
-@def aux_border_statusbar_item #585858;
+@def aux_border_medium #f38518;
+@def aux_border_light #f38518;
+@def aux_border_gray #f38518;
+@def aux_border_dark #f38518;
+@def aux_border_darker #f38518;
+@def aux_border_table #f38518;
+@def aux_border_statusbar_item #f38518;
 @def aux_bg_hover_dark #3e3e40;
 @def aux_bg_menu #1b1b1c;
 @def aux_bg_menu_selected ${dark_hints_bg};
@@ -380,7 +381,7 @@
 @def aux_arrow_jump_cursor_blue #60d0ff;
 
 /* Auxiliary Fonts (Theme-Independent) */
-@def aux_font_ui "SF UI Text", "Segoe UI", "Aptos", "Atkinson Hyperlegible Next", "SF Pro Text", "Inter";
+@def aux_font_ui  "Segoe UI","Aptos", "Atkinson Hyperlegible Next", "SF Pro Text", "Inter";
 @def aux_font_mono "Maple Mono NF Light", "Consolas", "Microsoft YaHei Mono";
 @def aux_font_code_mono "Maple Mono NF Light", "Fira Code Retina", "Ubuntu Mono", "Operator Mono", "Adelle Mono Flex";
 @def aux_font_code_litigatures "PragmataPro Mono Liga", "Fira Code Retina", "Operator Mono";
@@ -392,27 +393,45 @@
 
 /* Auxiliary Icon paths */
 @def aux_light_ICONPATH $RELPATH/images/light;
-/* Define light path */
 @def aux_dark_ICONPATH $RELPATH/images/dark;
-/* Define dark path */
 
 /* ================================================================== */
-/* ==                       Theme Styles                           == */
+/* ==                 Font Application                             == */
 /* ================================================================== */
 
-/*====================================================================*/
-/* ==                       Reset elements                         == */
-/*====================================================================*/
-/* 
-* {
-    padding: 0px;
-    margin: 0px;
-    border: 0px;
-    border-style: none;
-    border-image: none;
-    outline: 0;
-} 
-*/
+
+TCpuRegs QLabel {
+    font-family: ${aux_font_code_mono};
+    font-size: ${aux_font_size_small};
+}
+
+QTabWidget::tab {
+    font-size: ${aux_font_size_small};
+}
+
+chooser_dirtree_widget_t,
+standalone_dirtree_widget_t,
+tchooser_table_widget_t,
+ida_form_widget_t,
+CustomIDAMemo,
+EditContainer,
+IDAView,
+hexview_t,
+MainMsgList {
+    font-family: ${aux_font_mono};
+    font-size: ${aux_font_size_small};
+}
+ 
+QTableView,
+QStatusBar > ui_label_t {
+    font-family: ${aux_font_code_mono};
+    font-size: ${aux_font_size_small};
+}
+
+QWidget {
+    font-family: ${aux_font_ui};
+    font-size: ${aux_font_size_small};
+}
 
 /* ================================================================== */
 /* ==                 General Qt Widget Styles                     == */
@@ -429,7 +448,6 @@ QMainWindow[os-dark-theme="true"] {
     background-color: ${aux_bg_main};
     color: ${aux_fg_main};
 }
-
 
 /* --- Base --- */
 QWidget {
@@ -509,343 +527,6 @@ DockAreaDragTitle {
     /* Use palette */
 }
 
-/* --- Dock Control buttons --- */
-DockWidgetTitle>QPushButton,
-DockAreaDragTitle>QPushButton {
-    /* Common */
-    min-height: 16px;
-    height: 16px;
-    min-width: 21px;
-    padding: 0;
-    background-color: ${clr_transparent};
-}
-
-
-DockWidgetTitle>QPushButton:hover {
-    /* Light */
-    background: ${aux_light_accent_hover};
-}
-
-DockWidgetTitle[os-dark-theme="true"]>QPushButton:hover {
-    /* Dark */
-    background: ${aux_accent_hover};
-}
-
-DockWidgetTitle>QPushButton:pressed {
-    /* Light */
-    background: ${clr_blue};
-    /* Assuming same accent pressed for light? Adjust if needed */
-}
-
-DockWidgetTitle[os-dark-theme="true"]>QPushButton:pressed {
-    /* Dark */
-    background: ${clr_navy};
-}
-
-DockWidgetTitle[active="true"] QPushButton:hover {
-    /* Light */
-    background: palette(base);
-    /* Keep light active color */
-}
-
-DockWidgetTitle[os-dark-theme="true"][active="true"] QPushButton:hover {
-    /* Dark */
-    background: ${clr_blue};
-    /* Keep dark active color */
-}
-
-
-
-/* Icons assumed same for now */
-DockWidgetTitle QPushButton[toolTip="Close"] {
-    qproperty-icon: url("${aux_light_ICONPATH}/control-close.png");
-}
-
-DockWidgetTitle QPushButton[toolTip="Float"] {
-    qproperty-icon: url("${aux_light_ICONPATH}/control-float.png");
-}
-
-DockWidgetTitle QPushButton[toolTip="Fullscreen"] {
-    qproperty-icon: url("${aux_light_ICONPATH}/control-fullscreen.png");
-}
-
-DockWidgetTitle[os-dark-theme="true"] QPushButton[toolTip="Close"] {
-    qproperty-icon: url("${aux_dark_ICONPATH}/control-close.png");
-}
-
-DockWidgetTitle[os-dark-theme="true"] QPushButton[toolTip="Float"] {
-    qproperty-icon: url("${aux_dark_ICONPATH}/control-float.png");
-}
-
-DockWidgetTitle[os-dark-theme="true"] QPushButton[toolTip="Fullscreen"] {
-    qproperty-icon: url("${aux_dark_ICONPATH}/control-fullscreen.png");
-}
-
-
-/* --- Menu and bars --- */
-QMenuBar {
-    /* Common */
-    background-color: ${clr_transparent};
-}
-
-QMenuBar::item {
-    /* Light */
-    color: ${clr_black};
-    margin-top:2px;
-    spacing: 2px;
-    padding: 1px 8px;
-    background: ${clr_transparent};
-    border-radius: 0px;
-}
-
-QMenuBar::item[os-dark-theme="true"] {
-    /* Dark */
-    color: ${aux_fg_main};
-    margin-top:2px;
-    spacing: 2px;
-    padding: 1px 8px;
-    background: ${clr_transparent};
-    border-radius: 0px;
-}
-
-QMenuBar::item:selected {
-    /* Light */
-    background: ${aux_light_bg_hover_dark};
-}
-
-QMenuBar::item[os-dark-theme="true"]:selected {
-    /* Dark */
-    background: ${aux_bg_hover_dark};
-}
-
-QMenuBar::item:pressed {
-    /* Light */
-    background: ${aux_light_bg_menu};
-}
-
-QMenuBar::item[os-dark-theme="true"]:pressed {
-    /* Dark */
-    background: ${aux_bg_menu};
-}
-
-QMenu {
-    /* Light */
-    border: 1px solid ${aux_light_border_dark};
-    padding: 2px;
-    background: ${aux_light_bg_menu};
-}
-
-QMenu[os-dark-theme="true"] {
-    /* Dark */
-    border: 1px solid ${aux_border_dark};
-    padding: 2px;
-    background: ${aux_bg_menu};
-}
-
-QMenu::separator {
-    /* Light */
-    height: 1px;
-    background: ${aux_light_border_dark};
-}
-
-QMenu[os-dark-theme="true"]::separator {
-    /* Dark */
-    background: ${aux_border_dark};
-}
-
-QMenu::icon {
-    /* Common */
-    padding-left: 2px;
-}
-
-QMenu::item {
-    /* Common */
-    /* Makes the menu items smaller or larger and the spacing between them */
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-top: 2px;
-    padding-bottom: 1px;
-    min-width: 100px;
-}
-
-QMenu::item:disabled {
-    /* Light */
-    background: ${aux_light_bg_menu};
-    color: ${clr_gray};
-}
-
-QMenu::item[os-dark-theme="true"]:disabled {
-    /* Dark */
-    background: ${aux_bg_menu};
-    color: ${clr_dimgrey};
-}
-
-QMenu::item:selected {
-    /* Light */
-    background-color: ${aux_light_bg_menu_selected};
-}
-
-QMenu::item[os-dark-theme="true"]:selected {
-    /* Dark */
-    background-color: ${aux_bg_menu_selected};
-}
-
-
-
-/* --- Checboxes, radio etc --- */
-QRadioButton,
-QCheckBox,
-QLabel {
-    /* Common */
-    background: ${clr_transparent};
-}
-
-QLabel {
-    /* Light */
-    color: ${clr_black};
-}
-
-QLabel[os-dark-theme="true"] {
-    /* Dark */
-    color: ${aux_fg_main};
-}
-
-QCheckBox::indicator,
-QRadioButton::indicator {
-    /* Common */
-    width: 14px;
-    height: 14px;
-}
-
-
-/* Icons */
-QRadioButton::indicator:checked {
-    image: url("${aux_light_ICONPATH}/radio-checked.png");
-}
-
-QRadioButton::indicator:checked[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/radio-checked.png");
-}
-
-QRadioButton::indicator:checked:hover {
-    image: url("${aux_light_ICONPATH}/radio-checked-hover.png");
-}
-
-QRadioButton::indicator:checked[os-dark-theme="true"]:hover {
-    image: url("${aux_dark_ICONPATH}/radio-checked-hover.png");
-}
-
-QRadioButton::indicator:checked:pressed {
-    image: url("${aux_light_ICONPATH}/radio-checked-pressed.png");
-}
-
-QRadioButton::indicator:checked[os-dark-theme="true"]:pressed {
-    image: url("${aux_dark_ICONPATH}/radio-checked-pressed.png");
-}
-
-QRadioButton::indicator:checked:disabled {
-    image: url("${aux_light_ICONPATH}/radio-checked-disabled.png");
-}
-
-QRadioButton::indicator:checked[os-dark-theme="true"]:disabled {
-    image: url("${aux_dark_ICONPATH}/radio-checked-disabled.png");
-}
-
-QRadioButton::indicator:unchecked {
-    image: url("${aux_light_ICONPATH}/radio-unchecked.png");
-}
-
-QRadioButton::indicator:unchecked[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/radio-unchecked.png");
-}
-
-QRadioButton::indicator:unchecked:hover {
-    image: url("${aux_light_ICONPATH}/radio-unchecked-hover.png");
-}
-
-QRadioButton::indicator:unchecked[os-dark-theme="true"]:hover {
-    image: url("${aux_dark_ICONPATH}/radio-unchecked-hover.png");
-}
-
-QRadioButton::indicator:unchecked:pressed {
-    image: url("${aux_light_ICONPATH}/radio-unchecked-pressed.png");
-}
-
-QRadioButton::indicator:unchecked[os-dark-theme="true"]:pressed {
-    image: url("${aux_dark_ICONPATH}/radio-unchecked-pressed.png");
-}
-
-QRadioButton::indicator:unchecked:disabled {
-    image: url("${aux_light_ICONPATH}/radio-unchecked-disabled.png");
-}
-
-QRadioButton::indicator:unchecked[os-dark-theme="true"]:disabled {
-    image: url("${aux_dark_ICONPATH}/radio-unchecked-disabled.png");
-}
-
-QCheckBox::indicator:checked {
-    image: url("${aux_light_ICONPATH}/checkbox-checked.png");
-}
-
-QCheckBox::indicator:checked[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/checkbox-checked.png");
-}
-
-QCheckBox::indicator:unchecked {
-    image: url("${aux_light_ICONPATH}/checkbox-unchecked.png");
-}
-
-QCheckBox::indicator:unchecked[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/checkbox-unchecked.png");
-}
-
-QCheckBox::indicator:checked:hover {
-    image: url("${aux_light_ICONPATH}/checkbox-checked-hover.png");
-}
-
-QCheckBox::indicator:checked[os-dark-theme="true"]:hover {
-    image: url("${aux_dark_ICONPATH}/checkbox-checked-hover.png");
-}
-
-QCheckBox::indicator:unchecked:hover {
-    image: url("${aux_light_ICONPATH}/checkbox-unchecked-hover.png");
-}
-
-QCheckBox::indicator:unchecked[os-dark-theme="true"]:hover {
-    image: url("${aux_dark_ICONPATH}/checkbox-unchecked-hover.png");
-}
-
-QCheckBox::indicator:checked:pressed {
-    image: url("${aux_light_ICONPATH}/checkbox-checked-pressed.png");
-}
-
-QCheckBox::indicator:checked[os-dark-theme="true"]:pressed {
-    image: url("${aux_dark_ICONPATH}/checkbox-checked-pressed.png");
-}
-
-QCheckBox::indicator:unchecked:pressed {
-    image: url("${aux_light_ICONPATH}/checkbox-unchecked-pressed.png");
-}
-
-QCheckBox::indicator:unchecked[os-dark-theme="true"]:pressed {
-    image: url("${aux_dark_ICONPATH}/checkbox-unchecked-pressed.png");
-}
-
-QCheckBox::indicator:checked:disabled {
-    image: url("${aux_light_ICONPATH}/checkbox-checked-disabled.png");
-}
-
-QCheckBox::indicator:checked[os-dark-theme="true"]:disabled {
-    image: url("${aux_dark_ICONPATH}/checkbox-checked-disabled.png");
-}
-
-QCheckBox::indicator:unchecked:disabled {
-    image: url("${aux_light_ICONPATH}/checkbox-unchecked-disabled.png");
-}
-
-QCheckBox::indicator:unchecked[os-dark-theme="true"]:disabled {
-    image: url("${aux_dark_ICONPATH}/checkbox-unchecked-disabled.png");
-}
 
 /* --- Buttons --- */
 QPushButton {
@@ -908,6 +589,384 @@ QPushButton[os-dark-theme="true"]:!enabled {
     /* Dark */
     background: ${aux_bg_overlay};
     color: ${clr_dimgrey};
+}
+
+/* --- Dock Control buttons --- */
+DockWidgetTitle>QPushButton,
+DockAreaDragTitle>QPushButton {
+    /* Common */
+    min-height: 16px;
+    height: 16px;
+    min-width: 21px;
+    padding: 0;
+    background-color: ${clr_transparent};
+}
+
+
+DockWidgetTitle>QPushButton:hover {
+    /* Light */
+    background: ${aux_light_accent_hover};
+}
+
+DockWidgetTitle[os-dark-theme="true"]>QPushButton:hover {
+    /* Dark */
+    background: ${aux_accent_hover};
+}
+
+DockWidgetTitle>QPushButton:pressed {
+    /* Light */
+    background: ${clr_blue};
+    /* Assuming same accent pressed for light? Adjust if needed */
+}
+
+DockWidgetTitle[os-dark-theme="true"]>QPushButton:pressed {
+    /* Dark */
+    background: ${clr_navy};
+}
+
+DockWidgetTitle[active="true"] QPushButton:hover {
+    /* Light */
+    background: palette(base);
+    /* Keep light active color */
+}
+
+DockWidgetTitle[os-dark-theme="true"][active="true"] QPushButton:hover {
+    /* Dark */
+    background: ${clr_blue};
+    /* Keep dark active color */
+}
+
+
+
+/* Icons assumed same for now */
+DockWidgetTitle QPushButton[toolTip="Close"] {
+    qproperty-icon: url("${aux_light_ICONPATH}/control-close.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle QPushButton[toolTip="Close"]:hover {
+    qproperty-icon: url("${aux_light_ICONPATH}/control-close-hover.svg");
+    qproperty-iconSize: 16px;
+}
+
+
+DockWidgetTitle QPushButton[toolTip="Float"] {
+    qproperty-icon: url("${aux_light_ICONPATH}/control-float.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle QPushButton[toolTip="Float"]:hover {
+    qproperty-icon: url("${aux_light_ICONPATH}/control-float-hover.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle QPushButton[toolTip="Fullscreen"] {
+    qproperty-icon: url("${aux_light_ICONPATH}/control-fullscreen.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle QPushButton[toolTip="Fullscreen"]:hover {
+    qproperty-icon: url("${aux_light_ICONPATH}/control-fullscreen-hover.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle[os-dark-theme="true"] QPushButton[toolTip="Close"] {
+    qproperty-icon: url("${aux_dark_ICONPATH}/control-close.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle[os-dark-theme="true"] QPushButton[toolTip="Close"]:hover {
+    qproperty-icon: url("${aux_dark_ICONPATH}/control-close-hover.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle[os-dark-theme="true"] QPushButton[toolTip="Float"] {
+    qproperty-icon: url("${aux_dark_ICONPATH}/control-float.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle[os-dark-theme="true"] QPushButton[toolTip="Float"]:hover {
+    qproperty-icon: url("${aux_dark_ICONPATH}/control-float-hover.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle[os-dark-theme="true"] QPushButton[toolTip="Fullscreen"] {
+    qproperty-icon: url("${aux_dark_ICONPATH}/control-fullscreen.svg");
+    qproperty-iconSize: 16px;
+}
+
+DockWidgetTitle[os-dark-theme="true"] QPushButton[toolTip="Fullscreen"]:hover {
+    qproperty-icon: url("${aux_dark_ICONPATH}/control-fullscreen-hover.svg");
+    qproperty-iconSize: 16px;
+}
+
+
+/* --- Menu and bars --- */
+QMenuBar {
+    /* Common */
+    background-color: ${clr_transparent};
+}
+
+QMenuBar::item {
+    /* Light */
+    color: ${clr_black};
+    margin-top:2px;
+    spacing: 2px;
+    padding: 1px 8px;
+    background: ${clr_transparent};
+    border-radius: 0px;
+}
+
+QMenuBar::item[os-dark-theme="true"] {
+    /* Dark */
+    color: ${aux_fg_main};
+    margin-top:2px;
+    spacing: 2px;
+    padding: 1px 8px;
+    background: ${clr_transparent};
+    border-radius: 0px;
+}
+
+QMenuBar::item:selected {
+    /* Light */
+    background: ${aux_light_bg_hover_dark};
+    border: 1px dashed ${aux_light_border_dark};
+}
+
+QMenuBar::item[os-dark-theme="true"]:selected {
+    /* Dark */
+    background: ${aux_bg_hover_dark};
+    border: 1px dashed ${aux_border_dark};
+}
+
+QMenuBar::item:pressed {
+    /* Light */
+    background: ${aux_light_bg_menu};
+    border: 1px solid ${aux_light_border_dark};
+}
+
+QMenuBar::item[os-dark-theme="true"]:pressed {
+    /* Dark */
+    background: ${aux_bg_menu};
+    border: 1px solid ${aux_border_dark};
+}
+
+QMenu {
+    /* Light */
+    border: 1px solid ${aux_accent_border};
+    padding: 2px;
+    background: ${aux_light_bg_menu};
+}
+
+QMenu[os-dark-theme="true"] {
+    /* Dark */
+    border: 1px solid ${aux_accent_border};
+    padding: 2px;
+    background: ${aux_bg_menu};
+}
+
+QMenu::separator {
+    /* Light */
+    height: 1px;
+    background: ${aux_light_border_dark};
+}
+
+QMenu[os-dark-theme="true"]::separator {
+    /* Dark */
+    background: ${aux_border_dark};
+}
+
+QMenu::icon {
+    /* Common */
+    padding-left: 2px;
+}
+
+QMenu::item {
+    /* Common */
+    /* Makes the menu items smaller or larger and the spacing between them */
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    min-width: 100px;
+}
+
+QMenu::item:disabled {
+    /* Light */
+    background: ${aux_light_bg_menu};
+    color: ${clr_gray};
+}
+
+QMenu::item[os-dark-theme="true"]:disabled {
+    /* Dark */
+    background: ${aux_bg_menu};
+    color: ${clr_dimgrey};
+}
+
+QMenu::item:selected {
+    /* Light */
+    background-color: ${aux_light_bg_menu_selected};
+}
+
+QMenu::item[os-dark-theme="true"]:selected {
+    /* Dark */
+    background-color: ${aux_bg_menu_selected};
+}
+
+
+/* --- Checboxes, radio etc --- */
+QRadioButton,
+QCheckBox,
+QLabel {
+    /* Common */
+    background: ${clr_transparent};
+}
+
+QLabel {
+    /* Light */
+    color: ${clr_black};
+}
+
+QLabel[os-dark-theme="true"] {
+    /* Dark */
+    color: ${aux_fg_main};
+}
+
+QCheckBox::indicator,
+QRadioButton::indicator {
+    /* Common */
+    width: 14px;
+    height: 14px;
+}
+
+
+/* Icons */
+QRadioButton::indicator:checked {
+    image: url("${aux_light_ICONPATH}/radio-checked.svg");
+}
+
+QRadioButton::indicator:checked[os-dark-theme="true"] {
+    image: url("${aux_dark_ICONPATH}/radio-checked.svg");
+}
+
+QRadioButton::indicator:checked:hover {
+    image: url("${aux_light_ICONPATH}/radio-checked-hover.svg");
+}
+
+QRadioButton::indicator:checked[os-dark-theme="true"]:hover {
+    image: url("${aux_dark_ICONPATH}/radio-checked-hover.svg");
+}
+
+QRadioButton::indicator:checked:pressed {
+    image: url("${aux_light_ICONPATH}/radio-checked-pressed.svg");
+}
+
+QRadioButton::indicator:checked[os-dark-theme="true"]:pressed {
+    image: url("${aux_dark_ICONPATH}/radio-checked-pressed.svg");
+}
+
+QRadioButton::indicator:checked:disabled {
+    image: url("${aux_light_ICONPATH}/radio-checked-disabled.svg");
+}
+
+QRadioButton::indicator:checked[os-dark-theme="true"]:disabled {
+    image: url("${aux_dark_ICONPATH}/radio-checked-disabled.svg");
+}
+
+QRadioButton::indicator:unchecked {
+    image: url("${aux_light_ICONPATH}/radio-unchecked.svg");
+}
+
+QRadioButton::indicator:unchecked[os-dark-theme="true"] {
+    image: url("${aux_dark_ICONPATH}/radio-unchecked.svg");
+}
+
+QRadioButton::indicator:unchecked:hover {
+    image: url("${aux_light_ICONPATH}/radio-unchecked-hover.svg");
+}
+
+QRadioButton::indicator:unchecked[os-dark-theme="true"]:hover {
+    image: url("${aux_dark_ICONPATH}/radio-unchecked-hover.svg");
+}
+
+QRadioButton::indicator:unchecked:pressed {
+    image: url("${aux_light_ICONPATH}/radio-unchecked-pressed.svg");
+}
+
+QRadioButton::indicator:unchecked[os-dark-theme="true"]:pressed {
+    image: url("${aux_dark_ICONPATH}/radio-unchecked-pressed.svg");
+}
+
+QRadioButton::indicator:unchecked:disabled {
+    image: url("${aux_light_ICONPATH}/radio-unchecked-disabled.svg");
+}
+
+QRadioButton::indicator:unchecked[os-dark-theme="true"]:disabled {
+    image: url("${aux_dark_ICONPATH}/radio-unchecked-disabled.svg");
+}
+
+QCheckBox::indicator:checked {
+    image: url("${aux_light_ICONPATH}/checkbox-checked.svg");
+}
+
+QCheckBox::indicator:checked[os-dark-theme="true"] {
+    image: url("${aux_dark_ICONPATH}/checkbox-checked.svg");
+}
+
+QCheckBox::indicator:unchecked {
+    image: url("${aux_light_ICONPATH}/checkbox-unchecked.svg");
+}
+
+QCheckBox::indicator:unchecked[os-dark-theme="true"] {
+    image: url("${aux_dark_ICONPATH}/checkbox-unchecked.svg");
+}
+
+QCheckBox::indicator:checked:hover {
+    image: url("${aux_light_ICONPATH}/checkbox-checked-hover.svg");
+}
+
+QCheckBox::indicator:checked[os-dark-theme="true"]:hover {
+    image: url("${aux_dark_ICONPATH}/checkbox-checked-hover.svg");
+}
+
+QCheckBox::indicator:unchecked:hover {
+    image: url("${aux_light_ICONPATH}/checkbox-unchecked-hover.svg");
+}
+
+QCheckBox::indicator:unchecked[os-dark-theme="true"]:hover {
+    image: url("${aux_dark_ICONPATH}/checkbox-unchecked-hover.svg");
+}
+
+QCheckBox::indicator:checked:pressed {
+    image: url("${aux_light_ICONPATH}/checkbox-checked-pressed.svg");
+}
+
+QCheckBox::indicator:checked[os-dark-theme="true"]:pressed {
+    image: url("${aux_dark_ICONPATH}/checkbox-checked-pressed.svg");
+}
+
+QCheckBox::indicator:unchecked:pressed {
+    image: url("${aux_light_ICONPATH}/checkbox-unchecked-pressed.svg");
+}
+
+QCheckBox::indicator:unchecked[os-dark-theme="true"]:pressed {
+    image: url("${aux_dark_ICONPATH}/checkbox-unchecked-pressed.svg");
+}
+
+QCheckBox::indicator:checked:disabled {
+    image: url("${aux_light_ICONPATH}/checkbox-checked-disabled.svg");
+}
+
+QCheckBox::indicator:checked[os-dark-theme="true"]:disabled {
+    image: url("${aux_dark_ICONPATH}/checkbox-checked-disabled.svg");
+}
+
+QCheckBox::indicator:unchecked:disabled {
+    image: url("${aux_light_ICONPATH}/checkbox-unchecked-disabled.svg");
+}
+
+QCheckBox::indicator:unchecked[os-dark-theme="true"]:disabled {
+    image: url("${aux_dark_ICONPATH}/checkbox-unchecked-disabled.svg");
 }
 
 /* --- ComboBox --- */
@@ -999,29 +1058,32 @@ QComboBox[os-dark-theme="true"]::drop-down {
 }
 
 QComboBox::down-arrow {
-	width: 6px;
-	height: 6px;    
-    image: url("${aux_light_ICONPATH}/arrow-down-normal.png");
+	width: 10px;
+	height: 10px;    
+    image: url("${aux_light_ICONPATH}/arrow-down.svg");
 }
 
+
+
+
 QComboBox::down-arrow[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/arrow-down-normal.png");
+    image: url("${aux_dark_ICONPATH}/arrow-down.svg");
 }
 
 QComboBox::down-arrow:hover {
-    image: url("${aux_light_ICONPATH}/arrow-down-hover.png");
+    image: url("${aux_light_ICONPATH}/arrow-down-hover.svg");
 }
 
 QComboBox::down-arrow[os-dark-theme="true"]:hover {
-    image: url("${aux_dark_ICONPATH}/arrow-down-hover.png");
+    image: url("${aux_dark_ICONPATH}/arrow-down-hover.svg");
 }
 
 QComboBox::down-arrow:on {
-    image: url("${aux_light_ICONPATH}/arrow-down.png");
+    image: url("${aux_light_ICONPATH}/arrow-down.svg");
 }
 
 QComboBox::down-arrow[os-dark-theme="true"]:on {
-    image: url("${aux_dark_ICONPATH}/arrow-down.png");
+    image: url("${aux_dark_ICONPATH}/arrow-down.svg");
 }
 
 QComboBox QAbstractItemView {
@@ -1124,7 +1186,7 @@ QHeaderView::down-arrow {
     height: 6px;
     subcontrol-origin: padding;
     subcontrol-position: center top;
-    image: url("${aux_light_ICONPATH}/arrow-down-normal.png");
+    image: url("${aux_light_ICONPATH}/arrow-down.svg");
 }
 
 QHeaderView::up-arrow {
@@ -1132,7 +1194,7 @@ QHeaderView::up-arrow {
     height: 6px;
     subcontrol-origin: padding;
     subcontrol-position: center top;
-    image: url("${aux_light_ICONPATH}/arrow-up-normal.png");
+    image: url("${aux_light_ICONPATH}/arrow-up.svg");
 }
 
 QHeaderView::down-arrow[os-dark-theme="true"] {
@@ -1140,7 +1202,7 @@ QHeaderView::down-arrow[os-dark-theme="true"] {
     height: 6px;
     subcontrol-origin: padding;
     subcontrol-position: center top;
-    image: url("${aux_light_ICONPATH}/arrow-down-normal.png");
+    image: url("${aux_light_ICONPATH}/arrow-down.svg");
 }
 
 QHeaderView::up-arrow[os-dark-theme="true"] {
@@ -1148,7 +1210,7 @@ QHeaderView::up-arrow[os-dark-theme="true"] {
     height: 6px;
     subcontrol-origin: padding;
     subcontrol-position: center top;
-    image: url("${aux_light_ICONPATH}/arrow-up-normal.png");
+    image: url("${aux_light_ICONPATH}/arrow-up.svg");
 }
 
 QHeaderView:horizontal::section {
@@ -1251,17 +1313,25 @@ QLineEdit[os-dark-theme="true"] {
     color: ${aux_fg_main};
 }
 
-QLineEdit:hover,
-QLineEdit:focus {
+QLineEdit:hover {
     /* Light */
-    border: 1px solid ${clr_blue};
+    border: 1px dashed ${clr_blue};
     /* Use accent */
     border-radius: 0px;
 }
 
-QLineEdit[os-dark-theme="true"]:hover,
-QLineEdit[os-dark-theme="true"]:focus {
+QLineEdit:focus {
+    border: 1px solid ${clr_blue};
+    border-radius: 0px;
+}
+
+QLineEdit[os-dark-theme="true"]:hover {
     /* Dark */
+    border: 1px dashed ${clr_blue};
+}
+
+
+QLineEdit[os-dark-theme="true"]:focus {
     border: 1px solid ${clr_blue};
 }
 
@@ -1317,6 +1387,7 @@ QListView[os-dark-theme="true"]::item:selected {
     /* Dark */
     background: ${clr_blue};
 }
+
 
 QStatusBar {
     /* Light */
@@ -1498,131 +1569,131 @@ QScrollBar::down-arrow:vertical {
 }
 
 QScrollBar:down-arrow {
-    image: url("${aux_light_ICONPATH}/arrow-down-normal.png");
+    image: url("${aux_light_ICONPATH}/arrow-down.svg");
 }
 
 QScrollBar:down-arrow[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/arrow-down-normal.png");
+    image: url("${aux_dark_ICONPATH}/arrow-down.svg");
 }
 
 QScrollBar:down-arrow:hover {
-    image: url("${aux_light_ICONPATH}/arrow-down-hover.png");
+    image: url("${aux_light_ICONPATH}/arrow-down-hover.svg");
 }
 
 QScrollBar:down-arrow[os-dark-theme="true"]:hover {
-    image: url("${aux_dark_ICONPATH}/arrow-down-hover.png");
+    image: url("${aux_dark_ICONPATH}/arrow-down-hover.svg");
 }
 
 QScrollBar:down-arrow:pressed {
-    image: url("${aux_light_ICONPATH}/arrow-down-pressed.png");
+    image: url("${aux_light_ICONPATH}/arrow-down-pressed.svg");
 }
 
 QScrollBar:down-arrow[os-dark-theme="true"]:pressed {
-    image: url("${aux_dark_ICONPATH}/arrow-down-pressed.png");
+    image: url("${aux_dark_ICONPATH}/arrow-down-pressed.svg");
 }
 
 QScrollBar:down-arrow:!enabled {
-    image: url("${aux_light_ICONPATH}/arrow-down-disabled.png");
+    image: url("${aux_light_ICONPATH}/arrow-down-disabled.svg");
 }
 
 QScrollBar:down-arrow[os-dark-theme="true"]:!enabled {
-    image: url("${aux_dark_ICONPATH}/arrow-down-disabled.png");
+    image: url("${aux_dark_ICONPATH}/arrow-down-disabled.svg");
 }
 
 QScrollBar:up-arrow {
-    image: url("${aux_light_ICONPATH}/arrow-up-normal.png");
+    image: url("${aux_light_ICONPATH}/arrow-up.svg");
 }
 
 QScrollBar:up-arrow[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/arrow-up-normal.png");
+    image: url("${aux_dark_ICONPATH}/arrow-up.svg");
 }
 
 QScrollBar:up-arrow:hover {
-    image: url("${aux_light_ICONPATH}/arrow-up-hover.png");
+    image: url("${aux_light_ICONPATH}/arrow-up-hover.svg");
 }
 
 QScrollBar:up-arrow[os-dark-theme="true"]:hover {
-    image: url("${aux_dark_ICONPATH}/arrow-up-hover.png");
+    image: url("${aux_dark_ICONPATH}/arrow-up-hover.svg");
 }
 
 QScrollBar:up-arrow:pressed {
-    image: url("${aux_light_ICONPATH}/arrow-up-pressed.png");
+    image: url("${aux_light_ICONPATH}/arrow-up-pressed.svg");
 }
 
 QScrollBar:up-arrow[os-dark-theme="true"]:pressed {
-    image: url("${aux_dark_ICONPATH}/arrow-up-pressed.png");
+    image: url("${aux_dark_ICONPATH}/arrow-up-pressed.svg");
 }
 
 QScrollBar:up-arrow:!enabled {
-    image: url("${aux_light_ICONPATH}/arrow-up-disabled.png");
+    image: url("${aux_light_ICONPATH}/arrow-up-disabled.svg");
 }
 
 QScrollBar:up-arrow[os-dark-theme="true"]:!enabled {
-    image: url("${aux_dark_ICONPATH}/arrow-up-disabled.png");
+    image: url("${aux_dark_ICONPATH}/arrow-up-disabled.svg");
 }
 
 QScrollBar:left-arrow {
-    image: url("${aux_light_ICONPATH}/arrow-left-normal.png");
+    image: url("${aux_light_ICONPATH}/arrow-left.svg");
 }
 
 QScrollBar:left-arrow[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/arrow-left-normal.png");
+    image: url("${aux_dark_ICONPATH}/arrow-left.svg");
 }
 
 QScrollBar:left-arrow:hover {
-    image: url("${aux_light_ICONPATH}/arrow-left-hover.png");
+    image: url("${aux_light_ICONPATH}/arrow-left-hover.svg");
 }
 
 QScrollBar:left-arrow[os-dark-theme="true"]:hover {
-    image: url("${aux_dark_ICONPATH}/arrow-left-hover.png");
+    image: url("${aux_dark_ICONPATH}/arrow-left-hover.svg");
 }
 
 QScrollBar:left-arrow:pressed {
-    image: url("${aux_light_ICONPATH}/arrow-left-pressed.png");
+    image: url("${aux_light_ICONPATH}/arrow-left-pressed.svg");
 }
 
 QScrollBar:left-arrow[os-dark-theme="true"]:pressed {
-    image: url("${aux_dark_ICONPATH}/arrow-left-pressed.png");
+    image: url("${aux_dark_ICONPATH}/arrow-left-pressed.svg");
 }
 
 QScrollBar:left-arrow:!enabled {
-    image: url("${aux_light_ICONPATH}/arrow-left-disabled.png");
+    image: url("${aux_light_ICONPATH}/arrow-left-disabled.svg");
 }
 
 QScrollBar:left-arrow[os-dark-theme="true"]:!enabled {
-    image: url("${aux_dark_ICONPATH}/arrow-left-disabled.png");
+    image: url("${aux_dark_ICONPATH}/arrow-left-disabled.svg");
 }
 
 QScrollBar:right-arrow {
-    image: url("${aux_light_ICONPATH}/arrow-right-normal.png");
+    image: url("${aux_light_ICONPATH}/arrow-right.svg");
 }
 
 QScrollBar:right-arrow[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/arrow-right-normal.png");
+    image: url("${aux_dark_ICONPATH}/arrow-right.svg");
 }
 
 QScrollBar:right-arrow:hover {
-    image: url("${aux_light_ICONPATH}/arrow-right-hover.png");
+    image: url("${aux_light_ICONPATH}/arrow-right-hover.svg");
 }
 
 QScrollBar:right-arrow[os-dark-theme="true"]:hover {
-    image: url("${aux_dark_ICONPATH}/arrow-right-hover.png");
+    image: url("${aux_dark_ICONPATH}/arrow-right-hover.svg");
 }
 
 QScrollBar:right-arrow:pressed {
-    image: url("${aux_light_ICONPATH}/arrow-right-pressed.png");
+    image: url("${aux_light_ICONPATH}/arrow-right-pressed.svg");
 }
 
 QScrollBar:right-arrow[os-dark-theme="true"]:pressed {
-    image: url("${aux_dark_ICONPATH}/arrow-right-pressed.png");
+    image: url("${aux_dark_ICONPATH}/arrow-right-pressed.svg");
 }
 
 QScrollBar:right-arrow:!enabled {
-    image: url("${aux_light_ICONPATH}/arrow-right-disabled.png");
+    image: url("${aux_light_ICONPATH}/arrow-right-disabled.svg");
 }
 
 QScrollBar:right-arrow[os-dark-theme="true"]:!enabled {
-    image: url("${aux_dark_ICONPATH}/arrow-right-disabled.png");
+    image: url("${aux_dark_ICONPATH}/arrow-right-disabled.svg");
 }
 
 QSplitter::handle:horizontal {
@@ -1722,11 +1793,11 @@ QTabBar::tab[os-dark-theme="true"]:disabled {
 }
 
 QTabBar::close-button {
-    image: url("${aux_light_ICONPATH}/control-close.png");
+    image: url("${aux_light_ICONPATH}/control-close.svg");
 }
 
 QTabBar::close-button[os-dark-theme="true"] {
-    image: url("${aux_dark_ICONPATH}/control-close.png");
+    image: url("${aux_dark_ICONPATH}/control-close.svg");
 }
 
 QTabBar::close-button:hover {
@@ -1977,6 +2048,7 @@ text_area_t[os-dark-theme="true"] text_edit_margin_widget_t {
     qproperty-header-color: ${aux_fg_main};
     color: ${aux_border_gray};
 }
+
 
 /* --- Choosers --- */
 chooser_widget_t,
@@ -2667,36 +2739,6 @@ CustomIDAMemo[os-dark-theme="true"][hints="true"] {
 
 
 /* ================================================================== */
-/* ==                 Font Application                             == */
-/* ================================================================== */
-QWidget {
-    /* Common */
-    font-family: ${aux_font_ui};
-    font-size: ${aux_font_size_small};
-}
-
-TCpuRegs QLabel {
-    /* Common */
-    font-family: ${aux_font_code_mono};
-    font-size: ${aux_font_size_small};
-}
-
-QTabWidget::tab {
-    /* Common */
-    font-size: 8pt;
-}
-
-CustomIDAMemo,
-EditContainer,
-IDAView,
-hexview_t,
-MainMsgList {
-    /* Common */
-    font-family: ${aux_font_mono};
-    font-size: ${aux_font_size_small};
-}
-
-/* ================================================================== */
 /* ==                 Platform Specific                            == */
 /* ================================================================== */
 @ifdef __MAC__ 
@@ -2706,4 +2748,4 @@ DockAreaDragTitle>QPushButton {
     border: none;
 }
 
-@endif    
+@endif

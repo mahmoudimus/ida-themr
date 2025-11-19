@@ -1,0 +1,52 @@
+diff --git a/theme_converter.py b/theme_converter.py
+--- a/theme_converter.py
++++ b/theme_converter.py
+@@
+-_HEX_RE = re.compile(r'^#(?:[0-9a-f]{3}){1,2}$', re.I)
++# ── colour literal regexes ────────────────────────────────────────────────
++_HEX_RE  = re.compile(r'^#(?:[0-9a-f]{3}){1,2}$', re.I)
++# captures      r  g  b  [a]
++_RGBA_RE = re.compile(
++    r'^rgba?\(\s*'
++    r'(\d{1,3})\s*,\s*'
++    r'(\d{1,3})\s*,\s*'
++    r'(\d{1,3})'
++    r'(?:\s*,\s*([0-9]*\.?[0-9]+))?'
++    r'\s*\)$',
++    re.I,
++)
+ 
+@@
+-        val_clean = val.strip()
+-        if _HEX_RE.match(val_clean):
+-            buckets[val_clean.lower()].append(var)
++        val_clean = val.strip().lower()
++
++        # --- HEX ----------------------------------------------------------------
++        if _HEX_RE.match(val_clean):
++            buckets[val_clean].append(var)
++            continue
++
++        # --- RGB / RGBA ---------------------------------------------------------
++        m = _RGBA_RE.match(val_clean)
++        if m:
++            r, g, b, a = m.groups()
++            # clamp / canonicalise channel ranges and build minimal form
++            r, g, b = [str(min(255, int(c))) for c in (r, g, b)]
++            if a is None:
++                canon = f"rgb({r},{g},{b})"
++            else:
++                # normalise alpha → strip trailing zeros, but keep one leading 0 if <1
++                a_norm = str(float(a)).rstrip("0").rstrip(".")
++                canon  = f"rgba({r},{g},{b},{a_norm})"
++            buckets[canon].append(var)
++            continue
++
+         # ignore gradients / keywords etc.
+@@
+-    return f"color_{index:02d}_{color_hex.lstrip('#').lower()}"
++    if literal.startswith("#"):
++        return f"color_{index:02d}_{literal.lstrip('#')}"
++    # rgb(a) → squeeze non-digits for brevity, e.g. rgba25525525507
++    squeezed = re.sub(r'[^0-9]+', '', literal)
++    return f"color_{index:02d}_rgb{squeezed}"
