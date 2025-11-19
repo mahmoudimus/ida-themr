@@ -1,0 +1,13 @@
+{
+  "IDAMetadataDescriptorVersion": 1,
+  "plugin": {
+    "name": "IDA Themer",
+    "entryPoint": "src/ida_themr_plugin.py",
+    "categories": [
+        "ui-ux-and-visualization"
+    ],
+    "idaVersions": ">=9.0",
+    "description": "",
+    "version": "0.1.0"
+  }
+}
